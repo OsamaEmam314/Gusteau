@@ -1,7 +1,61 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Gusteau" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark Theme -->
+    <style name="Theme.Gusteau" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary Colors -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Secondary Colors -->
+        <item name="colorSecondary">@color/primary</item>
+        <item name="colorSecondaryVariant">@color/primary_dark</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <!-- Background Colors -->
+        <item name="android:colorBackground">@color/background_dark</item>
+        <item name="colorSurface">@color/surface_dark</item>
+        <item name="colorOnBackground">@color/text_primary_dark</item>
+        <item name="colorOnSurface">@color/text_primary_dark</item>
+
+        <!-- Status Bar -->
+        <item name="android:statusBarColor">@color/background_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <!-- Navigation Bar -->
+        <item name="android:navigationBarColor">@color/surface_dark</item>
+        <item name="android:windowLightNavigationBar">false</item>
+
+        <!-- Error Colors -->
+        <item name="colorError">@color/error</item>
+        <item name="colorOnError">@color/white</item>
+
+        <!-- Window Attributes -->
+        <item name="android:windowBackground">@color/background_dark</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+
+        <!-- Text Appearance -->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.Gusteau.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.Gusteau.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.Gusteau.Headline3</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.Gusteau.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.Gusteau.Body2</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.Gusteau.Caption</item>
+
+        <!-- Material Components Styles -->
+        <item name="materialButtonStyle">@style/Widget.Gusteau.Button</item>
+        <item name="textInputStyle">@style/Widget.Gusteau.TextInputLayout</item>
+        <item name="bottomNavigationStyle">@style/Widget.Gusteau.BottomNavigationView</item>
+        <item name="chipStyle">@style/Widget.Gusteau.Chip</item>
+        <item name="materialCardViewStyle">@style/Widget.Gusteau.CardView</item>
+
+        <!-- Shape Appearance -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Gusteau.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Gusteau.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Gusteau.LargeComponent</item>
+
+        <!-- Font Family - Using Android System Font (Roboto) -->
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 </resources>
