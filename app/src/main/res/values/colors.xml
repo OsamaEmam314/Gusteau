@@ -12,7 +12,7 @@
     <color name="primary_50">#80F49D25</color>
 
     <!-- Background Colors -->
-    <color name="background_light">#F8F7F5</color>
+    <color name="background_light">#f6f7f1</color>
     <color name="background_dark">#221A10</color>
 
     <!-- Surface Colors - Light Theme -->

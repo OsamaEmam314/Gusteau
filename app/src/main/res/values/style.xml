@@ -10,8 +10,8 @@
     </style>
 
     <style name="TextAppearance.Gusteau.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
-        <item name="fontFamily">sans-serif</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="fontFamily">montserrat_bold</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_size_xlarge</item>
         <item name="android:textColor">?attr/colorOnBackground</item>
@@ -260,5 +260,7 @@
         <item name="thumbTint">@color/white</item>
         <item name="trackTint">@color/switch_track_tint</item>
     </style>
-
+    <style name="ShapeAppearance.Gusteau.Rounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">26dp</item> </style>
 </resources>
