@@ -1,14 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    android:background="#F8F7F5">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:paddingTop="@dimen/spacing_xlarge"
+        app:elevation="4dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/spacing_normal">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_app_logo"
+                    android:layout_width="@dimen/avatar_size_small"
+                    android:layout_height="@dimen/avatar_size_small"
+                    android:src="@mipmap/ic_launcher"
+                    android:scaleType="centerCrop"
+                    app:strokeWidth="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_greeting"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/good_morning_chef"
+                    android:textColor="#181511"
+                    android:textSize="@dimen/text_size_headline"
+                    android:textStyle="bold"
+                    android:layout_marginStart="@dimen/spacing_medium"
+                    app:layout_constraintStart_toEndOf="@id/iv_app_logo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="home fragment" />
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="100dp">
+
+            <HorizontalScrollView
+                android:id="@+id/scroll_meal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:paddingStart="@dimen/spacing_normal"
+                android:paddingTop="@dimen/spacing_xlarge"
+                android:paddingBottom="@dimen/spacing_small"
+                android:clipToPadding="false"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <include layout="@layout/item_meal_card" />
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:id="@+id/section_categories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/spacing_normal"
+                app:layout_constraintTop_toBottomOf="@id/scroll_meal">
+
+                <TextView
+                    android:text="@string/categories"
+                    android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold"
+                    android:textColor="#181511"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/spacing_normal"
+                    android:paddingBottom="@dimen/spacing_medium" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:paddingStart="@dimen/spacing_normal"
+                    android:clipToPadding="false">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <include layout="@layout/item_category" />
+                        <include layout="@layout/item_category" />
+                        <include layout="@layout/item_category" />
+                        <include layout="@layout/item_category" />
+                        <include layout="@layout/item_category" />
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/section_cuisine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/spacing_xlarge"
+                app:layout_constraintTop_toBottomOf="@id/section_categories">
+
+                <TextView
+                    android:text="@string/cuisine_by_country"
+                    android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold"
+                    android:textColor="#181511"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/spacing_normal"
+                    android:paddingBottom="@dimen/spacing_medium" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:paddingStart="@dimen/spacing_normal"
+                    android:clipToPadding="false">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <include layout="@layout/item_category" />
+                        <include layout="@layout/item_category" />
+                        <include layout="@layout/item_category" />
+                        <include layout="@layout/item_category" />
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/section_ingredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/spacing_xlarge"
+                app:layout_constraintTop_toBottomOf="@id/section_cuisine">
+
+                <TextView
+                    android:text="@string/key_ingredients"
+                    android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold"
+                    android:textColor="#181511"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/spacing_normal"
+                    android:paddingBottom="@dimen/spacing_medium" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:paddingStart="@dimen/spacing_normal"
+                    android:clipToPadding="false">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <include layout="@layout/item_category" />
+                        <include layout="@layout/item_category" />
+                        <include layout="@layout/item_category" />
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

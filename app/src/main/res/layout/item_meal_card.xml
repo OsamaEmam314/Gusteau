@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="380dp"
+    android:layout_marginEnd="@dimen/spacing_normal"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="28dp"
+    app:cardElevation="8dp"
+    app:cardBackgroundColor="@color/surface_light"
+    android:clickable="true"
+    android:focusable="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_meal_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:background="@drawable/bg_gradient_bottom"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:text="Meal of the Day"
+            style="@style/TextAppearance.Gusteau.Micro.Bold"
+            android:textColor="@color/primary"
+            android:textAllCaps="true"
+            android:letterSpacing="0.05"
+            android:background="@drawable/bg_tag_glass"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="8dp"
+            android:elevation="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_favorite"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_circle_white"
+            android:src="@drawable/ic_favorite"
+            app:tint="@color/text_tertiary_light"
+            android:padding="10dp"
+            android:scaleType="centerInside"
+            android:elevation="4dp"
+            android:contentDescription="Favorite"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/tv_meal_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="Shakshuka with Feta Cheese"
+                style="@style/TextAppearance.Gusteau.Headline3"
+                android:textSize="26sp"
+                android:textColor="@android:color/white"
+                android:shadowColor="#80000000"
+                android:shadowDy="2"
+                android:shadowRadius="4"
+                android:maxLines="2"
+                android:ellipsize="end"
+                app:layout_constraintBottom_toTopOf="@id/ll_metadata"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/ll_metadata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_calendar"
+                    app:tint="#DDFFFFFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25 min"
+                    style="@style/TextAppearance.Gusteau.Body2"
+                    android:textColor="#DDFFFFFF"
+                    android:layout_marginStart="6dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="12dp"
+                    android:background="#88FFFFFF"
+                    android:layout_marginHorizontal="12dp"/>
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_search"
+                    app:tint="#DDFFFFFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Easy"
+                    style="@style/TextAppearance.Gusteau.Body2"
+                    android:textColor="#DDFFFFFF"
+                    android:layout_marginStart="6dp" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
