@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +48,6 @@ public class RegisterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Initialize all views using view.findViewById
         btnBack = view.findViewById(R.id.btn_back);
 
         etName = view.findViewById(R.id.et_name);
@@ -67,5 +67,11 @@ public class RegisterFragment extends Fragment {
         tvLogin = view.findViewById(R.id.tv_login);
 
         progressBar = view.findViewById(R.id.progress_bar);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
+            }
+        });
     }
-}
+    }

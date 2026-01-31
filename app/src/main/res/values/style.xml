@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="TextAppearance.Gusteau.Display" parent="TextAppearance.MaterialComponents.Headline1">
-        <item name="fontFamily">sans-serif</item>
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/text_size_display</item>
-        <item name="android:textColor">?attr/colorOnBackground</item>
-    </style>
 
     <style name="TextAppearance.Gusteau.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="fontFamily">montserrat_bold</item>

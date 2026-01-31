@@ -1,5 +1,6 @@
 package com.example.gusteau;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -41,7 +42,6 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Initialize global fields using view.findViewById
         etEmail = view.findViewById(R.id.et_email);
         etPassword = view.findViewById(R.id.et_password);
         tilEmail = view.findViewById(R.id.til_email);
@@ -59,5 +59,14 @@ public class LoginFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment);
             }
         });
-        }
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+
+        });
     }
+}
