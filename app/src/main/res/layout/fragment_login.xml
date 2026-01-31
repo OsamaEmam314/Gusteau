@@ -32,13 +32,13 @@
             android:id="@+id/tv_welcome_headline"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
             android:text="@string/welcome_back"
-            android:textAppearance="@style/TextAppearance.Gusteau.Headline1"
             android:textAlignment="center"
-            android:layout_marginTop="@dimen/spacing_xxlarge"
-            app:layout_constraintTop_toBottomOf="@id/iv_app_logo"
+            android:textAppearance="@style/TextAppearance.Gusteau.Headline1"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/iv_app_logo" />
 
         <TextView
             android:id="@+id/tv_subtitle"
