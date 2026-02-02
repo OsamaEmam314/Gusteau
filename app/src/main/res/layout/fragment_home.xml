@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:contentScrim="@drawable/bg_gradient_botom"
+            app:contentScrim="@drawable/bg_gradient_bottom"
             app:expandedTitleMarginStart="@dimen/spacing_normal"
             app:expandedTitleMarginBottom="@dimen/spacing_medium">
 
@@ -37,7 +37,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:paddingBottom="@dimen/spacing_large">
+                    android:padding="@dimen/spacing_medium"
+                    >
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/iv_user_avatar"
@@ -45,7 +46,7 @@
                         android:layout_height="@dimen/avatar_size_large"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_person"
-                        app:strokeColor="@color/white"
+                        app:strokeColor="@color/primary"
                         app:strokeWidth="3dp"
                         app:shapeAppearanceOverlay="@style/Widget.Gusteau.ImageView.Rounded"
                         tools:src="@tools:sample/avatars" />
@@ -256,7 +257,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="@dimen/button_height_medium"
                                     android:text="@string/view_recipe"
-                                    app:icon="@drawable/ic_arrow_right"
+
                                     app:iconGravity="end" />
                             </LinearLayout>
                         </LinearLayout>

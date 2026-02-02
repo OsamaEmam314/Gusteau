@@ -164,4 +164,9 @@
     <string name="featured">Featured</string>
     <string name="meal_image">Meal Image</string>
     <string name="chef">Chef</string>
+    <string name="search_recipes_ingredients">Find Your Next Meal</string>
+    <string name="country">Country</string>
+    <string name="no_results">No Results</string>
+    <string name="try_different_search">Try Something Else</string>
+    <string name="clear">Clear</string>
 </resources>

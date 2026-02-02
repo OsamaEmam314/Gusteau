@@ -167,15 +167,16 @@
         <item name="cardElevation">@dimen/shadow_elevation_medium</item>
     </style>
 
-
     <style name="Widget.Gusteau.Chip" parent="Widget.MaterialComponents.Chip.Choice">
-        <item name="chipBackgroundColor">@color/surface_variant_light</item>
+        <item name="chipBackgroundColor">@color/chip_background_selector</item>
         <item name="chipStrokeColor">@color/border_light</item>
         <item name="chipStrokeWidth">@dimen/stroke_width_thin</item>
-        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textColor">@color/chip_text_selector</item>
         <item name="chipCornerRadius">@dimen/radius_medium</item>
         <item name="chipMinHeight">@dimen/chip_height</item>
         <item name="android:textAppearance">@style/TextAppearance.Gusteau.Body2</item>
+
+        <item name="checkedIconVisible">false</item>
     </style>
 
     <style name="Widget.Gusteau.Chip.Active" parent="Widget.Gusteau.Chip">
