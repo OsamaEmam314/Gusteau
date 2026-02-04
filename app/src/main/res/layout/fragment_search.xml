@@ -141,8 +141,6 @@
                         android:text="@string/ingredients" />
                 </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>
-
-            <!-- Results Header -->
             <TextView
                 android:id="@+id/tv_results_header"
                 android:layout_width="0dp"
@@ -154,8 +152,6 @@
                 app:layout_constraintTop_toBottomOf="@id/horizontal_scroll_view"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- Results RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_search_results"
                 android:layout_width="0dp"
@@ -170,8 +166,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:listitem="@layout/item_meal_grid" />
-
-            <!-- Empty State -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ll_empty_state"
                 android:layout_width="match_parent"
