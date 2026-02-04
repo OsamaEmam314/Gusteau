@@ -59,11 +59,14 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
-    <!-- Splash Screen Theme -->
     <style name="Theme.Gusteau.Splash" parent="Theme.Gusteau">
-        <item name="android:windowBackground">@color/primary</item>
-        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <!-- Window Animation -->
