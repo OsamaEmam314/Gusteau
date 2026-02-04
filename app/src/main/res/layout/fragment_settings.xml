@@ -1,13 +1,283 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsFragment">
+    android:background="?android:attr/colorBackground"
+    android:fillViewport="true">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="settings fragment" />
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/spacing_xlarge">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.Gusteau.Toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/settings"
+            app:titleTextAppearance="@style/TextAppearance.Gusteau.Title"
+            app:titleCentered="true"
+            android:background="@drawable/bg_gradient_header"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-</FrameLayout>
+        <LinearLayout
+            android:id="@+id/ll_profile_section"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="@dimen/spacing_xlarge"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_user_avatar"
+                android:layout_width="@dimen/avatar_size_xlarge"
+                android:layout_height="@dimen/avatar_size_xlarge"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_person"
+                app:strokeColor="@color/primary"
+                app:strokeWidth="3dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Gusteau.Rounded"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chef_name"
+                android:textAppearance="@style/TextAppearance.Gusteau.Headline2"
+                android:layout_marginTop="@dimen/spacing_normal"
+                tools:text="John Chef" />
+
+            <TextView
+                android:id="@+id/tv_user_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chef_gusteau_com"
+                android:textAppearance="@style/TextAppearance.Gusteau.Body2"
+                android:layout_marginTop="@dimen/spacing_xsmall"
+                tools:text="john.chef@gusteau.com" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_settings_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/spacing_normal"
+            app:layout_constraintTop_toBottomOf="@id/ll_profile_section"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/account"
+                android:textAppearance="@style/TextAppearance.Gusteau.Body1.SemiBold"
+                android:textColor="@color/primary"
+                android:paddingStart="@dimen/spacing_normal"
+                android:paddingEnd="@dimen/spacing_normal"
+                android:paddingTop="@dimen/spacing_normal"
+                android:paddingBottom="@dimen/spacing_small" />
+
+            <LinearLayout
+                android:id="@+id/ll_edit_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_normal"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_normal"
+                    android:layout_height="@dimen/icon_size_normal"
+                    android:src="@drawable/ic_edit"
+                    android:contentDescription="@string/edit_profile"
+                    app:tint="@color/text_tertiary_light" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/edit_profile"
+                    android:textAppearance="@style/TextAppearance.Gusteau.Body1"
+                    android:layout_marginStart="@dimen/spacing_normal" />
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_small"
+                    android:layout_height="@dimen/icon_size_small"
+                    android:src="@drawable/ic_arrow_right"
+                    android:contentDescription="@string/navigate"
+                    app:tint="@color/text_tertiary_light" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_height"
+                android:background="@color/divider_light"
+                android:layout_marginStart="@dimen/spacing_xlarge"
+                android:layout_marginEnd="@dimen/spacing_normal" />
+
+            <LinearLayout
+                android:id="@+id/ll_change_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_normal"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_normal"
+                    android:layout_height="@dimen/icon_size_normal"
+                    android:src="@drawable/ic_lock"
+                    android:contentDescription="@string/change_password"
+                    app:tint="@color/text_tertiary_light" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/change_password"
+                    android:textAppearance="@style/TextAppearance.Gusteau.Body1"
+                    android:layout_marginStart="@dimen/spacing_normal" />
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_small"
+                    android:layout_height="@dimen/icon_size_small"
+                    android:src="@drawable/ic_arrow_right"
+                    android:contentDescription="@string/navigate"
+                    app:tint="@color/text_tertiary_light" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/preferences"
+                android:textAppearance="@style/TextAppearance.Gusteau.Body1.SemiBold"
+                android:textColor="@color/primary"
+                android:paddingStart="@dimen/spacing_normal"
+                android:paddingEnd="@dimen/spacing_normal"
+                android:paddingTop="@dimen/spacing_large"
+                android:paddingBottom="@dimen/spacing_small" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_normal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_normal"
+                    android:layout_height="@dimen/icon_size_normal"
+                    android:src="@drawable/ic_dark_mode"
+                    android:contentDescription="@string/dark_mode"
+                    app:tint="@color/text_tertiary_light" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/dark_mode"
+                    android:textAppearance="@style/TextAppearance.Gusteau.Body1"
+                    android:layout_marginStart="@dimen/spacing_normal" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switch_dark_mode"
+                    style="@style/Widget.Gusteau.Switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_height"
+                android:background="@color/divider_light"
+                android:layout_marginStart="@dimen/spacing_xlarge"
+                android:layout_marginEnd="@dimen/spacing_normal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/support"
+                android:textAppearance="@style/TextAppearance.Gusteau.Body1.SemiBold"
+                android:textColor="@color/primary"
+                android:paddingStart="@dimen/spacing_normal"
+                android:paddingEnd="@dimen/spacing_normal"
+                android:paddingTop="@dimen/spacing_large"
+                android:paddingBottom="@dimen/spacing_small" />
+
+
+
+            <LinearLayout
+                android:id="@+id/ll_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_normal"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_normal"
+                    android:layout_height="@dimen/icon_size_normal"
+                    android:src="@drawable/ic_info"
+                    android:contentDescription="@string/about"
+                    app:tint="@color/text_tertiary_light" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/about"
+                    android:textAppearance="@style/TextAppearance.Gusteau.Body1"
+                    android:layout_marginStart="@dimen/spacing_normal" />
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_small"
+                    android:layout_height="@dimen/icon_size_small"
+                    android:src="@drawable/ic_arrow_right"
+                    android:contentDescription="@string/navigate"
+                    app:tint="@color/text_tertiary_light" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_logout"
+                style="@style/Widget.Gusteau.Button.Outlined"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height_large"
+                android:text="@string/logout"
+                android:textColor="@color/error"
+                android:layout_margin="@dimen/spacing_normal"
+                android:layout_marginTop="@dimen/spacing_xlarge"
+                app:strokeColor="@color/error"
+                app:icon="@drawable/ic_logout"
+                app:iconTint="@color/error"
+                app:iconGravity="textStart" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_version"
+                android:textAppearance="@style/TextAppearance.Gusteau.Caption"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/spacing_normal"
+                tools:text="Version 1.0.0" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

@@ -164,7 +164,7 @@
     </style>
 
     <style name="Widget.Gusteau.CardView.Elevated" parent="Widget.Gusteau.CardView">
-        <item name="cardElevation">@dimen/shadow_elevation_medium</item>
+        <item name="cardElevation">@dimen/card_elevation_hover</item>
     </style>
 
     <style name="Widget.Gusteau.Chip" parent="Widget.MaterialComponents.Chip.Choice">

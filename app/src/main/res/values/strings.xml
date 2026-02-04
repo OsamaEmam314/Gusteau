@@ -170,4 +170,19 @@
     <string name="try_different_search">Try Something Else</string>
     <string name="clear">Clear</string>
     <string name="fav_meals">Food For Your Soul</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="add_meal">Add Meal</string>
+    <string name="lunch">Lunch</string>
+    <string name="dinner">Dinner</string>
+    <string name="chef_name">Chef Name</string>
+    <string name="chef_gusteau_com">chef@gusteau.com</string>
+    <string name="account">Account</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="navigate">Navigate</string>
+    <string name="change_password">Change Password</string>
+    <string name="preferences">Prefrences</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="support">Support</string>
+    <string name="about">About</string>
+    <string name="app_version">App Version</string>
 </resources>
