@@ -9,8 +9,10 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         style="@style/Widget.Gusteau.Toolbar"
-        android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingTop="@dimen/spacing_xlarge"
+        android:paddingHorizontal="@dimen/spacing_normal"
         app:title="@string/favorites"
         app:titleTextAppearance="@style/TextAppearance.Gusteau.Title"
         app:titleCentered="true"

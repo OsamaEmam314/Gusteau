@@ -14,8 +14,10 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             style="@style/Widget.Gusteau.Toolbar"
-            android:layout_width="0dp"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingTop="@dimen/spacing_xlarge"
+            android:paddingHorizontal="@dimen/spacing_normal"
             app:title="@string/settings"
             app:titleTextAppearance="@style/TextAppearance.Gusteau.Title"
             app:titleCentered="true"
@@ -26,11 +28,12 @@
 
         <LinearLayout
             android:id="@+id/ll_profile_section"
-            android:layout_width="0dp"
+
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="@dimen/spacing_xlarge"
+            android:padding="@dimen/spacing_small"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">

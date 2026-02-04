@@ -9,45 +9,18 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
-        android:layout_width="0dp"
+        style="@style/Widget.Gusteau.Toolbar"
         android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingTop="@dimen/spacing_xlarge"
+        android:paddingHorizontal="@dimen/spacing_normal"
+        app:title="@string/find_your_next_meal"
+        app:titleTextAppearance="@style/TextAppearance.Gusteau.Title"
+        app:titleCentered="true"
         android:background="@drawable/bg_gradient_header"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:contentInsetStart="0dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/spacing_xlarge"
-            android:paddingBottom="@dimen/spacing_large"
-            android:paddingHorizontal="@dimen/spacing_normal">
-
-            <ImageView
-                android:id="@+id/card_logo"
-                android:layout_width="@dimen/avatar_size_medium"
-                android:layout_height="@dimen/avatar_size_medium"
-                android:contentDescription="@string/app_name"
-                android:padding="@dimen/spacing_xsmall"
-                android:src="@drawable/app_logo"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_app_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_medium"
-                android:text="@string/app_name"
-                android:textAppearance="@style/TextAppearance.Gusteau.Title"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/card_logo"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.appbar.MaterialToolbar>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nested_scroll_view"

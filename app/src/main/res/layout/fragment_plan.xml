@@ -9,12 +9,14 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         style="@style/Widget.Gusteau.Toolbar"
-        android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        app:title="@string/meal_planner"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingTop="@dimen/spacing_xlarge"
+        android:paddingHorizontal="@dimen/spacing_normal"
+        app:title="@string/plan_your_food"
         app:titleTextAppearance="@style/TextAppearance.Gusteau.Title"
-        android:background="@drawable/bg_gradient_header"
         app:titleCentered="true"
+        android:background="@drawable/bg_gradient_header"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
