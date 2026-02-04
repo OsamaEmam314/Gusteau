@@ -1,4 +1,4 @@
-package com.example.gusteau;
+package com.example.gusteau.presentation.splash.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.gusteau.MainActivity;
+import com.example.gusteau.R;
+import com.example.gusteau.WelcomeActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
     ImageView appLogo;
