@@ -1,30 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.core.widget.NestedScrollView android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="?android:attr/colorBackground">
+    android:fitsSystemWindows="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingStart="@dimen/spacing_normal"
-        android:paddingEnd="@dimen/spacing_normal"
-        android:paddingTop="@dimen/spacing_xlarge"
-        android:paddingBottom="@dimen/spacing_xlarge">
+        android:paddingEnd="@dimen/spacing_normal">
 
-        <ImageButton
-            android:id="@+id/btn_back"
-            android:layout_width="@dimen/button_height_medium"
-            android:layout_height="@dimen/button_height_medium"
-            android:src="@drawable/ic_arrow_back"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/cd_back_button"
-            app:tint="?attr/colorOnBackground"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_app_logo"
@@ -70,21 +60,21 @@
             style="@style/Widget.Gusteau.TextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:hint="@string/full_name"
-            android:layout_marginTop="@dimen/spacing_xlarge"
-            app:startIconDrawable="@drawable/ic_person"
-            app:startIconTint="@color/text_tertiary_light"
-            app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
+            app:startIconDrawable="@drawable/ic_person"
+            app:startIconTint="@color/text_tertiary_light">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName|textCapWords"
-                android:textAppearance="@style/TextAppearance.Gusteau.Body1"
                 android:minHeight="@dimen/button_height_large"
+                android:textAppearance="@style/TextAppearance.Gusteau.Body1"
                 tools:text="John Chef" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -176,71 +166,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <View
-            android:id="@+id/divider_left"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/divider_light"
-            android:layout_marginTop="@dimen/spacing_xlarge"
-            android:layout_marginEnd="@dimen/spacing_normal"
-            app:layout_constraintTop_toBottomOf="@id/btn_signup"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tv_or"
-            app:layout_constraintHorizontal_chainStyle="spread" />
-
-        <TextView
-            android:id="@+id/tv_or"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/or"
-            android:textAppearance="@style/TextAppearance.Gusteau.Body2"
-            android:textColor="@color/text_tertiary_light"
-            android:fontFamily="sans-serif-medium"
-            app:layout_constraintTop_toTopOf="@id/divider_left"
-            app:layout_constraintBottom_toBottomOf="@id/divider_left"
-            app:layout_constraintStart_toEndOf="@id/divider_left"
-            app:layout_constraintEnd_toStartOf="@id/divider_right" />
-
-        <View
-            android:id="@+id/divider_right"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/divider_light"
-            android:layout_marginStart="@dimen/spacing_normal"
-            app:layout_constraintTop_toTopOf="@id/divider_left"
-            app:layout_constraintStart_toEndOf="@id/tv_or"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_google_signup"
-            style="@style/Widget.Gusteau.Button.Outlined"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/button_height_large"
-            android:text="@string/continue_with_google"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginTop="@dimen/spacing_xlarge"
-            app:icon="@drawable/ic_google"
-            app:iconGravity="textStart"
-            app:iconTint="@null"
-            app:iconSize="@dimen/icon_size_normal"
-            app:iconPadding="@dimen/spacing_small"
-            app:layout_constraintTop_toBottomOf="@id/divider_left"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
         <LinearLayout
             android:id="@+id/ll_login_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="7dp"
             android:gravity="center"
-            android:layout_marginTop="@dimen/spacing_xxlarge"
-            android:layout_marginBottom="@dimen/spacing_normal"
-            app:layout_constraintTop_toBottomOf="@id/btn_google_signup"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_signup">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -253,14 +188,14 @@
                 android:id="@+id/tv_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login"
-                android:textAppearance="@style/TextAppearance.Gusteau.Body1.Bold"
-                android:textColor="@color/primary"
-                android:padding="@dimen/spacing_small"
                 android:layout_marginStart="@dimen/spacing_xsmall"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?attr/selectableItemBackgroundBorderless" />
+                android:padding="@dimen/spacing_small"
+                android:text="@string/login"
+                android:textAppearance="@style/TextAppearance.Gusteau.Body1.Bold"
+                android:textColor="@color/primary" />
 
         </LinearLayout>
 
@@ -278,4 +213,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>
