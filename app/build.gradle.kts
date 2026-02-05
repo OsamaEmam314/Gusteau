@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -41,7 +42,20 @@ dependencies {
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
     implementation(libs.fragment)
+    implementation(libs.firebase.auth)
+    implementation(libs.credentials)
+    implementation(libs.credentials.play.services.auth)
+    implementation(libs.googleid)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation(libs.retrofit)
+    implementation(libs.gson)
+    implementation(libs.glide)
+    implementation(libs.rxjava)
+    implementation(libs.rxandroid)
+    implementation(libs.room)
+    implementation(libs.retrofit.adapter)
+    implementation(libs.roomrx)
+    annotationProcessor(libs.room.compiler)
 }
