@@ -1,9 +1,14 @@
 package com.example.gusteau.presentation.register.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -14,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.gusteau.MainActivity;
 import com.example.gusteau.R;
 import com.example.gusteau.presentation.register.RegisterContract;
 import com.example.gusteau.presentation.register.presenter.RegisterPresenter;
@@ -45,6 +51,25 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        NestedScrollView nestedScrollView = view.findViewById(R.id.nestedScrollView);
+
+        ViewCompat.setOnApplyWindowInsetsListener(nestedScrollView, (v, windowInsets) -> {
+            Insets systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            Insets ime = windowInsets.getInsets(WindowInsetsCompat.Type.ime());
+            int bottomPadding = ime.bottom > 0 ? ime.bottom : systemBars.bottom;
+
+            v.setPadding(
+                    systemBars.left,
+                    systemBars.top,
+                    systemBars.right,
+                    bottomPadding
+            );
+
+            return WindowInsetsCompat.CONSUMED;
+        });
+
+
         idSetup(view);
         assert getActivity() != null;
         presenter = new RegisterPresenter(this, getActivity().getApplicationContext());
@@ -75,6 +100,9 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
           tvLogin = view.findViewById(R.id.tv_login);
 
           progressBar = view.findViewById(R.id.progress_bar);
+
+      }
+      public void handleScrollWithKeyboard(){
 
       }
     private void setupTextChangeListeners() {
@@ -152,12 +180,12 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (presenter != null) {
-            presenter.onDestroy();
-        }
+    public void navigateToHome() {
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
+
     @Override
     public void showLoading() {
         progressBar.setVisibility(View.VISIBLE);

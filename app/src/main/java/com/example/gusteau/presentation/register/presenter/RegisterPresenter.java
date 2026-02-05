@@ -46,7 +46,7 @@ public class RegisterPresenter implements RegisterContract.Presenter{
                 .subscribe(
                         user -> {
                             view.hideLoading();
-                            navigateToLogin();
+                            navigateToHome();
                         },
                         error -> {
                             view.hideLoading();
@@ -170,14 +170,14 @@ public class RegisterPresenter implements RegisterContract.Presenter{
         }
     }
 
-
     @Override
-    public void onDestroy() {
+    public void navigateToHome() {
         if (view != null) {
-            view = null;
+            view.navigateToHome();
         }
-        disposables.clear();
+
     }
+
 
     private void handleRegistrationError(Throwable error) {
         if (view == null) return;

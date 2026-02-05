@@ -12,12 +12,13 @@ public interface RegisterContract {
         void showPasswordError(String error);
         void showConfirmPasswordError(String error);
         void navigateToLogin();
+        void navigateToHome();
         void clearErrors();
     }
     interface Presenter {
         void signUpWithEmail(String name, String email, String password, String confirmPassword);
         void navigateToLogin();
-        void onDestroy();
+        void navigateToHome();
     }
 
 }
