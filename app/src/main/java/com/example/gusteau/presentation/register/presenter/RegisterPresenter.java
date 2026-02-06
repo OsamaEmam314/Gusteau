@@ -40,7 +40,7 @@ public class RegisterPresenter implements RegisterContract.Presenter{
         if (!validateConfirmPassword(password, confirmPassword)) return;
 
         view.showLoading();
-        Disposable disposable = authRepository.registerWithEmail(name, email, password)
+        Disposable localdisposable = authRepository.registerWithEmail(name, email, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -54,7 +54,7 @@ public class RegisterPresenter implements RegisterContract.Presenter{
                         }
                 );
 
-        disposables.add(disposable);
+        disposables.add(localdisposable);
     }
 
     private boolean validateName(String name) {
@@ -215,6 +215,11 @@ public class RegisterPresenter implements RegisterContract.Presenter{
             view.showError("Registration failed. Please try again.");
         }
     }
+
+    public void onDestroy() {
+        disposables.clear();
+    }
+
 
 
 }

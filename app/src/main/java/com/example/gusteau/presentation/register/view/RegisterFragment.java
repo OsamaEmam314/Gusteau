@@ -69,7 +69,6 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
             return WindowInsetsCompat.CONSUMED;
         });
 
-
         idSetup(view);
         assert getActivity() != null;
         presenter = new RegisterPresenter(this, getActivity().getApplicationContext());
@@ -102,9 +101,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
           progressBar = view.findViewById(R.id.progress_bar);
 
       }
-      public void handleScrollWithKeyboard(){
 
-      }
     private void setupTextChangeListeners() {
         addTextWatcher(etName, tilName);
         addTextWatcher(etEmail, tilEmail);

@@ -1,28 +1,25 @@
 package com.example.gusteau.data.Authentication;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
-import com.google.firebase.auth.AuthCredential;
+import com.example.gusteau.data.Authentication.local.SharedPrefrenceLocalSource;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.example.gusteau.data.model.User;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.GoogleAuthProvider;
+
 public class AuthRepository {
-    private static final String PREFS_NAME = "gusteau_prefs";
-    private static final String KEY_USER_ID = "user_id";
-    private static final String KEY_USER_NAME = "user_name";
-    private static final String KEY_USER_EMAIL = "user_email";
-    private static final String KEY_IS_GUEST = "is_guest";
-    private static final String KEY_IS_LOGGED_IN = "is_logged_in";
     private final FirebaseAuth firebaseAuth;
-    private final SharedPreferences sharedPreferences;
+    SharedPrefrenceLocalSource sharedPrefrenceLocalSource;
 
     public AuthRepository(Context context) {
         this.firebaseAuth = FirebaseAuth.getInstance();
-        this.sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        sharedPrefrenceLocalSource = new SharedPrefrenceLocalSource(context);
     }
     public Single<User> registerWithEmail(String name, String email, String password) {
         return Single.create(emitter ->
@@ -54,7 +51,8 @@ public class AuthRepository {
                         })
         );
     }
-    public Single<User> signInWithGoogle(AuthCredential credential) {
+    public Single<User> signInWithGoogle(GoogleIdTokenCredential googleIdTokenCredential) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(googleIdTokenCredential.getIdToken(), null);
         return Single.create(emitter ->
                 firebaseAuth.signInWithCredential(credential)
                         .addOnSuccessListener(authResult -> {
@@ -106,32 +104,16 @@ public class AuthRepository {
         return new User(uid, name, email,false);
     }
     public void clearUserPreferences() {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
+        sharedPrefrenceLocalSource.clearUserPreferences();
     }
     public void saveUserToPreferences(User user) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_USER_ID, user.getUid());
-        editor.putString(KEY_USER_NAME, user.getName());
-        editor.putString(KEY_USER_EMAIL, user.getEmail());
-        editor.putBoolean(KEY_IS_GUEST, user.isGuest());
-        editor.putBoolean(KEY_IS_LOGGED_IN, true);
-        editor.apply();
+        sharedPrefrenceLocalSource.saveUserToPreferences(user);
     }
     public User getUserFromPreferences() {
-        String uid = sharedPreferences.getString(KEY_USER_ID, null);
-        if (uid == null) {
-            return null;
-        }
-        String name = sharedPreferences.getString(KEY_USER_NAME, "");
-        String email = sharedPreferences.getString(KEY_USER_EMAIL, "");
-        boolean isGuest = sharedPreferences.getBoolean(KEY_IS_GUEST, false);
-
-        return new User(uid, name, email, isGuest);
+        return sharedPrefrenceLocalSource.getUserFromPreferences();
     }
     public boolean isUserLoggedIn() {
-        return sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false)
+        return sharedPrefrenceLocalSource.isUserLoggedIn()
                 && firebaseAuth.getCurrentUser() != null;
     }
 

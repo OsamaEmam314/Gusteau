@@ -57,5 +57,6 @@ dependencies {
     implementation(libs.room)
     implementation(libs.retrofit.adapter)
     implementation(libs.roomrx)
+    implementation(libs.play.services.auth)
     annotationProcessor(libs.room.compiler)
 }
