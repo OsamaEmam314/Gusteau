@@ -103,7 +103,7 @@
 
     <style name="Widget.Gusteau.Button" parent="Widget.MaterialComponents.Button">
         <item name="android:textAppearance">@style/TextAppearance.Gusteau.Button</item>
-        <item name="backgroundTint">@color/primary</item>
+        <item name="backgroundTint">@color/primary_dark</item>
         <item name="android:textColor">@color/white</item>
         <item name="cornerRadius">@dimen/radius_medium</item>
         <item name="android:minHeight">@dimen/button_height_normal</item>

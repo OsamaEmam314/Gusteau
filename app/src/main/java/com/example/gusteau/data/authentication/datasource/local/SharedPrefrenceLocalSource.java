@@ -1,4 +1,4 @@
-package com.example.gusteau.data.Authentication.local;
+package com.example.gusteau.data.authentication.datasource.local;
 
 import android.content.Context;
 import android.content.SharedPreferences;

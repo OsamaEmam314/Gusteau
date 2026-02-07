@@ -92,7 +92,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
 
     }
-    // Inside LoginFragment
     private void launchGoogleSignIn() {
         CredentialManager credentialManager = CredentialManager.create(requireContext());
 

@@ -90,11 +90,11 @@
                     android:layout_marginEnd="@dimen/spacing_small"/>
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chipTime"
+                    android:id="@+id/chipCategory"
                     style="@style/Widget.Gusteau.Chip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="25 mins"
+                    android:text="Category"
                     app:chipIcon="@android:drawable/ic_menu_recent_history"
                     app:chipIconTint="@color/text_primary_light"
                     android:textColor="@color/text_primary_light"

@@ -2,11 +2,8 @@ package com.example.gusteau.presentation.login.presenter;
 
 import android.content.Context;
 
-import com.example.gusteau.data.Authentication.AuthRepository;
-import com.example.gusteau.data.model.User;
+import com.example.gusteau.data.authentication.AuthRepository;
 import com.example.gusteau.presentation.login.LoginContract;
-import com.example.gusteau.presentation.register.RegisterContract;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 

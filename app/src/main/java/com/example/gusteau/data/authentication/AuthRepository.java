@@ -1,8 +1,8 @@
-package com.example.gusteau.data.Authentication;
+package com.example.gusteau.data.authentication;
 
 import android.content.Context;
 
-import com.example.gusteau.data.Authentication.local.SharedPrefrenceLocalSource;
+import com.example.gusteau.data.authentication.datasource.local.SharedPrefrenceLocalSource;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;

@@ -199,15 +199,15 @@
 
             <TextView
                 android:id="@+id/tv_signup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_xsmall"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                android:padding="@dimen/spacing_small"
-                android:text="@string/sign_up"
-                android:textAppearance="@style/TextAppearance.Gusteau.Body1.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_xsmall"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="@dimen/spacing_small"
+            android:text="@string/sign_up"
+            android:textAppearance="@style/TextAppearance.Gusteau.Body1.Bold"
                 android:textColor="@color/primary" />
 
         </LinearLayout>
