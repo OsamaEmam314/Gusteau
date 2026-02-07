@@ -9,6 +9,7 @@ import com.example.gusteau.data.model.Meal;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 
 @Dao
@@ -18,8 +19,8 @@ public interface MealDao {
     @Query("SELECT * FROM meals WHERE id = :id")
     Single<Meal> getMealById(String id);
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertMeal(Meal meal);
+    Completable insertMeal(Meal meal);
     @Query("DELETE FROM meals WHERE id = :id")
-    void deleteMeal(String id);
+    Completable deleteMeal(String id);
 
 }

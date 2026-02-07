@@ -7,6 +7,7 @@ import com.example.gusteau.data.model.Meal;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 
 public class MealLocalDataSource {
@@ -20,11 +21,12 @@ public class MealLocalDataSource {
     public Single<Meal> getMealById(String id) {
         return mealDao.getMealById(id);
     }
-    public void insertMeal(Meal meal) {
-        mealDao.insertMeal(meal);
+    public Completable insertMeal(Meal meal) {
+        return mealDao.insertMeal(meal);
     }
-    public void deleteMeal(String id) {
-        mealDao.deleteMeal(id);
+    public Completable deleteMeal(String id) {
+
+        return mealDao.deleteMeal(id);
     }
 
 }

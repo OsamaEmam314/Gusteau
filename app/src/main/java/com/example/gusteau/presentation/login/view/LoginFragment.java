@@ -128,7 +128,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
         if (credential instanceof CustomCredential) {
             CustomCredential customCredential = (CustomCredential) credential;
-            Snackbar.make(getView(), "Called Presenter", Snackbar.LENGTH_LONG).show();
 
             if (credential.getType().equals(TYPE_GOOGLE_ID_TOKEN_CREDENTIAL)) {
                 Bundle credentialData = customCredential.getData();

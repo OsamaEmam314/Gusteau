@@ -30,4 +30,6 @@ public interface MealApiService {
     Single<List<Meal>> searchMealByName(@Query("s") String name);
     @GET("lookup.php")
     Single<Meal> getMealById(@Query("i") String id);
+    @GET("search.php")
+    Single<List<Meal>> getMealsByFirstLetter(@Query("f") String letter);
 }

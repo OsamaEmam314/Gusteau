@@ -21,12 +21,13 @@ public class RemoteMealDataSource {
     public Single<List<Category>> getAllCategories() {
         return mealApiService.getAllCategories();
     }
-    public Single<List<String>> getAllAreas() {
-        return mealApiService.getAllAreas();
-    }
     public Single<List<Ingredients>> getAllIngredients() {
         return mealApiService.getAllIngredients();
     }
+    public Single<List<String>> getAllAreas() {
+        return mealApiService.getAllAreas();
+    }
+
     public Single<List<Meal>> filterByCategory(String category) {
         return mealApiService.filterByCategory(category);
     }
@@ -41,6 +42,10 @@ public class RemoteMealDataSource {
     }
     public Single<Meal> getMealById(String id) {
         return mealApiService.getMealById(id);
+    }
+
+    public Single<List<Meal>> getMealsByFirstLetter(String letter) {
+        return mealApiService.getMealsByFirstLetter(letter);
     }
 
 }

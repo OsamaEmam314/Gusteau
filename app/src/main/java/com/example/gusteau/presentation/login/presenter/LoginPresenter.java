@@ -115,7 +115,6 @@ public class LoginPresenter implements LoginContract.Presenter {
                     view.showError("Google Sign-In failed: " + error.getMessage());
             }
         } else {
-            // Check for the specific collision error message
             if (error.getMessage() != null && error.getMessage().contains("already exists using a different sign-in method")) {
                 view.showError("An account already exists with this email using a different sign-in method.");
             } else {
