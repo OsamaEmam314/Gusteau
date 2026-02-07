@@ -20,5 +20,7 @@ public interface LoginContract {
         void logInWithGoogle(GoogleIdTokenCredential credential);
         void navigateToRegister();
         void navigateToHome();
+        void onDestroy();
+        void guestLogin();
     }
 }

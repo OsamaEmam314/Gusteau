@@ -3,11 +3,13 @@ package com.example.gusteau.presentation.login.presenter;
 import android.content.Context;
 
 import com.example.gusteau.data.authentication.AuthRepository;
+import com.example.gusteau.data.model.User;
 import com.example.gusteau.presentation.login.LoginContract;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -166,7 +168,21 @@ public class LoginPresenter implements LoginContract.Presenter {
             view.navigateToHome();
         }
     }
+    @Override
     public void onDestroy() {
         disposables.clear();
+    }
+
+
+    @Override
+    public void guestLogin() {
+        if (view == null) return;
+        view.showLoading();
+        User user = new User();
+        user.setGuest(true);
+        user.setName("Guest");
+        authRepository.saveUserToPreferences(user);
+        navigateToHome();
+
     }
 }

@@ -105,6 +105,24 @@ public class MealsRepository {
         char randomChar = (char) ('a' + randomLetter);
         return remoteDataSource.getMealsByFirstLetter(String.valueOf(randomChar));
     }
+    public void saveCountry(String country) {
+        sharedPrefrenceLocalDataSource.saveCountry(country);
+    }
+    public void saveIngredients(String ingredients) {
+        sharedPrefrenceLocalDataSource.saveIngredients(ingredients);
+    }
+    public void saveCategory(String category) {
+        sharedPrefrenceLocalDataSource.saveCategory(category);
+    }
+    public String retriveCountry() {
+        return sharedPrefrenceLocalDataSource.getCountry();
+    }
+    public String retriveIngredients() {
+        return sharedPrefrenceLocalDataSource.getIngredients();
+    }
+    public String retriveCategory() {
+      return sharedPrefrenceLocalDataSource.getCategory();
+    }
     @NonNull
     private static String getFlagUrl(@Nullable String title) {
         if (title == null) return "";

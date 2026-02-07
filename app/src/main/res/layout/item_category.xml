@@ -18,7 +18,7 @@
         app:strokeColor="@android:color/white"
         app:strokeWidth="2dp"
         android:elevation="4dp"
-        tools:src="@tools:sample/avatars" />
+        android:src = "@drawable/unloaded_image" />
 
     <TextView
         android:id="@+id/tv_category_name"

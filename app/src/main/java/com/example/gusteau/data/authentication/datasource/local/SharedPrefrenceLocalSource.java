@@ -12,6 +12,7 @@ public class SharedPrefrenceLocalSource {
     private static final String KEY_USER_EMAIL = "user_email";
     private static final String KEY_IS_GUEST = "is_guest";
     private static final String KEY_IS_LOGGED_IN = "is_logged_in";
+
     private final SharedPreferences sharedPreferences;
 
     public SharedPrefrenceLocalSource(Context context) {

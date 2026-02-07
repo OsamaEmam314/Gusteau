@@ -14,7 +14,6 @@
         android:theme="@style/Theme.Gusteau">
         <activity
             android:name=".WelcomeActivity"
-            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

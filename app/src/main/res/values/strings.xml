@@ -190,4 +190,5 @@
     <string name="no_meals_found">No Meals Found</string>
     <string name="no_meals_in_category">No Meals Here</string>
     <string name="type">Type</string>
+    <string name="category">Category</string>
 </resources>

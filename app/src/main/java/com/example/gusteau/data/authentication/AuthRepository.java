@@ -48,7 +48,15 @@ public class AuthRepository {
                     }
                 });
     }
+    public void saveUserToPreferences(User user) {
+        localDataSource.saveUserToPreferences(user);
+    }
 
+
+    public boolean isGuestMode() {
+        return localDataSource.getUserFromPreferences().isGuest();
+
+    }
     public boolean isUserLoggedIn() {
         return localDataSource.isUserLoggedIn();
     }
