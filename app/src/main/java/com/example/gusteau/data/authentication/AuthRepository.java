@@ -3,135 +3,53 @@ package com.example.gusteau.data.authentication;
 import android.content.Context;
 
 import com.example.gusteau.data.authentication.datasource.local.SharedPrefrenceLocalSource;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
+import com.example.gusteau.data.authentication.datasource.remote.FirebaseDataSource;
 import com.example.gusteau.data.model.User;
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
+
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
-import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.GoogleAuthProvider;
 
 public class AuthRepository {
-    private final FirebaseAuth firebaseAuth;
-    SharedPrefrenceLocalSource sharedPrefrenceLocalSource;
+
+    private final FirebaseDataSource firebaseDataSource;
+    private final SharedPrefrenceLocalSource localDataSource;
 
     public AuthRepository(Context context) {
-        this.firebaseAuth = FirebaseAuth.getInstance();
-        sharedPrefrenceLocalSource = new SharedPrefrenceLocalSource(context);
+        this.firebaseDataSource = new FirebaseDataSource();
+        this.localDataSource = new SharedPrefrenceLocalSource(context);
     }
+
     public Single<User> registerWithEmail(String name, String email, String password) {
-        return Single.create(emitter ->
-                firebaseAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnSuccessListener(authResult -> {
-                            FirebaseUser firebaseUser = authResult.getUser();
-                            if (firebaseUser != null) {
-                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                        .setDisplayName(name)
-                                        .build();
-                                firebaseUser.updateProfile(profileUpdates)
-                                        .addOnSuccessListener(aVoid -> {
-                                            User user = mapFirebaseUserToUser(firebaseUser);
-                                            user.setName(name);
-                                            saveUserToPreferences(user);
-                                            emitter.onSuccess(user);
-                                        })
-                                        .addOnFailureListener(emitter::onError);
-                            } else {
-                                emitter.onError(new Exception("User is null"));
-                            }
-                        })
-                        .addOnFailureListener(e -> {
-                            if (e instanceof com.google.firebase.auth.FirebaseAuthUserCollisionException) {
-                                emitter.onError(new Exception("This email is already registered. Please log in instead."));
-                            } else {
-                                emitter.onError(e);
-                            }
-                        })
-        );
+        return firebaseDataSource.registerWithEmail(name, email, password)
+                .doOnSuccess(localDataSource::saveUserToPreferences);
     }
-    public Single<User> signInWithGoogle(GoogleIdTokenCredential googleIdTokenCredential) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(googleIdTokenCredential.getIdToken(), null);
-        return Single.create(emitter ->
-                firebaseAuth.signInWithCredential(credential)
-                        .addOnSuccessListener(authResult -> {
-                            FirebaseUser firebaseUser = authResult.getUser();
-                            if (firebaseUser != null) {
-                                User user = mapFirebaseUserToUser(firebaseUser);
-                                saveUserToPreferences(user);
-                                emitter.onSuccess(user);
-                            } else {
-                                emitter.onError(new Exception("Google registration failed: User is null"));
-                            }
-                        })
-                        .addOnFailureListener(e -> {
-                            if (e instanceof com.google.firebase.auth.FirebaseAuthUserCollisionException) {
-                                emitter.onError(new Exception("An account with this email already exists using a different sign-in method."));
-                            } else {
-                                emitter.onError(e);
-                            }
-                        })
-        );
+
+    public Single<User> signInWithGoogle(GoogleIdTokenCredential credential) {
+        return firebaseDataSource.signInWithGoogle(credential)
+                .doOnSuccess(localDataSource::saveUserToPreferences);
     }
     public Single<User> signInWithEmail(String email, String password) {
-        return Single.create(emitter ->
-                firebaseAuth.signInWithEmailAndPassword(email, password)
-                        .addOnSuccessListener(authResult -> {
-                            FirebaseUser firebaseUser = authResult.getUser();
-                            if (firebaseUser != null) {
-                                User user = mapFirebaseUserToUser(firebaseUser);
-                                saveUserToPreferences(user);
-                                emitter.onSuccess(user);
-                            } else {
-                                emitter.onError(new Exception("User does not exist"));
-                            }
-                        })
-                        .addOnFailureListener(emitter::onError)
-        );
+        return firebaseDataSource.signInWithEmail(email, password)
+                .doOnSuccess(localDataSource::saveUserToPreferences);
     }
     public Completable logout() {
-        return Completable.create(emitter -> {
-            firebaseAuth.signOut();
-            clearUserPreferences();
-            emitter.onComplete();
-        });
+        return firebaseDataSource.logout()
+                .doOnComplete(localDataSource::clearUserPreferences);
     }
-    private User mapFirebaseUserToUser(FirebaseUser firebaseUser) {
-        String uid = firebaseUser.getUid();
-        String name = firebaseUser.getDisplayName() != null ? firebaseUser.getDisplayName() : "";
-        String email = firebaseUser.getEmail() != null ? firebaseUser.getEmail() : "";
-        return new User(uid, name, email,false);
-    }
-    public void clearUserPreferences() {
-        sharedPrefrenceLocalSource.clearUserPreferences();
-    }
-    public void saveUserToPreferences(User user) {
-        sharedPrefrenceLocalSource.saveUserToPreferences(user);
-    }
-    public User getUserFromPreferences() {
-        return sharedPrefrenceLocalSource.getUserFromPreferences();
-    }
-    public boolean isUserLoggedIn() {
-        return sharedPrefrenceLocalSource.isUserLoggedIn()
-                && firebaseAuth.getCurrentUser() != null;
-    }
-
     public Single<User> getCurrentUser() {
-        return Single.create(emitter -> {
-            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-            if (firebaseUser != null) {
-                User user = mapFirebaseUserToUser(firebaseUser);
-                emitter.onSuccess(user);
-            } else {
-                User cachedUser = getUserFromPreferences();
-                if (cachedUser != null) {
-                    emitter.onSuccess(cachedUser);
-                } else {
-                    emitter.onError(new Exception("No user logged in"));
-                }
-            }
-        });
+        return firebaseDataSource.getCurrentUser()
+                .onErrorResumeNext(throwable -> {
+                    User cachedUser = localDataSource.getUserFromPreferences();
+                    if (cachedUser != null) {
+                        return Single.just(cachedUser);
+                    } else {
+                        return Single.error(throwable);
+                    }
+                });
     }
 
+    public boolean isUserLoggedIn() {
+        return localDataSource.isUserLoggedIn();
+    }
 }
