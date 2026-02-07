@@ -174,15 +174,26 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
 
+
     @Override
     public void guestLogin() {
         if (view == null) return;
         view.showLoading();
-        User user = new User();
-        user.setGuest(true);
-        user.setName("Guest");
-        authRepository.saveUserToPreferences(user);
-        navigateToHome();
 
+        disposables.add(
+                authRepository.loginAsGuest()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                () -> {
+                                    view.hideLoading();
+                                    navigateToHome();
+                                },
+                                error -> {
+                                    view.hideLoading();
+                                    view.showError("Failed to login as guest: " + error.getMessage());
+                                }
+                        )
+        );
     }
 }

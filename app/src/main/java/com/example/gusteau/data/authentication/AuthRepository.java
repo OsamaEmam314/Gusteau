@@ -37,6 +37,20 @@ public class AuthRepository {
         return firebaseDataSource.logout()
                 .doOnComplete(localDataSource::clearUserPreferences);
     }
+    public void saveUserToPreferences(User user) {
+        localDataSource.saveUserToPreferences(user);
+    }
+
+
+
+
+
+    public Completable loginAsGuest() {
+        return Completable.fromAction(() -> {
+            localDataSource.setGuestMode();
+        });
+    }
+
     public Single<User> getCurrentUser() {
         return firebaseDataSource.getCurrentUser()
                 .onErrorResumeNext(throwable -> {
@@ -48,15 +62,13 @@ public class AuthRepository {
                     }
                 });
     }
-    public void saveUserToPreferences(User user) {
-        localDataSource.saveUserToPreferences(user);
-    }
-
 
     public boolean isGuestMode() {
-        return localDataSource.getUserFromPreferences().isGuest();
-
+        // Safe check: If user is null, they aren't a guest (they are logged out)
+        User user = localDataSource.getUserFromPreferences();
+        return user != null && user.isGuest();
     }
+
     public boolean isUserLoggedIn() {
         return localDataSource.isUserLoggedIn();
     }

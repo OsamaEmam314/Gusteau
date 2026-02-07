@@ -191,4 +191,6 @@
     <string name="no_meals_in_category">No Meals Here</string>
     <string name="type">Type</string>
     <string name="category">Category</string>
+    <string name="good_afternoon">Good Afternoon</string>
+    <string name="good_evening">Good Evening</string>
 </resources>

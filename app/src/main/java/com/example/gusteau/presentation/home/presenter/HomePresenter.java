@@ -1,5 +1,6 @@
 package com.example.gusteau.presentation.home.presenter;
 
+import com.example.gusteau.R;
 import com.example.gusteau.data.authentication.AuthRepository;
 import com.example.gusteau.data.meals.MealsRepository;
 import com.example.gusteau.data.model.Country;
@@ -7,6 +8,8 @@ import com.example.gusteau.data.model.Ingredients;
 import com.example.gusteau.presentation.home.HomeContract;
 
 import android.content.Context;
+import android.util.Log;
+
 import com.example.gusteau.data.model.Category;
 import com.example.gusteau.data.model.Meal;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -41,10 +44,12 @@ public class HomePresenter implements HomeContract.Presenter {
                                 meal -> {
                                     view.hideLoading();
                                     currentMealOfDay = meal;
+                                    view.showError("We Entered Load Meal");
                                     view.showMealOfDay(meal);
                                 },
                                 error -> {
                                     view.hideLoading();
+                                    Log.e("bla bla",error.getMessage());
                                     view.showError("Failed to load meal of the day: " + error.getMessage());
                                 }
                         )
@@ -92,6 +97,10 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void getUserName() {
+        if (authRepository.isGuestMode()) {
+            view.setUserName("Guest");
+            return;
+        }
         disposables.add(
           authRepository.getCurrentUser()
                 .subscribeOn(Schedulers.io())
@@ -145,7 +154,19 @@ public class HomePresenter implements HomeContract.Presenter {
             );
         }
     }
+    public void setGreeting() {
+        int hour = java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY);
+        String greeting;
 
+        if (hour < 12) {
+            greeting ="Good Morning";
+        } else if (hour < 17) {
+            greeting = "Good Afternoon";
+        } else {
+            greeting = "Good Evening";
+        }
+        view.setGreeting(greeting);
+    }
     @Override
     public void onCategoryClick(String category) {
         mealsRepository.saveCategory(category);
@@ -168,6 +189,7 @@ public class HomePresenter implements HomeContract.Presenter {
     }
     @Override
     public void onDestroy() {
+
         disposables.clear();
     }
 }

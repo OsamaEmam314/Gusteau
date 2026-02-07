@@ -9,7 +9,14 @@
         android:id="@+id/navigation_home"
         android:name="com.example.gusteau.presentation.home.view.HomeFragment"
         android:label="@string/home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_filtered_meals"
+            app:destination="@id/navigation_filtered_meals" />
+        <action
+            android:id="@+id/action_navigation_home_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_search"

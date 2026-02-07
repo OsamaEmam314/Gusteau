@@ -11,6 +11,8 @@ import java.util.List;
 public interface HomeContract {
 
     interface View {
+        void setGreeting(String greeting);
+
         void showLoading();
         void hideLoading();
         void showError(String message);

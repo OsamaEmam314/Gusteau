@@ -1,6 +1,7 @@
 package com.example.gusteau.data.meals;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,9 +25,12 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 
 public class MealsRepository {
+    private static final String TAG = "MealsRepository";
+
     private final RemoteMealDataSource remoteDataSource;
     private final MealLocalDataSource localDataSource;
     private final MealSharedPrefrenceLocalDataSource sharedPrefrenceLocalDataSource;
+
     public MealsRepository(Context context) {
         this.remoteDataSource = new RemoteMealDataSource();
         this.localDataSource = new MealLocalDataSource(context);
@@ -36,44 +40,65 @@ public class MealsRepository {
     public Single<List<Meal>> getFavMeals(){
         return localDataSource.getAllMeals();
     }
+
     public Single<Meal> getFavMealById(String id) {
         return localDataSource.getMealById(id);
     }
+
     public Completable addFavMeal(Meal meal) {
         return localDataSource.insertMeal(meal);
     }
+
     public Completable deleteFavMeal(String id) {
         return localDataSource.deleteMeal(id);
     }
 
+
     public Single<Meal> getMealOfTheDay() {
         String todayDate = sharedPrefrenceLocalDataSource.getTodayDate();
         String currentDateFormatted = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        if (todayDate == null || !todayDate.equals(currentDateFormatted)) {
+
+        Log.d(TAG, "Today's date from prefs: " + todayDate);
+        Log.d(TAG, "Current date formatted: " + currentDateFormatted);
+
+        if (todayDate == null || todayDate.isEmpty() || !todayDate.equals(currentDateFormatted)) {
+            Log.d(TAG, "New day or no saved date - getting random meal");
+
             return remoteDataSource.getRandomMeal()
                     .doOnSuccess(meal -> {
+                        Log.d(TAG, "Random meal fetched: " + meal.getName());
                         sharedPrefrenceLocalDataSource.saveTodayDate(currentDateFormatted);
                         sharedPrefrenceLocalDataSource.saveMealOfTheDayId(meal.getId());
                     });
         } else {
+            Log.d(TAG, "Same day - getting saved meal");
+
             String mealId = sharedPrefrenceLocalDataSource.getMealOfTheDayId();
-            if (mealId == null) {
+
+            if (mealId == null || mealId.isEmpty()) {
+                Log.d(TAG, "No meal ID saved - getting random meal");
+
                 return remoteDataSource.getRandomMeal()
-                        .doOnSuccess(meal -> sharedPrefrenceLocalDataSource.saveMealOfTheDayId(meal.getId()));
+                        .doOnSuccess(meal -> {
+                            Log.d(TAG, "Random meal fetched: " + meal.getName());
+                            sharedPrefrenceLocalDataSource.saveMealOfTheDayId(meal.getId());
+                        });
             } else {
-                return localDataSource.getMealById(mealId);
+                Log.d(TAG, "Getting meal by ID: " + mealId);
+
+                return remoteDataSource.getMealById(mealId);
             }
         }
-
     }
+
     public Single<List<Category>> getAllCategories() {
         return remoteDataSource.getAllCategories();
-
     }
 
     public Single<List<Ingredients>> getAllIngredients() {
         return remoteDataSource.getAllIngredients();
     }
+
     public Single<List<Country>> getAllAreas() {
         return remoteDataSource.getAllAreas()
                 .map(countriesNames -> {
@@ -84,45 +109,76 @@ public class MealsRepository {
                     return countries;
                 });
     }
+
     public Single<List<Meal>> filterByCategory(String category) {
+        Log.d(TAG, "Filtering by category: " + category);
         return remoteDataSource.filterByCategory(category);
     }
+
     public Single<List<Meal>> filterByArea(String area) {
+        Log.d(TAG, "Filtering by area: " + area);
         return remoteDataSource.filterByArea(area);
     }
+
     public Single<List<Meal>> filterByIngredient(String ingredient) {
+        Log.d(TAG, "Filtering by ingredient: " + ingredient);
         return remoteDataSource.filterByIngredient(ingredient);
     }
+
     public Single<List<Meal>> searchMealByName(String name) {
         return remoteDataSource.searchMealByName(name);
     }
+
     public Single<Meal> getMealById(String id) {
         return remoteDataSource.getMealById(id);
     }
+
     public Single<List<Meal>> getMealsByFirsrLetter() {
         Random random = new Random();
         int randomLetter = random.nextInt(26);
         char randomChar = (char) ('a' + randomLetter);
         return remoteDataSource.getMealsByFirstLetter(String.valueOf(randomChar));
     }
+
     public void saveCountry(String country) {
+        Log.d(TAG, "Saving country: " + country);
         sharedPrefrenceLocalDataSource.saveCountry(country);
+        sharedPrefrenceLocalDataSource.saveCategory(null);
+        sharedPrefrenceLocalDataSource.saveIngredients(null);
     }
+
     public void saveIngredients(String ingredients) {
+        Log.d(TAG, "Saving ingredients: " + ingredients);
         sharedPrefrenceLocalDataSource.saveIngredients(ingredients);
+        sharedPrefrenceLocalDataSource.saveCategory(null);
+        sharedPrefrenceLocalDataSource.saveCountry(null);
     }
+
     public void saveCategory(String category) {
+        Log.d(TAG, "Saving category: " + category);
         sharedPrefrenceLocalDataSource.saveCategory(category);
+        sharedPrefrenceLocalDataSource.saveCountry(null);
+        sharedPrefrenceLocalDataSource.saveIngredients(null);
     }
+
     public String retriveCountry() {
-        return sharedPrefrenceLocalDataSource.getCountry();
+        String country = sharedPrefrenceLocalDataSource.getCountry();
+        Log.d(TAG, "Retrieved country: " + country);
+        return country;
     }
+
     public String retriveIngredients() {
-        return sharedPrefrenceLocalDataSource.getIngredients();
+        String ingredients = sharedPrefrenceLocalDataSource.getIngredients();
+        Log.d(TAG, "Retrieved ingredients: " + ingredients);
+        return ingredients;
     }
+
     public String retriveCategory() {
-      return sharedPrefrenceLocalDataSource.getCategory();
+        String category = sharedPrefrenceLocalDataSource.getCategory();
+        Log.d(TAG, "Retrieved category: " + category);
+        return category;
     }
+
     @NonNull
     private static String getFlagUrl(@Nullable String title) {
         if (title == null) return "";
@@ -212,5 +268,4 @@ public class MealsRepository {
                 return "unknown";
         }
     }
-
 }

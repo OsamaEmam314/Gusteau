@@ -18,20 +18,32 @@ public class SharedPrefrenceLocalSource {
     public SharedPrefrenceLocalSource(Context context) {
         this.sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
-    public boolean isUserLoggedIn(){
+
+    public boolean isUserLoggedIn() {
         return sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false);
     }
 
+    public boolean isGuest() {
+        return sharedPreferences.getBoolean(KEY_IS_GUEST, false);
+    }
+
     public User getUserFromPreferences() {
+        boolean isGuest = sharedPreferences.getBoolean(KEY_IS_GUEST, false);
+
+        if (isGuest) {
+            return new User("guest_id", "Guest", "", true);
+        }
+
         String uid = sharedPreferences.getString(KEY_USER_ID, null);
         if (uid == null) {
             return null;
         }
+
         String name = sharedPreferences.getString(KEY_USER_NAME, "");
         String email = sharedPreferences.getString(KEY_USER_EMAIL, "");
-        boolean isGuest = sharedPreferences.getBoolean(KEY_IS_GUEST, false);
-        return new User(uid, name, email, isGuest);
+        return new User(uid, name, email, false);
     }
+
     public void saveUserToPreferences(User user) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(KEY_USER_ID, user.getUid());
@@ -41,6 +53,18 @@ public class SharedPrefrenceLocalSource {
         editor.putBoolean(KEY_IS_LOGGED_IN, true);
         editor.apply();
     }
+
+    public void setGuestMode() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(KEY_IS_GUEST, true);
+        editor.putBoolean(KEY_IS_LOGGED_IN, true);
+        editor.remove(KEY_USER_ID);
+        editor.remove(KEY_USER_NAME);
+        editor.remove(KEY_USER_EMAIL);
+        editor.remove(KEY_USER_EMAIL);
+        editor.apply();
+    }
+
     public void clearUserPreferences() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
