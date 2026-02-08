@@ -1,6 +1,7 @@
 package com.example.gusteau.data.authentication;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.gusteau.data.authentication.datasource.local.SharedPrefrenceLocalSource;
 import com.example.gusteau.data.authentication.datasource.remote.FirebaseDataSource;
@@ -8,9 +9,12 @@ import com.example.gusteau.data.model.User;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
 
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
 
 public class AuthRepository {
+
+    private static final String TAG = "AuthRepository";
 
     private final FirebaseDataSource firebaseDataSource;
     private final SharedPrefrenceLocalSource localDataSource;
@@ -22,54 +26,68 @@ public class AuthRepository {
 
     public Single<User> registerWithEmail(String name, String email, String password) {
         return firebaseDataSource.registerWithEmail(name, email, password)
-                .doOnSuccess(localDataSource::saveUserToPreferences);
+                .flatMap(user -> localDataSource.saveUserToPreferences(user)
+                        .andThen(Single.just(user)));
     }
 
     public Single<User> signInWithGoogle(GoogleIdTokenCredential credential) {
         return firebaseDataSource.signInWithGoogle(credential)
-                .doOnSuccess(localDataSource::saveUserToPreferences);
+                .flatMap(user -> localDataSource.saveUserToPreferences(user)
+                        .andThen(Single.just(user)));
     }
+
     public Single<User> signInWithEmail(String email, String password) {
         return firebaseDataSource.signInWithEmail(email, password)
-                .doOnSuccess(localDataSource::saveUserToPreferences);
+                .flatMap(user -> localDataSource.saveUserToPreferences(user)
+                        .andThen(Single.just(user)));
     }
+
     public Completable logout() {
         return firebaseDataSource.logout()
-                .doOnComplete(localDataSource::clearUserPreferences);
+                .andThen(localDataSource.clearUserPreferences());
     }
-    public void saveUserToPreferences(User user) {
-        localDataSource.saveUserToPreferences(user);
-    }
-
-
-
-
 
     public Completable loginAsGuest() {
-        return Completable.fromAction(() -> {
-            localDataSource.setGuestMode();
-        });
+        Log.d(TAG, "Logging in as guest - clearing all auth");
+
+        return firebaseDataSource.logout()
+                .doOnComplete(() -> Log.d(TAG, "Firebase logged out"))
+                .andThen(localDataSource.clearUserPreferences())
+                .doOnComplete(() -> Log.d(TAG, "User preferences cleared"))
+                .andThen(localDataSource.setGuestMode())
+                .doOnComplete(() -> Log.d(TAG, "Guest mode set"));
     }
 
     public Single<User> getCurrentUser() {
-        return firebaseDataSource.getCurrentUser()
-                .onErrorResumeNext(throwable -> {
-                    User cachedUser = localDataSource.getUserFromPreferences();
-                    if (cachedUser != null) {
-                        return Single.just(cachedUser);
+        return localDataSource.isGuest()
+                .flatMap(isGuest -> {
+                    if (isGuest) {
+                        Log.d(TAG, "User is guest");
+                        User guestUser = new User("guest_id", "Guest", "", true);
+                        return Single.just(guestUser);
                     } else {
-                        return Single.error(throwable);
+                        Log.d(TAG, "User is not guest, getting from preferences");
+                        return localDataSource.getUserFromPreferences()
+                                .switchIfEmpty(Maybe.defer(() -> {
+                                    Log.d(TAG, "No user in preferences, returning guest");
+                                    User guestUser = new User("guest_id", "Guest", "", true);
+                                    return localDataSource.saveUserToPreferences(guestUser)
+                                            .andThen(Maybe.just(guestUser));
+                                }))
+                                .toSingle();
                     }
                 });
     }
 
-    public boolean isGuestMode() {
-        // Safe check: If user is null, they aren't a guest (they are logged out)
-        User user = localDataSource.getUserFromPreferences();
-        return user != null && user.isGuest();
+
+    public Single<Boolean> isGuestMode() {
+        return localDataSource.isGuest()
+                .doOnSuccess(isGuest -> Log.d(TAG, "Is guest mode: " + isGuest));
     }
 
-    public boolean isUserLoggedIn() {
-        return localDataSource.isUserLoggedIn();
+
+    public Single<Boolean> isUserLoggedIn() {
+        return localDataSource.isUserLoggedIn()
+                .doOnSuccess(isLoggedIn -> Log.d(TAG, "Is logged in: " + isLoggedIn));
     }
 }

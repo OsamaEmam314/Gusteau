@@ -151,7 +151,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                 presenter.logInWithEmail(email, password);;
             }
         });
-        btnGuestMode.setOnClickListener(v -> presenter.navigateToHome());
+        btnGuestMode.setOnClickListener(v -> presenter.guestLogin());
         tvSignup.setOnClickListener(v -> presenter.navigateToRegister());
         btnGoogleSignIn.setOnClickListener(v ->{launchGoogleSignIn();} /*startGoogleSignIn()*/);
     }

@@ -128,7 +128,6 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     }
 
     private void loadAllData() {
-        showError("We Entered Load All Data");
         presenter.loadMealOfDay();
         presenter.loadCategories();
         presenter.loadCountries();
