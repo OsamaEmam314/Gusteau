@@ -1,7 +1,6 @@
 package com.example.gusteau.presentation.search.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.example.gusteau.data.authentication.AuthRepository;
 import com.example.gusteau.data.meals.MealsRepository;
@@ -119,16 +118,21 @@ public class SearchPresenter implements SearchContract.Presenter {
         performSearch(currentSearchQuery);
     }
 
+
+
     @Override
     public void onSearchQueryChange(String query) {
+        if (query != null && !query.trim().isEmpty()) {
+            currentFilterType = null;
+            view.uncheckAllChips();
+        }
 
-        currentFilterType = null;
         searchSubject.onNext(query != null ? query : "");
+
         if (query != null && !query.trim().isEmpty() && query.trim().length() < MIN_SEARCH_LENGTH) {
             view.updateResultsHeader("Type at least " + MIN_SEARCH_LENGTH + " characters to search");
         }
     }
-
     private void performSearch(String query) {
         view.showLoading();
         view.hideEmptyState();
@@ -170,8 +174,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 categories -> {
-                                    view.showCategoriesFilter();
-                                  //  view.showCategories(categories);
+                                   view.showCategories(categories);
                                 },
                                 error -> {
                                     view.showError("Failed to load categories");
@@ -190,8 +193,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 countries -> {
-                                    view.showCountriesFilter();
-                                   // view.showCountries(countries);
+                                   view.showCountries(countries);
                                 },
                                 error -> {
                                     view.showError("Failed to load countries");
@@ -210,8 +212,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 ingredients -> {
-                                    view.showIngredientsFilter();
-                                   // view.showIngredients(ingredients);
+                                    view.showIngredients(ingredients);
                                 },
                                 error -> {
                                     view.showError("Failed to load ingredients");

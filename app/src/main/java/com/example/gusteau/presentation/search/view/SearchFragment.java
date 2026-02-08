@@ -96,20 +96,43 @@ public class SearchFragment extends Fragment implements SearchContract.View {
         chipCategories.setOnClickListener(v -> {
             if (chipCategories.isChecked()) {
                 presenter.onCategoriesChipClick();
+            } else{
+                if(!areAnyChipsChecked()){
+                    presenter.loadInitialData();
+                }
             }
         });
 
         chipCountry.setOnClickListener(v -> {
             if (chipCountry.isChecked()) {
                 presenter.onCountryChipClick();
+            } else{
+                if(!areAnyChipsChecked()){
+                    presenter.loadInitialData();
+                }
             }
         });
 
         chipIngredients.setOnClickListener(v -> {
             if (chipIngredients.isChecked()) {
                 presenter.onIngredientsChipClick();
+            } else{
+                if(!areAnyChipsChecked()){
+                    presenter.loadInitialData();
+                }
             }
         });
+    }
+    @Override
+    public void uncheckAllChips() {
+        chipCategories.setChecked(false);
+        chipCountry.setChecked(false);
+        chipIngredients.setChecked(false);
+    }
+
+    @Override
+    public boolean areAnyChipsChecked() {
+        return chipCategories.isChecked() || chipCountry.isChecked() || chipIngredients.isChecked();
     }
 
     private void setupRecyclerView() {
@@ -127,7 +150,7 @@ public class SearchFragment extends Fragment implements SearchContract.View {
         rvSearchResults.setVisibility(View.VISIBLE);
     }
 
-/*    @Override
+    @Override
     public void showCategories(List<Category> categories) {
         showCategoriesBottomSheet(categories);
     }
@@ -155,7 +178,7 @@ public class SearchFragment extends Fragment implements SearchContract.View {
         FilterItemsAdapter filterAdapter = new FilterItemsAdapter(
                 categories,
                 category -> {
-                    presenter.onCategorySelected(category.getName());
+                    presenter.onCategorySelected(category);
                     filterDialog.dismiss();
                 }
         );
@@ -177,7 +200,7 @@ public class SearchFragment extends Fragment implements SearchContract.View {
         FilterItemsAdapter filterAdapter = new FilterItemsAdapter(
                 countries,
                 country -> {
-                    presenter.onCountrySelected(country.getName());
+                    presenter.onCountrySelected(country);
                     filterDialog.dismiss();
                 }
         );
@@ -199,14 +222,14 @@ public class SearchFragment extends Fragment implements SearchContract.View {
         FilterItemsAdapter filterAdapter = new FilterItemsAdapter(
                 ingredients,
                 ingredient -> {
-                    presenter.onIngredientSelected(ingredient.getName());
+                    presenter.onIngredientSelected(ingredient);
                     filterDialog.dismiss();
                 }
         );
 
         recyclerView.setAdapter(filterAdapter);
         filterDialog.show();
-    }*/
+    }
 
     @Override
     public void showEmptyState() {
@@ -290,20 +313,7 @@ public class SearchFragment extends Fragment implements SearchContract.View {
         }
     }
 
-    @Override
-    public void showCategoriesFilter() {
-        // Already handled in showCategories()
-    }
 
-    @Override
-    public void showCountriesFilter() {
-        // Already handled in showCountries()
-    }
-
-    @Override
-    public void showIngredientsFilter() {
-        // Already handled in showIngredients()
-    }
 
     @Override
     public void onDestroyView() {

@@ -11,10 +11,14 @@ import java.util.List;
 public interface SearchContract {
 
     interface View {
+        void uncheckAllChips();
+
+        boolean areAnyChipsChecked();
+
         void showSearchResults(List<Meal> meals);
-       // void showCategories(List<Category> categories);
-      //  void showCountries(List<Country> countries);
-     //   void showIngredients(List<Ingredients> ingredients);
+        void showCategories(List<Category> categories);
+        void showCountries(List<Country> countries);
+        void showIngredients(List<Ingredients> ingredients);
         void showEmptyState();
         void hideEmptyState();
         void showLoading();
@@ -26,9 +30,7 @@ public interface SearchContract {
         void showGuestModeMessage();
         void clearSearchQuery();
         void hideFilters();
-        void showCategoriesFilter();
-        void showCountriesFilter();
-        void showIngredientsFilter();
+
     }
 
     interface Presenter {
