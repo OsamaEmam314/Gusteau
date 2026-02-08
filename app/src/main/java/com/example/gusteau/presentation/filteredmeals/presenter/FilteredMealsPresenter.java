@@ -148,6 +148,9 @@ public class FilteredMealsPresenter implements FilteredMealsContract.Presenter {
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
                                     () -> {
+                                        if(meal.getId().equals(mealsRepository.getMealOfTheDayId())){
+                                            mealsRepository.setDayMealFavorited(true);
+                                        }
                                         meal.setFavorite(true);
                                         view.updateMealFavoriteStatus(position, true);
                                     },
@@ -163,6 +166,9 @@ public class FilteredMealsPresenter implements FilteredMealsContract.Presenter {
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
                                     () -> {
+                                        if(meal.getId().equals(mealsRepository.getMealOfTheDayId())){
+                                            mealsRepository.setDayMealFavorited(false);
+                                        }
                                         meal.setFavorite(false);
                                         view.updateMealFavoriteStatus(position, false);
                                     },
