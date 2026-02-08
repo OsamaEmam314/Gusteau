@@ -75,14 +75,7 @@
             android:ellipsize="end"
             tools:text="Spicy Basil Pesto" />
 
-        <TextView
-            android:id="@+id/tv_meal_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.Gusteau.Caption"
-            android:textColor="@color/text_tertiary_light"
-            android:layout_marginTop="@dimen/spacing_xxsmall"
-            tools:text="15 min • Easy" />
+
 
     </LinearLayout>
 

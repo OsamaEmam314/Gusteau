@@ -1,5 +1,4 @@
-package com.example.gusteau.presentation.filteredmeals.view;
-
+package com.example.gusteau.presentation.favorites.view;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,83 +17,86 @@ import com.google.android.material.imageview.ShapeableImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MealGridAdapter extends RecyclerView.Adapter<MealGridAdapter.MealViewHolder> {
+public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.FavoriteViewHolder> {
 
-    private List<Meal> meals;
+    private List<Meal> favorites;
     private OnMealClickListener clickListener;
     private OnFavoriteClickListener favoriteListener;
 
     public interface OnMealClickListener {
         void onMealClick(Meal meal);
     }
+
     public interface OnFavoriteClickListener {
         void onFavoriteClick(Meal meal, int position);
     }
-    public MealGridAdapter(OnMealClickListener clickListener, OnFavoriteClickListener favoriteListener) {
-        this.meals = new ArrayList<>();
+
+    public FavoritesAdapter(OnMealClickListener clickListener, OnFavoriteClickListener favoriteListener) {
+        this.favorites = new ArrayList<>();
         this.clickListener = clickListener;
         this.favoriteListener = favoriteListener;
     }
 
     @NonNull
     @Override
-    public MealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FavoriteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_meal_grid, parent, false);
-        return new MealViewHolder(view);
+        return new FavoriteViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MealViewHolder holder, int position) {
-        holder.bind(meals.get(position), position);
+    public void onBindViewHolder(@NonNull FavoriteViewHolder holder, int position) {
+        holder.bind(favorites.get(position), position);
     }
 
     @Override
     public int getItemCount() {
-        return meals.size();
+        return favorites.size();
     }
 
-    public void setMeals(List<Meal> meals) {
-        this.meals = meals;
+    public void setFavorites(List<Meal> favorites) {
+        this.favorites = favorites;
         notifyDataSetChanged();
     }
 
+    public void removeFavorite(int position) {
+        if (position >= 0 && position < favorites.size()) {
+            favorites.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, favorites.size());
+        }
+    }
+
     public void updateFavoriteStatus(int position, boolean isFavorite) {
-        if (position >= 0 && position < meals.size()) {
-            meals.get(position).setFavorite(isFavorite);
+        if (position >= 0 && position < favorites.size()) {
+            favorites.get(position).setFavorite(isFavorite);
             notifyItemChanged(position);
         }
     }
 
-    class MealViewHolder extends RecyclerView.ViewHolder {
+    class FavoriteViewHolder extends RecyclerView.ViewHolder {
 
         private final ShapeableImageView ivMeal;
         private final ImageButton btnFavorite;
         private final TextView tvMealName;
 
-        MealViewHolder(View itemView) {
+        FavoriteViewHolder(View itemView) {
             super(itemView);
             ivMeal = itemView.findViewById(R.id.iv_meal);
             btnFavorite = itemView.findViewById(R.id.btn_favorite);
             tvMealName = itemView.findViewById(R.id.tv_meal_name);
         }
+
         void bind(Meal meal, int position) {
             tvMealName.setText(meal.getName());
-
-            String info = meal.getCategory();
-            if (meal.getArea() != null && !meal.getArea().isEmpty()) {
-                info = meal.getArea() + " • " + meal.getCategory();
-            }
-
             Glide.with(itemView.getContext())
                     .load(meal.getImageUrl())
                     .placeholder(R.drawable.unloaded_image)
                     .error(R.drawable.unloaded_image)
                     .centerCrop()
                     .into(ivMeal);
-
-            updateFavoriteIcon(meal.isFavorite());
-
+            btnFavorite.setImageResource(R.drawable.ic_favorite);
             itemView.setOnClickListener(v -> {
                 if (clickListener != null) {
                     clickListener.onMealClick(meal);
@@ -106,11 +108,6 @@ public class MealGridAdapter extends RecyclerView.Adapter<MealGridAdapter.MealVi
                     favoriteListener.onFavoriteClick(meal, position);
                 }
             });
-        }
-
-        private void updateFavoriteIcon(boolean isFavorite) {
-            int iconRes = isFavorite ? R.drawable.ic_favorite : R.drawable.ic_favorite_border;
-            btnFavorite.setImageResource(iconRes);
         }
     }
 }

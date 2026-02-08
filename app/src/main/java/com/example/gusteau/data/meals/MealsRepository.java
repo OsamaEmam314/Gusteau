@@ -53,7 +53,9 @@ public class MealsRepository {
         return localDataSource.deleteMeal(id);
     }
 
-
+    public String getMealOfTheDayId() {
+        return sharedPrefrenceLocalDataSource.getMealOfTheDayId();
+    }
     public Single<Meal> getMealOfTheDay() {
         String todayDate = sharedPrefrenceLocalDataSource.getTodayDate();
         String currentDateFormatted = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
