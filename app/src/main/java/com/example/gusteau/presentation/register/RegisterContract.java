@@ -1,6 +1,5 @@
 package com.example.gusteau.presentation.register;
 
-import com.example.gusteau.data.model.User;
 
 public interface RegisterContract {
     interface View {

@@ -47,6 +47,9 @@
         android:name="com.example.gusteau.presentation.filteredmeals.view.FilteredMealsFragment"
         android:label="Filtered Meals"
         tools:layout="@layout/fragment_filtered_meals">
+        <action
+            android:id="@+id/action_navigation_filtered_meals_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/mealDetailsFragment"

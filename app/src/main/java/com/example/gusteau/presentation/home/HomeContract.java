@@ -1,6 +1,5 @@
 package com.example.gusteau.presentation.home;
 
-import android.hardware.Camera;
 
 import com.example.gusteau.data.model.Category;
 import com.example.gusteau.data.model.Country;
@@ -22,7 +21,9 @@ public interface HomeContract {
         void showCategories(List<Category> categories);
         void showCountries(List<Country> areas);
         void showIngredients(List<Ingredients> ingredients);
-        void navigateToMealDetails(String mealId);
+
+        void navigateToMealDetails();
+
         void navigateToFIlteredMeals();
         void setUserName(String userName);
     }

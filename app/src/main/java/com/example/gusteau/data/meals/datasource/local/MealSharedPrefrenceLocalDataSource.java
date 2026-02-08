@@ -10,6 +10,8 @@ public class MealSharedPrefrenceLocalDataSource {
     private static final String COUNTRY = "Country";
     private static final String Ingredients = "Ingredients";
     private static final String Category = "Category";
+    private static final String Meal = "Meal";
+    private static final String isDayMealFavorited = "isDayMealFavorited";
 
     private SharedPreferences sharedPreferences;
     public MealSharedPrefrenceLocalDataSource(Context context) {
@@ -18,6 +20,14 @@ public class MealSharedPrefrenceLocalDataSource {
     public void saveTodayDate(String date) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(TodayDate, date);
+        editor.apply();
+    }
+    public boolean isDayMealFavorited() {
+        return sharedPreferences.getBoolean(isDayMealFavorited, false);
+    }
+    public void setDayMealFavorited(boolean favorited) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(isDayMealFavorited, favorited);
         editor.apply();
     }
     public String getTodayDate() {
@@ -54,6 +64,19 @@ public class MealSharedPrefrenceLocalDataSource {
     }
     public String getCategory() {
         return sharedPreferences.getString(Category, "");
+    }
+    public void saveMeal(String meal) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Meal, meal);
+        editor.apply();
+    }
+    public String getMeal() {
+        return sharedPreferences.getString(Meal, "");
+    }
+    public void clearData() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
     }
 
 

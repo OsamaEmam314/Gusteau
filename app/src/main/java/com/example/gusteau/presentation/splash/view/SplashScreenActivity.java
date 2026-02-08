@@ -32,15 +32,15 @@ public class SplashScreenActivity extends AppCompatActivity {
         isLoggedIn = false;
         appLogo.animate()
                 .rotationBy(25f)
-                .setDuration(1000)
+                .setDuration(250)
                 .withEndAction(() -> {
                     appLogo.animate()
                             .rotationBy(-50f)
-                            .setDuration(1000)
+                            .setDuration(750)
                             .withEndAction(() -> {
                                 appLogo.animate()
                                         .rotationBy(35f)
-                                        .setDuration(1000).withEndAction(() -> {
+                                        .setDuration(500).withEndAction(() -> {
                                             if(isLoggedIn)
                                             {
                                                 intent = new Intent(SplashScreenActivity.this, MainActivity.class);

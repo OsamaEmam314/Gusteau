@@ -23,4 +23,7 @@ public interface MealDao {
     @Query("DELETE FROM meals WHERE id = :id")
     Completable deleteMeal(String id);
 
+    @Query("DELETE FROM meals")
+    Completable deleteAll();
+
 }

@@ -153,14 +153,15 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         chipCategory.setText(meal.getCategory());
         chipIngredient.setText(meal.getIngredient1());
 
+
         Glide.with(this)
                 .load(meal.getImageUrl())
                 .placeholder(R.drawable.ic_restaurant)
                 .error(R.drawable.unloaded_image)
                 .centerCrop()
                 .into(ivMealImage);
+        fabFavorite.setImageResource(meal.isFavorite() ? R.drawable.ic_favorite : R.drawable.ic_favorite_border);
 
-        updateMealOfDayFavoriteStatus(meal.isFavorite());
     }
 
     @Override
@@ -209,10 +210,9 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     }
 
     @Override
-    public void navigateToMealDetails(String mealId) {
-        Bundle bundle = new Bundle();
-        bundle.putString("meal_id", mealId);
-        Navigation.findNavController(requireView()).navigate(R.id.action_navigation_home_to_mealDetailsFragment, bundle);
+    public void navigateToMealDetails() {
+
+        Navigation.findNavController(requireView()).navigate(R.id.action_navigation_home_to_mealDetailsFragment);
     }
 
     @Override

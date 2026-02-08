@@ -54,9 +54,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     private TextView tvSignup;
     private ProgressBar progressBar;
     LoginPresenter presenter;
-/*    private SignInClient oneTapClient;
-    private BeginSignInRequest signInRequest;*/
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -115,10 +112,8 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                     public void onResult(GetCredentialResponse result) {
                         handleSignIn(result.getCredential());
                     }
-
                     @Override
                     public void onError(GetCredentialException e) {
-                        Log.e("LoginFragment", "Credential Manager Error: " + e.getMessage());
                         showError("Google Sign-In failed.");
                     }
                 }
@@ -137,7 +132,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                 presenter.logInWithGoogle(googleIdTokenCredential);
             }
         } else {
-            Log.w("TAG", "Credential is not of type Google ID!");
         }
     }
 
@@ -153,7 +147,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         });
         btnGuestMode.setOnClickListener(v -> presenter.guestLogin());
         tvSignup.setOnClickListener(v -> presenter.navigateToRegister());
-        btnGoogleSignIn.setOnClickListener(v ->{launchGoogleSignIn();} /*startGoogleSignIn()*/);
+        btnGoogleSignIn.setOnClickListener(v ->{launchGoogleSignIn();} );
     }
     public void idSetup(View view){
         etEmail = view.findViewById(R.id.et_email);

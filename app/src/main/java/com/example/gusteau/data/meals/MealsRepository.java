@@ -57,40 +57,42 @@ public class MealsRepository {
     public Single<Meal> getMealOfTheDay() {
         String todayDate = sharedPrefrenceLocalDataSource.getTodayDate();
         String currentDateFormatted = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-
-        Log.d(TAG, "Today's date from prefs: " + todayDate);
-        Log.d(TAG, "Current date formatted: " + currentDateFormatted);
-
         if (todayDate == null || todayDate.isEmpty() || !todayDate.equals(currentDateFormatted)) {
-            Log.d(TAG, "New day or no saved date - getting random meal");
-
             return remoteDataSource.getRandomMeal()
                     .doOnSuccess(meal -> {
-                        Log.d(TAG, "Random meal fetched: " + meal.getName());
                         sharedPrefrenceLocalDataSource.saveTodayDate(currentDateFormatted);
                         sharedPrefrenceLocalDataSource.saveMealOfTheDayId(meal.getId());
+                        sharedPrefrenceLocalDataSource.setDayMealFavorited(false);
                     });
         } else {
-            Log.d(TAG, "Same day - getting saved meal");
 
             String mealId = sharedPrefrenceLocalDataSource.getMealOfTheDayId();
 
             if (mealId == null || mealId.isEmpty()) {
-                Log.d(TAG, "No meal ID saved - getting random meal");
 
                 return remoteDataSource.getRandomMeal()
                         .doOnSuccess(meal -> {
-                            Log.d(TAG, "Random meal fetched: " + meal.getName());
                             sharedPrefrenceLocalDataSource.saveMealOfTheDayId(meal.getId());
+                            sharedPrefrenceLocalDataSource.setDayMealFavorited(false);
                         });
             } else {
                 Log.d(TAG, "Getting meal by ID: " + mealId);
-
                 return remoteDataSource.getMealById(mealId);
             }
         }
     }
+    public boolean isDayMealFavorited() {
+        return sharedPrefrenceLocalDataSource.isDayMealFavorited();
+    }
+    public Completable deleteAllFavMeals() {
+        return localDataSource.deleteAll().doOnComplete(() -> {
+            sharedPrefrenceLocalDataSource.clearData();
+        });
+    }
 
+    public void setDayMealFavorited(boolean favorited) {
+        sharedPrefrenceLocalDataSource.setDayMealFavorited(favorited);
+    }
     public Single<List<Category>> getAllCategories() {
         return remoteDataSource.getAllCategories();
     }
@@ -111,17 +113,14 @@ public class MealsRepository {
     }
 
     public Single<List<Meal>> filterByCategory(String category) {
-        Log.d(TAG, "Filtering by category: " + category);
         return remoteDataSource.filterByCategory(category);
     }
 
     public Single<List<Meal>> filterByArea(String area) {
-        Log.d(TAG, "Filtering by area: " + area);
         return remoteDataSource.filterByArea(area);
     }
 
     public Single<List<Meal>> filterByIngredient(String ingredient) {
-        Log.d(TAG, "Filtering by ingredient: " + ingredient);
         return remoteDataSource.filterByIngredient(ingredient);
     }
 
@@ -141,21 +140,18 @@ public class MealsRepository {
     }
 
     public void saveCountry(String country) {
-        Log.d(TAG, "Saving country: " + country);
         sharedPrefrenceLocalDataSource.saveCountry(country);
         sharedPrefrenceLocalDataSource.saveCategory(null);
         sharedPrefrenceLocalDataSource.saveIngredients(null);
     }
 
     public void saveIngredients(String ingredients) {
-        Log.d(TAG, "Saving ingredients: " + ingredients);
         sharedPrefrenceLocalDataSource.saveIngredients(ingredients);
         sharedPrefrenceLocalDataSource.saveCategory(null);
         sharedPrefrenceLocalDataSource.saveCountry(null);
     }
 
     public void saveCategory(String category) {
-        Log.d(TAG, "Saving category: " + category);
         sharedPrefrenceLocalDataSource.saveCategory(category);
         sharedPrefrenceLocalDataSource.saveCountry(null);
         sharedPrefrenceLocalDataSource.saveIngredients(null);
@@ -163,22 +159,56 @@ public class MealsRepository {
 
     public String retriveCountry() {
         String country = sharedPrefrenceLocalDataSource.getCountry();
-        Log.d(TAG, "Retrieved country: " + country);
         return country;
     }
 
     public String retriveIngredients() {
         String ingredients = sharedPrefrenceLocalDataSource.getIngredients();
-        Log.d(TAG, "Retrieved ingredients: " + ingredients);
         return ingredients;
     }
 
     public String retriveCategory() {
         String category = sharedPrefrenceLocalDataSource.getCategory();
-        Log.d(TAG, "Retrieved category: " + category);
         return category;
     }
+    public void saveMealDetailsID(String mealID){
+        sharedPrefrenceLocalDataSource.saveMeal(mealID);
+    }
+    public String getMealDetailsID(){
+        return sharedPrefrenceLocalDataSource.getMeal();
 
+    }
+
+    public Single<List<Meal>> checkFavoritesForMeals(List<Meal> meals) {
+        return Single.fromCallable(() -> {
+
+            for (Meal meal : meals) {
+                try {
+                    Meal favMeal = getFavMealById(meal.getId()).blockingGet();
+                    if (favMeal != null) {
+                        meal.setFavorite(true);
+                    }
+                } catch (Exception e) {
+                    meal.setFavorite(false);
+                }
+            }
+
+            return meals;
+        });
+    }
+    public Single<Meal> checkFavoritesForMeal(Meal meal) {
+        return Single.fromCallable(() -> {
+                try {
+                    Meal favMeal = getFavMealById(meal.getId()).blockingGet();
+                    if (favMeal != null) {
+                        meal.setFavorite(true);
+                    }
+                } catch (Exception e) {
+                    meal.setFavorite(false);
+                }
+            return meal;
+        });
+    }
     @NonNull
     private static String getFlagUrl(@Nullable String title) {
         if (title == null) return "";
