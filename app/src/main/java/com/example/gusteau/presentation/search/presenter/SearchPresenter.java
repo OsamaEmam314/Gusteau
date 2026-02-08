@@ -1,12 +1,12 @@
 package com.example.gusteau.presentation.search.presenter;
 
 import android.content.Context;
-
 import com.example.gusteau.data.authentication.AuthRepository;
 import com.example.gusteau.data.meals.MealsRepository;
 import com.example.gusteau.data.model.Meal;
 import com.example.gusteau.presentation.search.SearchContract;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -32,6 +32,12 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     private String currentFilterType = null;
     private String currentSearchQuery = null;
+
+    private List<Meal> currentFilteredMeals = new ArrayList<>();
+    private String currentCategory = null;
+    private String currentCountry = null;
+    private String currentIngredient = null;
+    private boolean isInFilterMode = false;
 
     public SearchPresenter(SearchContract.View view, Context context) {
         this.view = view;
@@ -63,7 +69,11 @@ public class SearchPresenter implements SearchContract.Presenter {
                 .subscribe(
                         query -> {
                             if (query == null || query.trim().isEmpty()) {
-                                loadInitialData();
+                                if (isInFilterMode) {
+                                    showCurrentFilteredResults();
+                                } else {
+                                    loadInitialData();
+                                }
                             } else {
                                 performSearch(query.trim());
                             }
@@ -78,9 +88,12 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void loadInitialData() {
+        resetFilterState();
+
         view.showLoading();
         view.hideEmptyState();
         view.updateResultsHeader("Trending Meals");
+
         disposables.add(
                 mealsRepository.getMealsByFirsrLetter()
                         .flatMap(this::checkFavoritesForMeals)
@@ -93,6 +106,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                                         view.showEmptyState();
                                     } else {
                                         view.hideEmptyState();
+                                        currentFilteredMeals = meals;
                                         view.showSearchResults(meals);
                                     }
                                 },
@@ -108,23 +122,22 @@ public class SearchPresenter implements SearchContract.Presenter {
     @Override
     public void onSearchQuerySubmit(String query) {
         if (query == null || query.trim().isEmpty()) {
-            loadInitialData();
+            if (isInFilterMode) {
+                showCurrentFilteredResults();
+            } else {
+                loadInitialData();
+            }
             return;
         }
 
         currentSearchQuery = query.trim();
-        currentFilterType = null;
-
         performSearch(currentSearchQuery);
     }
-
-
 
     @Override
     public void onSearchQueryChange(String query) {
         if (query != null && !query.trim().isEmpty()) {
             currentFilterType = null;
-            view.uncheckAllChips();
         }
 
         searchSubject.onNext(query != null ? query : "");
@@ -133,9 +146,49 @@ public class SearchPresenter implements SearchContract.Presenter {
             view.updateResultsHeader("Type at least " + MIN_SEARCH_LENGTH + " characters to search");
         }
     }
+
     private void performSearch(String query) {
         view.showLoading();
         view.hideEmptyState();
+
+        if (isInFilterMode && !currentFilteredMeals.isEmpty()) {
+            searchWithinFilteredResults(query);
+        } else {
+            performRegularSearch(query);
+        }
+    }
+
+    private void searchWithinFilteredResults(String query) {
+        disposables.add(
+                Single.fromCallable(() -> {
+                            List<Meal> filteredResults = new ArrayList<>();
+                            String searchLower = query.toLowerCase();
+
+                            for (Meal meal : currentFilteredMeals) {
+                                if (meal.getName() != null &&
+                                        meal.getName().toLowerCase().contains(searchLower)) {
+                                    filteredResults.add(meal);
+                                }
+                            }
+                            return filteredResults;
+                        })
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                meals -> {
+                                    view.hideLoading();
+                                    handleSearchResults(meals, query);
+                                },
+                                error -> {
+                                    view.hideLoading();
+                                    view.showError("Search failed");
+                                    view.showEmptyState();
+                                }
+                        )
+        );
+    }
+
+    private void performRegularSearch(String query) {
         view.updateResultsHeader("Search Results for \"" + query + "\"");
 
         disposables.add(
@@ -146,14 +199,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                         .subscribe(
                                 meals -> {
                                     view.hideLoading();
-
-                                    if (meals.isEmpty()) {
-                                        view.showEmptyState();
-                                        view.updateResultsHeader("No results for \"" + query + "\"");
-                                    } else {
-                                        view.hideEmptyState();
-                                        view.showSearchResults(meals);
-                                    }
+                                    handleSearchResults(meals, query);
                                 },
                                 error -> {
                                     view.hideLoading();
@@ -162,6 +208,26 @@ public class SearchPresenter implements SearchContract.Presenter {
                                 }
                         )
         );
+    }
+
+    private void handleSearchResults(List<Meal> meals, String query) {
+        if (meals.isEmpty()) {
+            view.showEmptyState();
+            if (isInFilterMode) {
+                view.updateResultsHeader("No results for \"" + query + "\" within " + getFilterDescription());
+            } else {
+                view.updateResultsHeader("No results for \"" + query + "\"");
+            }
+        } else {
+            view.hideEmptyState();
+            view.showSearchResults(meals);
+
+            if (isInFilterMode) {
+                view.updateResultsHeader("Search in " + getFilterDescription() + " for \"" + query + "\"");
+            } else {
+                view.updateResultsHeader("Search Results for \"" + query + "\"");
+            }
+        }
     }
 
     @Override
@@ -174,7 +240,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 categories -> {
-                                   view.showCategories(categories);
+                                    view.showCategories(categories);
                                 },
                                 error -> {
                                     view.showError("Failed to load categories");
@@ -182,26 +248,6 @@ public class SearchPresenter implements SearchContract.Presenter {
                         )
         );
     }
-
-    @Override
-    public void onCountryChipClick() {
-        currentFilterType = "country";
-
-        disposables.add(
-                mealsRepository.getAllAreas()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                countries -> {
-                                   view.showCountries(countries);
-                                },
-                                error -> {
-                                    view.showError("Failed to load countries");
-                                }
-                        )
-        );
-    }
-
     @Override
     public void onIngredientsChipClick() {
         currentFilterType = "ingredient";
@@ -220,10 +266,29 @@ public class SearchPresenter implements SearchContract.Presenter {
                         )
         );
     }
+    public void onCountryChipClick() {
+        currentFilterType = "country";
 
+        disposables.add(
+                mealsRepository.getAllAreas()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                countries -> {
+                                    view.showCountries(countries);
+                                },
+                                error -> {
+                                    view.showError("Failed to load countries");
+                                }
+                        )
+        );
+    }
     @Override
     public void onCategorySelected(String category) {
-        currentSearchQuery = null;
+        currentCategory = category;
+        currentCountry = null;
+        currentIngredient = null;
+        isInFilterMode = true;
 
         view.showLoading();
         view.hideEmptyState();
@@ -239,13 +304,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                         .subscribe(
                                 meals -> {
                                     view.hideLoading();
-
-                                    if (meals.isEmpty()) {
-                                        view.showEmptyState();
-                                    } else {
-                                        view.hideEmptyState();
-                                        view.showSearchResults(meals);
-                                    }
+                                    handleFilterResults(meals, category + " Meals");
                                 },
                                 error -> {
                                     view.hideLoading();
@@ -258,7 +317,10 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void onCountrySelected(String country) {
-        currentSearchQuery = null;
+        currentCountry = country;
+        currentCategory = null;
+        currentIngredient = null;
+        isInFilterMode = true;
 
         view.showLoading();
         view.hideEmptyState();
@@ -274,13 +336,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                         .subscribe(
                                 meals -> {
                                     view.hideLoading();
-
-                                    if (meals.isEmpty()) {
-                                        view.showEmptyState();
-                                    } else {
-                                        view.hideEmptyState();
-                                        view.showSearchResults(meals);
-                                    }
+                                    handleFilterResults(meals, country + " Meals");
                                 },
                                 error -> {
                                     view.hideLoading();
@@ -293,7 +349,10 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void onIngredientSelected(String ingredient) {
-        currentSearchQuery = null;
+        currentIngredient = ingredient;
+        currentCategory = null;
+        currentCountry = null;
+        isInFilterMode = true;
 
         view.showLoading();
         view.hideEmptyState();
@@ -309,13 +368,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                         .subscribe(
                                 meals -> {
                                     view.hideLoading();
-
-                                    if (meals.isEmpty()) {
-                                        view.showEmptyState();
-                                    } else {
-                                        view.hideEmptyState();
-                                        view.showSearchResults(meals);
-                                    }
+                                    handleFilterResults(meals, "Meals with " + ingredient);
                                 },
                                 error -> {
                                     view.hideLoading();
@@ -324,6 +377,49 @@ public class SearchPresenter implements SearchContract.Presenter {
                                 }
                         )
         );
+    }
+
+    private void handleFilterResults(List<Meal> meals, String header) {
+        if (meals.isEmpty()) {
+            view.showEmptyState();
+        } else {
+            view.hideEmptyState();
+            currentFilteredMeals = meals;
+            view.showSearchResults(meals);
+        }
+    }
+
+    private void showCurrentFilteredResults() {
+        view.showLoading();
+        view.hideEmptyState();
+
+        view.hideLoading();
+        if (currentFilteredMeals.isEmpty()) {
+            view.showEmptyState();
+        } else {
+            view.hideEmptyState();
+            view.showSearchResults(currentFilteredMeals);
+            view.updateResultsHeader(getFilterDescription());
+        }
+    }
+
+    private String getFilterDescription() {
+        if (currentCategory != null) {
+            return currentCategory + " Meals";
+        } else if (currentCountry != null) {
+            return currentCountry + " Meals";
+        } else if (currentIngredient != null) {
+            return "Meals with " + currentIngredient;
+        }
+        return "Trending Meals";
+    }
+
+    private void resetFilterState() {
+        currentCategory = null;
+        currentCountry = null;
+        currentIngredient = null;
+        currentFilteredMeals.clear();
+        isInFilterMode = false;
     }
 
     private Single<List<Meal>> checkFavoritesForMeals(List<Meal> meals) {
@@ -350,7 +446,6 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void onFavoriteClick(Meal meal, int position) {
-
         disposables.add(
                 authRepository.isGuestMode()
                         .subscribeOn(Schedulers.io())
