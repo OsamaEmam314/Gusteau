@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gusteau.R;
 import com.example.gusteau.data.model.Meal;
+import com.example.gusteau.presentation.GuestDialog;
 import com.example.gusteau.presentation.favorites.FavoritesContract;
 import com.example.gusteau.presentation.favorites.view.FavoritesAdapter;
 import com.example.gusteau.presentation.favorites.presenter.FavoritesPresenter;
@@ -126,10 +127,8 @@ public class FavoritesFragment extends Fragment implements FavoritesContract.Vie
     @Override
     public void showGuestModeMessage() {
         if (getView() != null) {
-            Snackbar.make(getView(),
-                            "Please login to manage favorites",
-                            Snackbar.LENGTH_LONG)
-                    .show();
+            GuestDialog guestDialog = new GuestDialog(requireContext(),getView());
+            guestDialog.showGuestModeMessage();
         }
     }
 

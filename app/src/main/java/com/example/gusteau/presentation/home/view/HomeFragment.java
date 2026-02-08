@@ -20,6 +20,7 @@ import com.example.gusteau.data.model.Category;
 import com.example.gusteau.data.model.Country;
 import com.example.gusteau.data.model.Ingredients;
 import com.example.gusteau.data.model.Meal;
+import com.example.gusteau.presentation.GuestDialog;
 import com.example.gusteau.presentation.home.HomeContract;
 import com.example.gusteau.presentation.home.presenter.HomePresenter;
 import com.google.android.material.card.MaterialCardView;
@@ -222,8 +223,10 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
     @Override
     public void showGuestModeMessage() {
-        Snackbar.make(requireView(), "Login to use favorites", Snackbar.LENGTH_LONG)
-                .show();
+        if (getView() != null) {
+            GuestDialog guestDialog = new GuestDialog(requireContext(),getView());
+            guestDialog.showGuestModeMessage();
+        }
     }
 
     @Override

@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gusteau.R;
 import com.example.gusteau.data.model.Meal;
+import com.example.gusteau.presentation.GuestDialog;
 import com.example.gusteau.presentation.filteredmeals.FilteredMealsContract;
-import com.example.gusteau.presentation.filteredmeals.view.MealGridAdapter;
 import com.example.gusteau.presentation.filteredmeals.presenter.FilteredMealsPresenter;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.snackbar.Snackbar;
@@ -119,7 +119,6 @@ public class FilteredMealsFragment extends Fragment implements FilteredMealsCont
             Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
         }
     }
-
     @Override
     public void updateMealFavoriteStatus(int position, boolean isFavorite) {
         adapter.updateFavoriteStatus(position, isFavorite);
@@ -152,10 +151,8 @@ public class FilteredMealsFragment extends Fragment implements FilteredMealsCont
     @Override
     public void showGuestModeMessage() {
         if (getView() != null) {
-            Snackbar.make(getView(),
-                            "Please login to add meals to favorites",
-                            Snackbar.LENGTH_LONG)
-                    .show();
+            GuestDialog guestDialog = new GuestDialog(requireContext(),getView());
+            guestDialog.showGuestModeMessage();
         }
     }
 

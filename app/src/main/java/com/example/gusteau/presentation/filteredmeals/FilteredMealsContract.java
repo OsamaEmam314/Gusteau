@@ -17,6 +17,8 @@ public interface FilteredMealsContract {
         void showEmptyState();
         void hideEmptyState();
         void navigateToMealDetails();
+
+
         void updateMealFavoriteStatus(int position, boolean isFavorite);
         void showGuestModeMessage();
     }

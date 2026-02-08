@@ -37,7 +37,6 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/spacing_xxxlarge">
 
-            <!-- Search Bar -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/search_card"
                 android:layout_width="0dp"
@@ -65,7 +64,6 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Filter Chips -->
             <HorizontalScrollView
                 android:id="@+id/horizontal_scroll_view"
                 android:layout_width="0dp"
