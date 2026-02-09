@@ -198,4 +198,5 @@
     <string name="select_day">Select Day</string>
     <string name="select_meal_type">Select Meal Type</string>
     <string name="delete_meal">Delete Meal</string>
+    <string name="snacks">Snacks</string>
 </resources>

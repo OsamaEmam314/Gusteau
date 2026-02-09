@@ -115,7 +115,6 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Day 3 - Wednesday -->
             <androidx.cardview.widget.CardView
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
@@ -152,7 +151,6 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Day 4 - Thursday -->
             <androidx.cardview.widget.CardView
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
@@ -189,7 +187,6 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Day 5 - Friday -->
             <androidx.cardview.widget.CardView
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
@@ -226,7 +223,6 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Day 6 - Saturday -->
             <androidx.cardview.widget.CardView
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
@@ -263,7 +259,6 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Day 7 - Sunday -->
             <androidx.cardview.widget.CardView
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
@@ -344,7 +339,6 @@
                 tools:itemCount="2"
                 tools:listitem="@layout/item_planned_meal" />
 
-            <!-- Add Breakfast Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_add_breakfast"
                 style="@style/Widget.Gusteau.Button.Outlined"
@@ -401,6 +395,33 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_add_dinner"
+                style="@style/Widget.Gusteau.Button.Outlined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_meal"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:layout_marginBottom="@dimen/spacing_large"
+                app:icon="@drawable/ic_add"
+                app:iconGravity="textStart" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/snacks"
+                android:textAppearance="@style/TextAppearance.Gusteau.Title"
+                android:paddingBottom="@dimen/spacing_small" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_snacks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_planned_meal" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_add_snacks"
                 style="@style/Widget.Gusteau.Button.Outlined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
