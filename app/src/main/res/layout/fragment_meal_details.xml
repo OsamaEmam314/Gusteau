@@ -93,14 +93,13 @@
                     style="@style/Widget.Gusteau.Chip.Static"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:chipIcon="@drawable/ic_location"
-                    app:chipIconTint="@color/text_secondary_light"
+                    android:layout_marginEnd="@dimen/spacing_small"
                     android:textColor="@color/text_primary_light"
                     app:chipBackgroundColor="@color/gray_100"
-                    app:chipStrokeWidth="1dp"
-                    app:chipStrokeColor="@color/primary_20"
-                    android:layout_marginEnd="@dimen/spacing_small"
-                    tools:text="Italy"/>
+                    app:chipIcon="@drawable/ic_location"
+                    app:chipIconTint="@color/text_secondary_light"
+                    app:chipStrokeWidth="0dp"
+                    tools:text="Italy" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipCategory"

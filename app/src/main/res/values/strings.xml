@@ -202,4 +202,6 @@
     <string name="guest_dialog_msg">Log in to save your favorite meals, add them to your plan and access them anytime, anywhere.</string>
     <string name="join_the_kitchen">Join the Kitchen</string>
     <string name="maybe_later">Maybe Later</string>
+    <string name="meal_type">Meal Type</string>
+    <string name="snack">Snack</string>
 </resources>

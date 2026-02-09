@@ -19,7 +19,6 @@ public class PlannedMeal {
     private String mealType;
     private long timestamp;
 
-    // Constructors
     public PlannedMeal() {
     }
 
