@@ -12,7 +12,7 @@ import com.example.gusteau.data.meals.datasource.local.PlannedMealDao;
 import com.example.gusteau.data.model.Meal;
 import com.example.gusteau.data.model.PlannedMeal;
 
-@Database(entities = {Meal.class, PlannedMeal.class }, version = 1, exportSchema = false)
+@Database(entities = {Meal.class, PlannedMeal.class }, version = 2, exportSchema = false)
 public abstract class MealDatabase extends RoomDatabase {
     public abstract MealDao mealDao();
     public abstract PlannedMealDao plannedMealDao();
@@ -26,7 +26,7 @@ public abstract class MealDatabase extends RoomDatabase {
                     context.getApplicationContext(),
                     MealDatabase.class,
                     "meal_database"
-            ).build();
+            ).fallbackToDestructiveMigration().build();
         }
         return instance;
     }

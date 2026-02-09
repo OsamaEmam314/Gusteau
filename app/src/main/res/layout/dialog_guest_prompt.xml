@@ -22,11 +22,11 @@
             android:layout_height="72dp"
             android:src="@drawable/app_logo"
             android:layout_marginBottom="16dp"
-            android:contentDescription="Login Icon"/>
+  />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Join the Kitchen"
+            android:text="@string/join_the_kitchen"
             android:textAppearance="?attr/textAppearanceHeadline5"
             android:textStyle="bold"
             android:textColor="@color/text_primary_light"
@@ -35,7 +35,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Log in to save your favorite meals and access them anytime, anywhere."
+            android:text="@string/guest_dialog_msg"
             android:textAppearance="?attr/textAppearanceBody1"
             android:textColor="@color/text_secondary_light"
             android:textAlignment="center"
@@ -51,7 +51,7 @@
                 android:id="@+id/btn_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Maybe Later"
+                android:text="@string/maybe_later"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:textColor="@color/text_secondary_light"
                 android:layout_marginEnd="8dp"/>
@@ -60,7 +60,7 @@
                 android:id="@+id/btn_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Log In"
+                android:text="@string/login"
                 android:backgroundTint="@color/primary"
                 style="@style/Widget.MaterialComponents.Button"/>
         </LinearLayout>

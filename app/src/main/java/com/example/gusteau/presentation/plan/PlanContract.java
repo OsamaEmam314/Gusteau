@@ -19,8 +19,6 @@ public interface PlanContract {
         void navigateToMealDetails();
         void navigateToSearchForMeal();
         void showGuestModeMessage();
-        void showEmptyState(String mealType);
-        void hideEmptyState(String mealType);
     }
 
     interface Presenter {

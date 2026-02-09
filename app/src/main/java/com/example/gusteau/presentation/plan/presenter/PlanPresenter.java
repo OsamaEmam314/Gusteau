@@ -62,7 +62,6 @@ public class PlanPresenter implements PlanContract.Presenter {
         Log.d(TAG, "Week dates: " + String.join(", ", weekDates));
         view.updateWeekDays(dayNumbers, 0);
         selectedDayIndex = 0;
-
         cleanupOldPlans(todayDate);
     }
 
@@ -112,12 +111,6 @@ public class PlanPresenter implements PlanContract.Presenter {
                                 meals -> {
                                     view.hideLoading();
 
-                                    if (meals.isEmpty()) {
-                                        view.showEmptyState(mealType);
-                                    } else {
-                                        view.hideEmptyState(mealType);
-                                    }
-
                                     switch (mealType) {
                                         case "Breakfast":
                                             view.showBreakfastMeals(meals);
@@ -140,15 +133,12 @@ public class PlanPresenter implements PlanContract.Presenter {
                                     switch (mealType) {
                                         case "Breakfast":
                                             view.showBreakfastMeals(emptyList);
-                                            view.showEmptyState(mealType);
                                             break;
                                         case "Lunch":
                                             view.showLunchMeals(emptyList);
-                                            view.showEmptyState(mealType);
                                             break;
                                         case "Dinner":
                                             view.showDinnerMeals(emptyList);
-                                            view.showEmptyState(mealType);
                                             break;
                                     }
                                 }
