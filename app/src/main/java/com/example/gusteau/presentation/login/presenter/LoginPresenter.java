@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.gusteau.data.authentication.AuthRepository;
 import com.example.gusteau.data.model.User;
+import com.example.gusteau.data.network.NetworkState;
 import com.example.gusteau.presentation.login.LoginContract;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -20,8 +21,10 @@ public class LoginPresenter implements LoginContract.Presenter {
     private LoginContract.View view;
     private final AuthRepository authRepository;
     private final CompositeDisposable disposables = new CompositeDisposable();
+    Context context;
 
     public LoginPresenter(LoginContract.View view, Context context) {
+        this.context = context;
         this.view = view;
         this.authRepository = new AuthRepository(context);
     }
@@ -192,10 +195,18 @@ public class LoginPresenter implements LoginContract.Presenter {
                         .subscribe(
                                 () -> {
                                     view.hideLoading();
+                                    if (!NetworkState.isNetworkAvailable(context)) {
+                                        view.showError("Network error. Please check your connection.");
+                                        return;
+                                    }
                                     navigateToHome();
                                 },
                                 error -> {
                                     view.hideLoading();
+                                    if (!NetworkState.isNetworkAvailable(context)) {
+                                        view.showError("Network error. Please check your connection.");
+                                        return;
+                                    }
                                     view.showError("Failed to login as guest: " + error.getMessage());
                                 }
                         )

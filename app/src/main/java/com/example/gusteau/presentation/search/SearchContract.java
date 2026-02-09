@@ -31,6 +31,7 @@ public interface SearchContract {
         void clearSearchQuery();
         void hideFilters();
 
+        void showNoInternetDialog();
     }
 
     interface Presenter {

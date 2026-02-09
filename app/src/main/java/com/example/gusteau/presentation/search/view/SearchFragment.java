@@ -20,7 +20,9 @@ import com.example.gusteau.data.model.Category;
 import com.example.gusteau.data.model.Country;
 import com.example.gusteau.data.model.Ingredients;
 import com.example.gusteau.data.model.Meal;
-import com.example.gusteau.presentation.GuestDialog;
+import com.example.gusteau.data.network.NetworkState;
+import com.example.gusteau.presentation.dialog.GuestDialog;
+import com.example.gusteau.presentation.dialog.NoInternetDialog;
 import com.example.gusteau.presentation.search.SearchContract;
 import com.example.gusteau.presentation.search.presenter.SearchPresenter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -44,6 +46,8 @@ public class SearchFragment extends Fragment implements SearchContract.View {
     private SearchPresenter presenter;
 
     private BottomSheetDialog filterDialog;
+    private NoInternetDialog noInternetDialog;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,8 +65,25 @@ public class SearchFragment extends Fragment implements SearchContract.View {
         setupRecyclerView();
 
         presenter = new SearchPresenter(this, requireContext());
-
         presenter.loadInitialData();
+
+    }
+    @Override
+    public void showNoInternetDialog() {
+        if (noInternetDialog != null && noInternetDialog.isShowing()) {
+            noInternetDialog.dismiss();
+        }
+
+        noInternetDialog = NoInternetDialog.show(
+                requireContext(),
+                () -> {
+                    if (NetworkState.isNetworkAvailable(requireContext())) {
+                        presenter.loadInitialData();
+                    } else {
+                        showNoInternetDialog();
+                    }
+                }
+        );
     }
 
     private void initViews(View view) {

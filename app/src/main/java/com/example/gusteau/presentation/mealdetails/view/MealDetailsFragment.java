@@ -1,7 +1,6 @@
 package com.example.gusteau.presentation.mealdetails.view;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.gusteau.R;
 import com.example.gusteau.data.model.Meal;
-import com.example.gusteau.presentation.GuestDialog;
+import com.example.gusteau.data.network.NetworkState;
+import com.example.gusteau.presentation.dialog.GuestDialog;
+import com.example.gusteau.presentation.dialog.NoInternetDialog;
 import com.example.gusteau.presentation.mealdetails.MealDetailsContract;
 import com.example.gusteau.presentation.mealdetails.presenter.MealDetailsPresenter;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -61,6 +62,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsContract
 
     private String mealId;
     private List<MealDetailsContract.DayInfo> weekDays;
+    private NoInternetDialog noInternetDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,10 +80,28 @@ public class MealDetailsFragment extends Fragment implements MealDetailsContract
         setupFABs();
         presenter = new MealDetailsPresenter(this, requireContext());
         mealId = presenter.getMealId();
-        presenter.loadMealDetails(mealId);
-
+        if (NetworkState.isNetworkAvailable(requireContext())) {
+            presenter.loadMealDetails(mealId);
+        } else {
+            showNoInternetDialog();
+        }
     }
+    public void showNoInternetDialog() {
+        if (noInternetDialog != null && noInternetDialog.isShowing()) {
+            noInternetDialog.dismiss();
+        }
 
+        noInternetDialog = NoInternetDialog.show(
+                requireContext(),
+                () -> {
+                    if (NetworkState.isNetworkAvailable(requireContext())) {
+                        presenter.loadMealDetails(mealId);
+                    } else {
+                        showNoInternetDialog();
+                    }
+                }
+        );
+    }
     private void initViews(View view) {
         toolbar = view.findViewById(R.id.toolbar);
         svContent = view.findViewById(R.id.svContent);

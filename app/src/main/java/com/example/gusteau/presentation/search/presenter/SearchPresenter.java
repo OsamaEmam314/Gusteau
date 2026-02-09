@@ -4,6 +4,7 @@ import android.content.Context;
 import com.example.gusteau.data.authentication.AuthRepository;
 import com.example.gusteau.data.meals.MealsRepository;
 import com.example.gusteau.data.model.Meal;
+import com.example.gusteau.data.network.NetworkState;
 import com.example.gusteau.presentation.search.SearchContract;
 
 import java.util.ArrayList;
@@ -38,9 +39,11 @@ public class SearchPresenter implements SearchContract.Presenter {
     private String currentCountry = null;
     private String currentIngredient = null;
     private boolean isInFilterMode = false;
+    private Context context;
 
     public SearchPresenter(SearchContract.View view, Context context) {
         this.view = view;
+        this.context = context;
         this.mealsRepository = new MealsRepository(context);
         this.authRepository = new AuthRepository(context);
         this.disposables = new CompositeDisposable();
@@ -80,6 +83,9 @@ public class SearchPresenter implements SearchContract.Presenter {
                         },
                         error -> {
                             view.showError("Search error");
+                            if(!NetworkState.isNetworkAvailable(context)){
+                                view.showNoInternetDialog();
+                            }
                         }
                 );
 
@@ -112,8 +118,10 @@ public class SearchPresenter implements SearchContract.Presenter {
                                 },
                                 error -> {
                                     view.hideLoading();
-                                    view.showError("Failed to load meals");
                                     view.showEmptyState();
+                                    if(!NetworkState.isNetworkAvailable(context)){
+                                        view.showNoInternetDialog();
+                                    }
                                 }
                         )
         );
@@ -181,8 +189,10 @@ public class SearchPresenter implements SearchContract.Presenter {
                                 },
                                 error -> {
                                     view.hideLoading();
-                                    view.showError("Search failed");
                                     view.showEmptyState();
+                                    if(!NetworkState.isNetworkAvailable(context)){
+                                        view.showNoInternetDialog();
+                                    }
                                 }
                         )
         );
@@ -203,8 +213,11 @@ public class SearchPresenter implements SearchContract.Presenter {
                                 },
                                 error -> {
                                     view.hideLoading();
-                                    view.showError("Search failed");
                                     view.showEmptyState();
+
+                                    if(!NetworkState.isNetworkAvailable(context)){
+                                        view.showNoInternetDialog();
+                                    }
                                 }
                         )
         );
@@ -243,7 +256,9 @@ public class SearchPresenter implements SearchContract.Presenter {
                                     view.showCategories(categories);
                                 },
                                 error -> {
-                                    view.showError("Failed to load categories");
+                                    if(!NetworkState.isNetworkAvailable(context)){
+                                        view.showNoInternetDialog();
+                                    }
                                 }
                         )
         );
@@ -261,7 +276,9 @@ public class SearchPresenter implements SearchContract.Presenter {
                                     view.showIngredients(ingredients);
                                 },
                                 error -> {
-                                    view.showError("Failed to load ingredients");
+                                    if(!NetworkState.isNetworkAvailable(context)){
+                                        view.showNoInternetDialog();
+                                    }
                                 }
                         )
         );
@@ -278,7 +295,9 @@ public class SearchPresenter implements SearchContract.Presenter {
                                     view.showCountries(countries);
                                 },
                                 error -> {
-                                    view.showError("Failed to load countries");
+                                    if(!NetworkState.isNetworkAvailable(context)){
+                                        view.showNoInternetDialog();
+                                    }
                                 }
                         )
         );
@@ -308,8 +327,10 @@ public class SearchPresenter implements SearchContract.Presenter {
                                 },
                                 error -> {
                                     view.hideLoading();
-                                    view.showError("Failed to filter meals");
                                     view.showEmptyState();
+                                    if(!NetworkState.isNetworkAvailable(context)){
+                                        view.showNoInternetDialog();
+                                    }
                                 }
                         )
         );
@@ -340,8 +361,10 @@ public class SearchPresenter implements SearchContract.Presenter {
                                 },
                                 error -> {
                                     view.hideLoading();
-                                    view.showError("Failed to filter meals");
                                     view.showEmptyState();
+                                    if(!NetworkState.isNetworkAvailable(context)){
+                                        view.showNoInternetDialog();
+                                    }
                                 }
                         )
         );
@@ -372,8 +395,10 @@ public class SearchPresenter implements SearchContract.Presenter {
                                 },
                                 error -> {
                                     view.hideLoading();
-                                    view.showError("Failed to filter meals");
                                     view.showEmptyState();
+                                    if(!NetworkState.isNetworkAvailable(context)){
+                                        view.showNoInternetDialog();
+                                    }
                                 }
                         )
         );
@@ -459,8 +484,9 @@ public class SearchPresenter implements SearchContract.Presenter {
                                     }
                                 },
                                 error -> {
-                                    view.showError("Failed to check user status");
-                                }
+                                    if(!NetworkState.isNetworkAvailable(context)){
+                                        view.showNoInternetDialog();
+                                    }                                }
                         )
         );
     }
@@ -482,8 +508,9 @@ public class SearchPresenter implements SearchContract.Presenter {
                                         view.updateMealFavoriteStatus(position, true);
                                     },
                                     error -> {
-                                        view.showError("Failed to add to favorites");
-                                    }
+                                        if(!NetworkState.isNetworkAvailable(context)){
+                                            view.showNoInternetDialog();
+                                        }                                    }
                             )
             );
         } else {
@@ -500,8 +527,9 @@ public class SearchPresenter implements SearchContract.Presenter {
                                         view.updateMealFavoriteStatus(position, false);
                                     },
                                     error -> {
-                                        view.showError("Failed to remove from favorites");
-                                    }
+                                        if(!NetworkState.isNetworkAvailable(context)){
+                                            view.showNoInternetDialog();
+                                        }                                    }
                             )
             );
         }

@@ -63,7 +63,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:src="@drawable/ic_launcher_background"
+                android:src="@drawable/unloaded_image"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -76,7 +76,7 @@
                 app:layout_constraintTop_toBottomOf="@id/ivMealImage"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:text="Classic Margherita Pizza" />
+                android:text="@string/meal_name" />
 
             <LinearLayout
                 android:id="@+id/llTags"
@@ -99,7 +99,7 @@
                     app:chipIcon="@drawable/ic_location"
                     app:chipIconTint="@color/text_secondary_light"
                     app:chipStrokeWidth="0dp"
-                    tools:text="Italy" />
+                    android:text="@string/country" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipCategory"
@@ -111,7 +111,7 @@
                     android:textColor="@color/text_primary_light"
                     app:chipBackgroundColor="@color/gray_100"
                     app:chipStrokeWidth="0dp"
-                    tools:text="Vegetarian"/>
+                    android:text="@string/category"/>
             </LinearLayout>
 
             <TextView
@@ -124,7 +124,6 @@
                 app:layout_constraintTop_toBottomOf="@id/llTags"
                 app:layout_constraintStart_toStartOf="@id/tvTitle"/>
 
-            <!-- CHANGED: RecyclerView instead of static LinearLayout -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIngredients"
                 android:layout_width="0dp"
@@ -171,7 +170,6 @@
                 app:layout_constraintTop_toBottomOf="@id/youtube_player_view"
                 app:layout_constraintStart_toStartOf="@id/tvTitle"/>
 
-            <!-- CHANGED: RecyclerView instead of static step cards -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvSteps"
                 android:layout_width="0dp"
@@ -188,7 +186,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <!-- CHANGED: Better FAB icons -->
     <LinearLayout
         android:id="@+id/llFabContainer"
         android:layout_width="wrap_content"

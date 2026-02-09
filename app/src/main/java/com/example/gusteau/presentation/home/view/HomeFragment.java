@@ -20,7 +20,9 @@ import com.example.gusteau.data.model.Category;
 import com.example.gusteau.data.model.Country;
 import com.example.gusteau.data.model.Ingredients;
 import com.example.gusteau.data.model.Meal;
-import com.example.gusteau.presentation.GuestDialog;
+import com.example.gusteau.data.network.NetworkState;
+import com.example.gusteau.presentation.dialog.GuestDialog;
+import com.example.gusteau.presentation.dialog.NoInternetDialog;
 import com.example.gusteau.presentation.home.HomeContract;
 import com.example.gusteau.presentation.home.presenter.HomePresenter;
 import com.google.android.material.card.MaterialCardView;
@@ -56,6 +58,8 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     private ProgressBar progressBar;
     private HomePresenter presenter;
     private Meal currentMealOfDay;
+    private NoInternetDialog noInternetDialog;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,9 +79,30 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
         presenter.setGreeting();
         presenter.getUserName();
-        loadAllData();
+
+        if (!NetworkState.isNetworkAvailable(requireContext())) {
+            showNoInternetDialog();
+        } else {
+            loadAllData();
+        }
     }
 
+    private void showNoInternetDialog() {
+        if (noInternetDialog != null && noInternetDialog.isShowing()) {
+            noInternetDialog.dismiss();
+        }
+
+        noInternetDialog = NoInternetDialog.show(
+                requireContext(),
+                () -> {
+                    if (NetworkState.isNetworkAvailable(requireContext())) {
+                        loadAllData();
+                    } else {
+                        showNoInternetDialog();
+                    }
+                }
+        );
+    }
     private void initViews(View view) {
         ivUserAvatar = view.findViewById(R.id.iv_user_avatar);
         tvGreeting = view.findViewById(R.id.tv_greeting);

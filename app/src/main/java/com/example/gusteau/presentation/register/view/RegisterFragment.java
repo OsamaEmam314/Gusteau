@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.gusteau.MainActivity;
 import com.example.gusteau.R;
+import com.example.gusteau.data.network.NetworkState;
 import com.example.gusteau.presentation.onboarding.view.OnBoardingActivity;
 import com.example.gusteau.presentation.register.RegisterContract;
 import com.example.gusteau.presentation.register.presenter.RegisterPresenter;
@@ -85,6 +86,8 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
         setupTextChangeListeners();
 
     }
+
+
       public void idSetup(View view){
           etName = view.findViewById(R.id.et_name);
           etEmail = view.findViewById(R.id.et_email);

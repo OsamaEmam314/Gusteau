@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gusteau.R;
 import com.example.gusteau.data.model.PlannedMeal;
-import com.example.gusteau.presentation.GuestDialog;
+import com.example.gusteau.presentation.dialog.GuestDialog;
 import com.example.gusteau.presentation.plan.PlanContract;
 import com.example.gusteau.presentation.plan.presenter.PlanPresenter;
 import com.google.android.material.button.MaterialButton;

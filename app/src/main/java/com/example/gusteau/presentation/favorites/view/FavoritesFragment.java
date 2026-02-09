@@ -15,11 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gusteau.R;
 import com.example.gusteau.data.model.Meal;
-import com.example.gusteau.presentation.GuestDialog;
+import com.example.gusteau.presentation.dialog.GuestDialog;
 import com.example.gusteau.presentation.favorites.FavoritesContract;
-import com.example.gusteau.presentation.favorites.view.FavoritesAdapter;
 import com.example.gusteau.presentation.favorites.presenter.FavoritesPresenter;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;

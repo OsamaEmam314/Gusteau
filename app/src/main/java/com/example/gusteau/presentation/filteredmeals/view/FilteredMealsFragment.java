@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gusteau.R;
 import com.example.gusteau.data.model.Meal;
-import com.example.gusteau.presentation.GuestDialog;
+import com.example.gusteau.data.network.NetworkState;
+import com.example.gusteau.presentation.dialog.GuestDialog;
+import com.example.gusteau.presentation.dialog.NoInternetDialog;
 import com.example.gusteau.presentation.filteredmeals.FilteredMealsContract;
 import com.example.gusteau.presentation.filteredmeals.presenter.FilteredMealsPresenter;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -31,10 +33,10 @@ public class FilteredMealsFragment extends Fragment implements FilteredMealsCont
     private RecyclerView rvMeals;
     private LinearLayout llEmptyState;
     private ProgressBar progressBar;
-
-
     private MealGridAdapter adapter;
     private FilteredMealsPresenter presenter;
+    private NoInternetDialog noInternetDialog;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +52,27 @@ public class FilteredMealsFragment extends Fragment implements FilteredMealsCont
         setupToolbar();
         setupRecyclerView();
         presenter = new FilteredMealsPresenter(this, requireContext());
-        presenter.loadFilteredMeals();
+        if(!NetworkState.isNetworkAvailable(requireContext())){
+            showNoInternetDialog();
+        } else{
+          presenter.loadFilteredMeals();
+        }
+    }
+    public void showNoInternetDialog() {
+        if (noInternetDialog != null && noInternetDialog.isShowing()) {
+            noInternetDialog.dismiss();
+        }
+
+        noInternetDialog = NoInternetDialog.show(
+                requireContext(),
+                () -> {
+                    if (NetworkState.isNetworkAvailable(requireContext())) {
+                        presenter.loadFilteredMeals();
+                    } else {
+                        showNoInternetDialog();
+                    }
+                }
+        );
     }
 
     private void initViews(View view) {

@@ -1,4 +1,4 @@
-package com.example.gusteau.presentation;
+package com.example.gusteau.presentation.dialog;
 
 import android.content.Context;
 import android.content.Intent;
@@ -41,7 +41,7 @@ public class GuestDialog {
         });
 
         btnCancel.setOnClickListener(v -> dialog.dismiss());
-
+        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
 }
