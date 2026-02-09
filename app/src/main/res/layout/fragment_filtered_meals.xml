@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:paddingTop="@dimen/spacing_xlarge"
+        app:navigationIcon="@drawable/ic_arrow_back"
+
         android:paddingHorizontal="@dimen/spacing_normal"
         app:title="@string/type"
         app:titleTextAppearance="@style/TextAppearance.Gusteau.Title"

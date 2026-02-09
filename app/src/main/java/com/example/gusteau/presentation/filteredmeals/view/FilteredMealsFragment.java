@@ -32,6 +32,7 @@ public class FilteredMealsFragment extends Fragment implements FilteredMealsCont
     private LinearLayout llEmptyState;
     private ProgressBar progressBar;
 
+
     private MealGridAdapter adapter;
     private FilteredMealsPresenter presenter;
 
