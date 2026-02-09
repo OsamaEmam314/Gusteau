@@ -59,4 +59,5 @@ dependencies {
     implementation(libs.roomrx)
     implementation(libs.play.services.auth)
     annotationProcessor(libs.room.compiler)
+    implementation(libs.core)
 }

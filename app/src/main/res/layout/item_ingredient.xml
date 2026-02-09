@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/ingredient_circle_min_width"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_marginEnd="@dimen/spacing_small">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_ingredient"
+        android:layout_width="@dimen/ingredient_circle_size"
+        android:layout_height="@dimen/ingredient_circle_size"
+        android:background="@color/gray_100"
+        android:padding="2dp"
+        app:strokeColor="@color/white"
+        app:strokeWidth="@dimen/stroke_width_medium"
+        style="@style/Widget.Gusteau.ImageView.Circular"
+        tools:src="@drawable/ic_launcher_foreground"/>
+
+    <TextView
+        android:id="@+id/tv_ingredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_xsmall"
+        style="@style/TextAppearance.Gusteau.Caption.Bold"
+        android:maxLines="1"
+        android:ellipsize="end"
+        tools:text="Flour"/>
+
+    <TextView
+        android:id="@+id/tv_measure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        style="@style/TextAppearance.Gusteau.Caption"
+        android:textColor="@color/text_tertiary_light"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="10sp"
+        tools:text="2 cups"/>
+
+</LinearLayout>
