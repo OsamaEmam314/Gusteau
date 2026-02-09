@@ -8,11 +8,13 @@ import androidx.annotation.Nullable;
 
 import com.example.gusteau.data.meals.datasource.local.MealLocalDataSource;
 import com.example.gusteau.data.meals.datasource.local.MealSharedPrefrenceLocalDataSource;
+import com.example.gusteau.data.meals.datasource.local.PlannedMealLocalDataSource;
 import com.example.gusteau.data.meals.datasource.remote.RemoteMealDataSource;
 import com.example.gusteau.data.model.Category;
 import com.example.gusteau.data.model.Country;
 import com.example.gusteau.data.model.Ingredients;
 import com.example.gusteau.data.model.Meal;
+import com.example.gusteau.data.model.PlannedMeal;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,11 +31,13 @@ public class MealsRepository {
 
     private final RemoteMealDataSource remoteDataSource;
     private final MealLocalDataSource localDataSource;
+    private final PlannedMealLocalDataSource plannedMealLocalDataSource;
     private final MealSharedPrefrenceLocalDataSource sharedPrefrenceLocalDataSource;
 
     public MealsRepository(Context context) {
         this.remoteDataSource = new RemoteMealDataSource();
         this.localDataSource = new MealLocalDataSource(context);
+        this.plannedMealLocalDataSource = new PlannedMealLocalDataSource(context);
         this.sharedPrefrenceLocalDataSource = new MealSharedPrefrenceLocalDataSource(context);
     }
 
@@ -51,6 +55,27 @@ public class MealsRepository {
 
     public Completable deleteFavMeal(String id) {
         return localDataSource.deleteMeal(id);
+    }
+    public Completable insertPlannedMeal(PlannedMeal meal) {
+        return plannedMealLocalDataSource.insertMeal(meal);
+    }
+    public Completable deletePlannedMeal(PlannedMeal meal) {
+        return plannedMealLocalDataSource.deleteMeal(meal);
+    }
+    public Single<List<PlannedMeal>> getPlannedMealsByDay(String dayDate) {
+        return plannedMealLocalDataSource.getMealsByDay(dayDate);
+    }
+    public Single<List<PlannedMeal>> getPlannedMealsByDayAndType(String dayDate, String mealType) {
+        return plannedMealLocalDataSource.getMealsByDayAndType(dayDate, mealType);
+    }
+    public Single<List<PlannedMeal>> getAllPlannedMeals() {
+        return plannedMealLocalDataSource.getAllPlannedMeals();
+    }
+    public Completable deletePlannedMealsByDayAndType(String dayDate, String mealType) {
+        return plannedMealLocalDataSource.deleteByDayAndType(dayDate, mealType);
+    }
+    public Completable cleanupOldMeals(String thresholdDate) {
+        return plannedMealLocalDataSource.cleanupOldMeals(thresholdDate);
     }
 
     public String getMealOfTheDayId() {

@@ -7,14 +7,16 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.gusteau.data.meals.datasource.local.MealDao;
-import com.example.gusteau.data.model.Category;
-import com.example.gusteau.data.model.Country;
-import com.example.gusteau.data.model.Ingredients;
-import com.example.gusteau.data.model.Meal;
 
-@Database(entities = {Meal.class }, version = 1, exportSchema = false)
+import com.example.gusteau.data.meals.datasource.local.PlannedMealDao;
+import com.example.gusteau.data.model.Meal;
+import com.example.gusteau.data.model.PlannedMeal;
+
+@Database(entities = {Meal.class, PlannedMeal.class }, version = 1, exportSchema = false)
 public abstract class MealDatabase extends RoomDatabase {
     public abstract MealDao mealDao();
+    public abstract PlannedMealDao plannedMealDao();
+
 
 
     private static volatile MealDatabase instance;
