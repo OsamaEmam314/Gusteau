@@ -1,6 +1,7 @@
 package com.example.gusteau.presentation.login.view;
 import static com.google.android.libraries.identity.googleid.GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL;
 
+import com.example.gusteau.presentation.onboarding.view.OnBoardingActivity;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
 
 import android.content.Intent;
@@ -251,5 +252,13 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
         tilEmail.setErrorEnabled(false);
         tilPassword.setErrorEnabled(false);
+    }
+
+    @Override
+    public void navigateToOnBoarding() {
+        Intent intent = new Intent(getActivity(), OnBoardingActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+
     }
 }

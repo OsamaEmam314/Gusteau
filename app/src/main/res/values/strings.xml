@@ -204,4 +204,6 @@
     <string name="maybe_later">Maybe Later</string>
     <string name="meal_type">Meal Type</string>
     <string name="snack">Snack</string>
+    <string name="get_started">Get Started</string>
+    <string name="skip">Skip</string>
 </resources>

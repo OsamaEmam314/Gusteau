@@ -79,7 +79,12 @@ public class LoginPresenter implements LoginContract.Presenter {
                         .subscribe(
                                 user -> {
                                     view.hideLoading();
-                                    navigateToHome();
+                                    if (user.second) {
+                                        view.navigateToOnBoarding();
+                                    }
+                                    else {
+                                        navigateToHome();
+                                    }
                                 },
                                 error -> {
                                     view.hideLoading();

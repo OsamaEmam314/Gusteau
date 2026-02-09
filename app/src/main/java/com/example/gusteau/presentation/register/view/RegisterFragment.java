@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.gusteau.MainActivity;
 import com.example.gusteau.R;
+import com.example.gusteau.presentation.onboarding.view.OnBoardingActivity;
 import com.example.gusteau.presentation.register.RegisterContract;
 import com.example.gusteau.presentation.register.presenter.RegisterPresenter;
 import com.google.android.material.button.MaterialButton;
@@ -177,8 +178,8 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
     }
 
     @Override
-    public void navigateToHome() {
-        Intent intent = new Intent(getActivity(), MainActivity.class);
+    public void navigateToOnBoarding() {
+        Intent intent = new Intent(getActivity(), OnBoardingActivity.class);
         startActivity(intent);
         getActivity().finish();
     }

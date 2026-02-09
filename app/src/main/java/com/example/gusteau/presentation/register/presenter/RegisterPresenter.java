@@ -46,7 +46,7 @@ public class RegisterPresenter implements RegisterContract.Presenter{
                 .subscribe(
                         user -> {
                             view.hideLoading();
-                            navigateToHome();
+                            navigateToOnBoarding();
                         },
                         error -> {
                             view.hideLoading();
@@ -171,9 +171,9 @@ public class RegisterPresenter implements RegisterContract.Presenter{
     }
 
     @Override
-    public void navigateToHome() {
+    public void navigateToOnBoarding() {
         if (view != null) {
-            view.navigateToHome();
+            view.navigateToOnBoarding();
         }
 
     }

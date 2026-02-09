@@ -14,6 +14,8 @@ public interface LoginContract {
         void navigateToRegister();
         void navigateToHome();
         void clearErrors();
+
+        void navigateToOnBoarding();
     }
     interface Presenter {
         void logInWithEmail(String email, String password);

@@ -1,6 +1,8 @@
 package com.example.gusteau.data.authentication.datasource.remote;
 
 
+import android.util.Pair;
+
 import com.google.firebase.auth.FirebaseAuth;
 
 
@@ -51,14 +53,17 @@ public class FirebaseDataSource  {
         );
     }
 
-    public Single<User> signInWithGoogle(GoogleIdTokenCredential googleIdTokenCredential) {
+    public Single<Pair<User,Boolean>> signInWithGoogle(GoogleIdTokenCredential googleIdTokenCredential) {
         AuthCredential credential = GoogleAuthProvider.getCredential(googleIdTokenCredential.getIdToken(), null);
         return Single.create(emitter ->
                 firebaseAuth.signInWithCredential(credential)
                         .addOnSuccessListener(authResult -> {
                             FirebaseUser firebaseUser = authResult.getUser();
                             if (firebaseUser != null) {
-                                emitter.onSuccess(mapFirebaseUserToUser(firebaseUser));
+                                Boolean isNewUser = authResult.getAdditionalUserInfo() != null
+                                        && authResult.getAdditionalUserInfo().isNewUser();
+                                Pair<User,Boolean> user = new Pair<>(mapFirebaseUserToUser(firebaseUser),isNewUser);
+                                emitter.onSuccess(user);
                             } else {
                                 emitter.onError(new Exception("Google registration failed: User is null"));
                             }

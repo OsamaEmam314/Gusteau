@@ -87,4 +87,5 @@
     <!-- Card Colors -->
     <color name="card_background_light">#FFFFFF</color>
     <color name="card_background_dark">#2D2419</color>
+    <color name="purple">#A41CB7</color>
 </resources>

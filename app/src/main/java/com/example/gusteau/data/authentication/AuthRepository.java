@@ -2,6 +2,7 @@ package com.example.gusteau.data.authentication;
 
 import android.content.Context;
 import android.util.Log;
+import android.util.Pair;
 
 import com.example.gusteau.data.authentication.datasource.local.SharedPrefrenceLocalSource;
 import com.example.gusteau.data.authentication.datasource.remote.FirebaseDataSource;
@@ -30,9 +31,9 @@ public class AuthRepository {
                         .andThen(Single.just(user)));
     }
 
-    public Single<User> signInWithGoogle(GoogleIdTokenCredential credential) {
+    public Single<Pair<User,Boolean>> signInWithGoogle(GoogleIdTokenCredential credential) {
         return firebaseDataSource.signInWithGoogle(credential)
-                .flatMap(user -> localDataSource.saveUserToPreferences(user)
+                .flatMap(user -> localDataSource.saveUserToPreferences(user.first)
                         .andThen(Single.just(user)));
     }
 
