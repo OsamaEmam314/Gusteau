@@ -14,65 +14,81 @@ public class MealSharedPrefrenceLocalDataSource {
     private static final String isDayMealFavorited = "isDayMealFavorited";
 
     private SharedPreferences sharedPreferences;
+
     public MealSharedPrefrenceLocalDataSource(Context context) {
         this.sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
+
     public void saveTodayDate(String date) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(TodayDate, date);
         editor.apply();
     }
+
     public boolean isDayMealFavorited() {
         return sharedPreferences.getBoolean(isDayMealFavorited, false);
     }
+
     public void setDayMealFavorited(boolean favorited) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(isDayMealFavorited, favorited);
         editor.apply();
     }
+
     public String getTodayDate() {
         return sharedPreferences.getString(TodayDate, "");
     }
+
     public void saveMealOfTheDayId(String id) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(MEAL_OF_THE_DAY_ID, id);
         editor.apply();
     }
+
     public String getMealOfTheDayId() {
         return sharedPreferences.getString(MEAL_OF_THE_DAY_ID, "");
     }
+
     public void saveCountry(String country) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(COUNTRY, country);
         editor.apply();
     }
+
     public String getCountry() {
         return sharedPreferences.getString(COUNTRY, "");
     }
+
     public void saveIngredients(String ingredients) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Ingredients, ingredients);
         editor.apply();
     }
+
     public String getIngredients() {
         return sharedPreferences.getString(Ingredients, "");
     }
+
     public void saveCategory(String category) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Category, category);
         editor.apply();
     }
+
     public String getCategory() {
         return sharedPreferences.getString(Category, "");
     }
+
     public void saveMeal(String meal) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Meal, meal);
         editor.apply();
     }
+
     public String getMeal() {
         return sharedPreferences.getString(Meal, "");
     }
+
     public void clearData() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();

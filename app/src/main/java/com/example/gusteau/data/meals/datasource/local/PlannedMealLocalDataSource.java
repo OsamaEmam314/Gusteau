@@ -4,7 +4,9 @@ import android.content.Context;
 
 import com.example.gusteau.data.db.MealDatabase;
 import com.example.gusteau.data.model.PlannedMeal;
+
 import java.util.List;
+
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -44,6 +46,7 @@ public class PlannedMealLocalDataSource {
     public Completable cleanupOldMeals(String thresholdDate) {
         return plannedMealDao.deleteOldMeals(thresholdDate);
     }
+
     public Completable deleteAll() {
         return plannedMealDao.deleteAll();
     }

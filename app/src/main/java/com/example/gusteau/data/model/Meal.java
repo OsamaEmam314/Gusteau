@@ -3,6 +3,7 @@ package com.example.gusteau.data.model;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "meals")
@@ -355,51 +356,171 @@ public class Meal {
         isFavorite = favorite;
     }
 
-    public String getIngredient1() { return ingredient1; }
-    public String getIngredient2() { return ingredient2; }
-    public String getIngredient3() { return ingredient3; }
-    public String getIngredient4() { return ingredient4; }
-    public String getIngredient5() { return ingredient5; }
-    public String getIngredient6() { return ingredient6; }
-    public String getIngredient7() { return ingredient7; }
-    public String getIngredient8() { return ingredient8; }
-    public String getIngredient9() { return ingredient9; }
-    public String getIngredient10() { return ingredient10; }
-    public String getIngredient11() { return ingredient11; }
-    public String getIngredient12() { return ingredient12; }
-    public String getIngredient13() { return ingredient13; }
-    public String getIngredient14() { return ingredient14; }
-    public String getIngredient15() { return ingredient15; }
-    public String getIngredient16() { return ingredient16; }
-    public String getIngredient17() { return ingredient17; }
-    public String getIngredient18() { return ingredient18; }
-    public String getIngredient19() { return ingredient19; }
-    public String getIngredient20() { return ingredient20; }
+    public String getIngredient1() {
+        return ingredient1;
+    }
 
-    public String getMeasure1() { return measure1; }
-    public String getMeasure2() { return measure2; }
-    public String getMeasure3() { return measure3; }
-    public String getMeasure4() { return measure4; }
-    public String getMeasure5() { return measure5; }
-    public String getMeasure6() { return measure6; }
-    public String getMeasure7() { return measure7; }
-    public String getMeasure8() { return measure8; }
-    public String getMeasure9() { return measure9; }
-    public String getMeasure10() { return measure10; }
-    public String getMeasure11() { return measure11; }
-    public String getMeasure12() { return measure12; }
-    public String getMeasure13() { return measure13; }
-    public String getMeasure14() { return measure14; }
-    public String getMeasure15() { return measure15; }
-    public String getMeasure16() { return measure16; }
-    public String getMeasure17() { return measure17; }
-    public String getMeasure18() { return measure18; }
-    public String getMeasure19() { return measure19; }
-    public String getMeasure20() { return measure20; }
-    public String[] getIngredientsArray(){
+    public String getIngredient2() {
+        return ingredient2;
+    }
+
+    public String getIngredient3() {
+        return ingredient3;
+    }
+
+    public String getIngredient4() {
+        return ingredient4;
+    }
+
+    public String getIngredient5() {
+        return ingredient5;
+    }
+
+    public String getIngredient6() {
+        return ingredient6;
+    }
+
+    public String getIngredient7() {
+        return ingredient7;
+    }
+
+    public String getIngredient8() {
+        return ingredient8;
+    }
+
+    public String getIngredient9() {
+        return ingredient9;
+    }
+
+    public String getIngredient10() {
+        return ingredient10;
+    }
+
+    public String getIngredient11() {
+        return ingredient11;
+    }
+
+    public String getIngredient12() {
+        return ingredient12;
+    }
+
+    public String getIngredient13() {
+        return ingredient13;
+    }
+
+    public String getIngredient14() {
+        return ingredient14;
+    }
+
+    public String getIngredient15() {
+        return ingredient15;
+    }
+
+    public String getIngredient16() {
+        return ingredient16;
+    }
+
+    public String getIngredient17() {
+        return ingredient17;
+    }
+
+    public String getIngredient18() {
+        return ingredient18;
+    }
+
+    public String getIngredient19() {
+        return ingredient19;
+    }
+
+    public String getIngredient20() {
+        return ingredient20;
+    }
+
+    public String getMeasure1() {
+        return measure1;
+    }
+
+    public String getMeasure2() {
+        return measure2;
+    }
+
+    public String getMeasure3() {
+        return measure3;
+    }
+
+    public String getMeasure4() {
+        return measure4;
+    }
+
+    public String getMeasure5() {
+        return measure5;
+    }
+
+    public String getMeasure6() {
+        return measure6;
+    }
+
+    public String getMeasure7() {
+        return measure7;
+    }
+
+    public String getMeasure8() {
+        return measure8;
+    }
+
+    public String getMeasure9() {
+        return measure9;
+    }
+
+    public String getMeasure10() {
+        return measure10;
+    }
+
+    public String getMeasure11() {
+        return measure11;
+    }
+
+    public String getMeasure12() {
+        return measure12;
+    }
+
+    public String getMeasure13() {
+        return measure13;
+    }
+
+    public String getMeasure14() {
+        return measure14;
+    }
+
+    public String getMeasure15() {
+        return measure15;
+    }
+
+    public String getMeasure16() {
+        return measure16;
+    }
+
+    public String getMeasure17() {
+        return measure17;
+    }
+
+    public String getMeasure18() {
+        return measure18;
+    }
+
+    public String getMeasure19() {
+        return measure19;
+    }
+
+    public String getMeasure20() {
+        return measure20;
+    }
+
+    public String[] getIngredientsArray() {
         return new String[]{ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7, ingredient8, ingredient9, ingredient10,
                 ingredient11, ingredient12, ingredient13, ingredient14, ingredient15, ingredient16, ingredient17, ingredient18, ingredient19, ingredient20};
     }
+
     public String[] getMeasuresArray() {
         return new String[]{measure1, measure2, measure3, measure4, measure5, measure6, measure7, measure8, measure9, measure10,
                 measure11, measure12, measure13, measure14, measure15, measure16, measure17, measure18, measure19, measure20};

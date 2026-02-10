@@ -16,10 +16,13 @@ import io.reactivex.rxjava3.core.Single;
 public interface MealDao {
     @Query("SELECT * FROM meals")
     Single<List<Meal>> getAllMeals();
+
     @Query("SELECT * FROM meals WHERE id = :id")
     Single<Meal> getMealById(String id);
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     Completable insertMeal(Meal meal);
+
     @Query("DELETE FROM meals WHERE id = :id")
     Completable deleteMeal(String id);
 

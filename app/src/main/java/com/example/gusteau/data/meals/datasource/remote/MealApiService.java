@@ -16,16 +16,22 @@ import retrofit2.http.Query;
 
 public interface MealApiService {
     String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
+
     @GET("random.php")
     Single<MealResponse> getRandomMeal();
+
     @GET("lookup.php")
     Single<MealResponse> getMealById(@Query("i") String id);
+
     @GET("categories.php")
     Single<CategoryResponse> getAllCategories();
+
     @GET("list.php?a=list")
     Single<CountryResponse> getAllAreas();
+
     @GET("list.php?i=list")
     Single<IngredientsResponse> getAllIngredients();
+
     @GET("filter.php")
     Single<MealResponse> filterByCategory(@Query("c") String category);
 
@@ -34,6 +40,7 @@ public interface MealApiService {
 
     @GET("filter.php")
     Single<MealResponse> filterByIngredient(@Query("i") String ingredient);
+
     @GET("search.php")
     Single<MealResponse> searchMealByName(@Query("s") String name);
 

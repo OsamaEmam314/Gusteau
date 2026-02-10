@@ -7,7 +7,8 @@ import java.util.List;
 public class FavMealsContainer {
     private List<FireStoreFavMeal> meals;
 
-    public FavMealsContainer() { }
+    public FavMealsContainer() {
+    }
 
     public FavMealsContainer(List<FireStoreFavMeal> meals) {
         this.meals = meals;

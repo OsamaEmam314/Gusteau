@@ -35,7 +35,6 @@ public class PlannedMeal {
     }
 
 
-
     public String getMealId() {
         return mealId;
     }

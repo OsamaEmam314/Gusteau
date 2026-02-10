@@ -274,11 +274,6 @@ public class MealDetailsFragment extends Fragment implements MealDetailsContract
         int iconRes = isFavorite ? R.drawable.ic_favorite : R.drawable.ic_favorite_border;
         fabFavorite.setImageResource(iconRes);
 
-        if (isFavorite) {
-            fabFavorite.setBackgroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.primary));
-        } else {
-            fabFavorite.setBackgroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.gray_200));
-        }
     }
 
     @Override

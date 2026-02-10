@@ -2,6 +2,7 @@ package com.example.gusteau.data.authentication.datasource.local;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.example.gusteau.data.model.User;
 
 import io.reactivex.rxjava3.core.Completable;
@@ -34,6 +35,7 @@ public class SharedPrefrenceLocalSource {
                 sharedPreferences.getBoolean(KEY_IS_GUEST, false)
         );
     }
+
     public Maybe<User> getUserFromPreferences() {
         return Maybe.fromCallable(() -> {
             boolean isGuest = sharedPreferences.getBoolean(KEY_IS_GUEST, false);

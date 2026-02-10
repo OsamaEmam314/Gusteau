@@ -12,10 +12,11 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
+
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 
-public class FirebaseDataSource  {
+public class FirebaseDataSource {
     private final FirebaseAuth firebaseAuth;
 
     public FirebaseDataSource() {
@@ -53,7 +54,7 @@ public class FirebaseDataSource  {
         );
     }
 
-    public Single<Pair<User,Boolean>> signInWithGoogle(GoogleIdTokenCredential googleIdTokenCredential) {
+    public Single<Pair<User, Boolean>> signInWithGoogle(GoogleIdTokenCredential googleIdTokenCredential) {
         AuthCredential credential = GoogleAuthProvider.getCredential(googleIdTokenCredential.getIdToken(), null);
         return Single.create(emitter ->
                 firebaseAuth.signInWithCredential(credential)
@@ -62,7 +63,7 @@ public class FirebaseDataSource  {
                             if (firebaseUser != null) {
                                 Boolean isNewUser = authResult.getAdditionalUserInfo() != null
                                         && authResult.getAdditionalUserInfo().isNewUser();
-                                Pair<User,Boolean> user = new Pair<>(mapFirebaseUserToUser(firebaseUser),isNewUser);
+                                Pair<User, Boolean> user = new Pair<>(mapFirebaseUserToUser(firebaseUser), isNewUser);
                                 emitter.onSuccess(user);
                             } else {
                                 emitter.onError(new Exception("Google registration failed: User is null"));

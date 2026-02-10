@@ -59,8 +59,6 @@ public class FireStoreLocalDataSource {
     }
 
 
-
-
     public Completable updateAllPlannedMeals(String userId, List<FireStorePlannedMeal> meals) {
         return Completable.create(emitter -> {
             List<FireStorePlannedMeal> safeList = (meals != null) ? meals : new ArrayList<>();
@@ -74,6 +72,7 @@ public class FireStoreLocalDataSource {
                     .addOnFailureListener(emitter::onError);
         });
     }
+
     public Single<List<FireStorePlannedMeal>> getPlannedMeals(String userId) {
         return Single.create(emitter -> {
             firestore.collection(PLANNED_MEALS_COLLECTION)

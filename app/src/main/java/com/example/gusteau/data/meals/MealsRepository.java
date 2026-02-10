@@ -32,8 +32,6 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealsRepository {
-    private static final String TAG = "MealsRepository";
-
     private final RemoteMealDataSource remoteDataSource;
     private final MealLocalDataSource localDataSource;
     private final PlannedMealLocalDataSource plannedMealLocalDataSource;
@@ -48,7 +46,7 @@ public class MealsRepository {
         this.sharedPrefrenceLocalDataSource = new MealSharedPrefrenceLocalDataSource(context);
     }
 
-    public Single<List<Meal>> getFavMeals(){
+    public Single<List<Meal>> getFavMeals() {
         return localDataSource.getAllMeals();
     }
 
@@ -63,24 +61,31 @@ public class MealsRepository {
     public Completable deleteFavMeal(String id) {
         return localDataSource.deleteMeal(id);
     }
+
     public Completable insertPlannedMeal(PlannedMeal meal) {
         return plannedMealLocalDataSource.insertMeal(meal);
     }
+
     public Completable deletePlannedMeal(PlannedMeal meal) {
         return plannedMealLocalDataSource.deleteMeal(meal);
     }
+
     public Single<List<PlannedMeal>> getPlannedMealsByDay(String dayDate) {
         return plannedMealLocalDataSource.getMealsByDay(dayDate);
     }
+
     public Single<List<PlannedMeal>> getPlannedMealsByDayAndType(String dayDate, String mealType) {
         return plannedMealLocalDataSource.getMealsByDayAndType(dayDate, mealType);
     }
+
     public Single<List<PlannedMeal>> getAllPlannedMeals() {
         return plannedMealLocalDataSource.getAllPlannedMeals();
     }
+
     public Completable deletePlannedMealsByDayAndType(String dayDate, String mealType) {
         return plannedMealLocalDataSource.deleteByDayAndType(dayDate, mealType);
     }
+
     public Completable cleanupOldMeals(String thresholdDate) {
         return plannedMealLocalDataSource.cleanupOldMeals(thresholdDate);
     }
@@ -88,6 +93,7 @@ public class MealsRepository {
     public String getMealOfTheDayId() {
         return sharedPrefrenceLocalDataSource.getMealOfTheDayId();
     }
+
     public Single<Meal> getMealOfTheDay() {
         String todayDate = sharedPrefrenceLocalDataSource.getTodayDate();
         String currentDateFormatted = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
@@ -110,14 +116,15 @@ public class MealsRepository {
                             sharedPrefrenceLocalDataSource.setDayMealFavorited(false);
                         });
             } else {
-                Log.d(TAG, "Getting meal by ID: " + mealId);
                 return remoteDataSource.getMealById(mealId);
             }
         }
     }
+
     public boolean isDayMealFavorited() {
         return sharedPrefrenceLocalDataSource.isDayMealFavorited();
     }
+
     public Completable clearAllUserData() {
         return Completable.mergeArray(
                 localDataSource.deleteAll(),
@@ -130,6 +137,7 @@ public class MealsRepository {
     public void setDayMealFavorited(boolean favorited) {
         sharedPrefrenceLocalDataSource.setDayMealFavorited(favorited);
     }
+
     public Single<List<Category>> getAllCategories() {
         return remoteDataSource.getAllCategories();
     }
@@ -208,10 +216,12 @@ public class MealsRepository {
         String category = sharedPrefrenceLocalDataSource.getCategory();
         return category;
     }
-    public void saveMealDetailsID(String mealID){
+
+    public void saveMealDetailsID(String mealID) {
         sharedPrefrenceLocalDataSource.saveMeal(mealID);
     }
-    public String getMealDetailsID(){
+
+    public String getMealDetailsID() {
         return sharedPrefrenceLocalDataSource.getMeal();
 
     }
@@ -233,19 +243,21 @@ public class MealsRepository {
             return meals;
         });
     }
+
     public Single<Meal> checkFavoritesForMeal(Meal meal) {
         return Single.fromCallable(() -> {
-                try {
-                    Meal favMeal = getFavMealById(meal.getId()).blockingGet();
-                    if (favMeal != null) {
-                        meal.setFavorite(true);
-                    }
-                } catch (Exception e) {
-                    meal.setFavorite(false);
+            try {
+                Meal favMeal = getFavMealById(meal.getId()).blockingGet();
+                if (favMeal != null) {
+                    meal.setFavorite(true);
                 }
+            } catch (Exception e) {
+                meal.setFavorite(false);
+            }
             return meal;
         });
     }
+
     @NonNull
     private static String getFlagUrl(@Nullable String title) {
         if (title == null) return "";
@@ -255,12 +267,8 @@ public class MealsRepository {
     }
 
 
-
     public Completable restoreFavoritesFromFirestore(String userId) {
-        Log.d(TAG, "Restoring Favorites for User: " + userId);
-
         return fireStoreLocalDataSource.getFavMeals(userId)
-                .doOnSuccess(list -> Log.d(TAG, "Firestore returned " + list.size() + " favorite items"))
                 .flatMapObservable(Observable::fromIterable)
                 .flatMapSingle(firestoreMeal ->
                         remoteDataSource.getMealById(firestoreMeal.getMealId())
@@ -269,24 +277,19 @@ public class MealsRepository {
                                     meal.setFavorite(true);
                                     return meal;
                                 })
-                                .doOnSuccess(meal -> Log.d(TAG, "Downloaded details for: " + meal.getName()))
                                 .onErrorResumeNext(throwable -> {
-                                    Log.e(TAG, "Failed to download meal details: " + firestoreMeal.getMealId(), throwable);
                                     return Single.just(new Meal());
                                 })
                 )
                 .filter(meal -> meal.getId() != null)
                 .flatMapCompletable(apiMeal ->
                         localDataSource.insertMeal(apiMeal)
-                                .doOnComplete(() -> Log.d(TAG, "Inserted into Room: " + apiMeal.getName()))
                 );
     }
 
     public Completable restorePlannedMealsFromFirestore(String userId) {
-        Log.d(TAG, "Restoring Planned Meals for User: " + userId);
 
         return fireStoreLocalDataSource.getPlannedMeals(userId)
-                .doOnSuccess(list -> Log.d(TAG, "Firestore returned " + list.size() + " planned items"))
                 .flatMapObservable(Observable::fromIterable)
                 .flatMapSingle(firestorePlan ->
                         remoteDataSource.getMealById(firestorePlan.getMealId())
@@ -300,18 +303,16 @@ public class MealsRepository {
                                         firestorePlan.getDayDate(),
                                         firestorePlan.getMealType()
                                 ))
-                                .doOnSuccess(meal -> Log.d(TAG, "Downloaded plan: " + meal.getMealName()))
                                 .onErrorResumeNext(throwable -> {
-                                    Log.e(TAG, "Failed to download plan details: " + firestorePlan.getMealId(), throwable);
                                     return Single.just(new PlannedMeal());
                                 })
                 )
                 .filter(plannedMeal -> plannedMeal.getMealId() != null)
                 .flatMapCompletable(plannedMeal ->
                         plannedMealLocalDataSource.insertMeal(plannedMeal)
-                                .doOnComplete(() -> Log.d(TAG, "Inserted Plan into Room: " + plannedMeal.getMealName()))
                 );
     }
+
     public Completable uploadFavoritesToFirestore(String userId) {
         return localDataSource.getAllMeals()
                 .map(meals -> {
@@ -341,6 +342,7 @@ public class MealsRepository {
                 })
                 .flatMapCompletable(list -> fireStoreLocalDataSource.updateAllPlannedMeals(userId, list));
     }
+
     @NonNull
     private static String getCountryCode(@NonNull String title) {
         switch (title) {

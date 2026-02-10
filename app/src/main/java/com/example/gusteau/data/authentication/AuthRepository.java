@@ -15,8 +15,6 @@ import io.reactivex.rxjava3.core.Single;
 
 public class AuthRepository {
 
-    private static final String TAG = "AuthRepository";
-
     private final FirebaseDataSource firebaseDataSource;
     private final SharedPrefrenceLocalSource localDataSource;
 
@@ -31,7 +29,7 @@ public class AuthRepository {
                         .andThen(Single.just(user)));
     }
 
-    public Single<Pair<User,Boolean>> signInWithGoogle(GoogleIdTokenCredential credential) {
+    public Single<Pair<User, Boolean>> signInWithGoogle(GoogleIdTokenCredential credential) {
         return firebaseDataSource.signInWithGoogle(credential)
                 .flatMap(user -> localDataSource.saveUserToPreferences(user.first)
                         .andThen(Single.just(user)));
@@ -49,28 +47,21 @@ public class AuthRepository {
     }
 
     public Completable loginAsGuest() {
-        Log.d(TAG, "Logging in as guest - clearing all auth");
 
         return firebaseDataSource.logout()
-                .doOnComplete(() -> Log.d(TAG, "Firebase logged out"))
                 .andThen(localDataSource.clearUserPreferences())
-                .doOnComplete(() -> Log.d(TAG, "User preferences cleared"))
-                .andThen(localDataSource.setGuestMode())
-                .doOnComplete(() -> Log.d(TAG, "Guest mode set"));
+                .andThen(localDataSource.setGuestMode());
     }
 
     public Single<User> getCurrentUser() {
         return localDataSource.isGuest()
                 .flatMap(isGuest -> {
                     if (isGuest) {
-                        Log.d(TAG, "User is guest");
                         User guestUser = new User("guest_id", "Guest", "", true);
                         return Single.just(guestUser);
                     } else {
-                        Log.d(TAG, "User is not guest, getting from preferences");
                         return localDataSource.getUserFromPreferences()
                                 .switchIfEmpty(Maybe.defer(() -> {
-                                    Log.d(TAG, "No user in preferences, returning guest");
                                     User guestUser = new User("guest_id", "Guest", "", true);
                                     return localDataSource.saveUserToPreferences(guestUser)
                                             .andThen(Maybe.just(guestUser));
@@ -82,13 +73,11 @@ public class AuthRepository {
 
 
     public Single<Boolean> isGuestMode() {
-        return localDataSource.isGuest()
-                .doOnSuccess(isGuest -> Log.d(TAG, "Is guest mode: " + isGuest));
+        return localDataSource.isGuest();
     }
 
 
     public Single<Boolean> isUserLoggedIn() {
-        return localDataSource.isUserLoggedIn()
-                .doOnSuccess(isLoggedIn -> Log.d(TAG, "Is logged in: " + isLoggedIn));
+        return localDataSource.isUserLoggedIn();
     }
 }
