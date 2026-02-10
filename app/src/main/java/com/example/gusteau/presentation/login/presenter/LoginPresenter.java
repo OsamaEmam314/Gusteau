@@ -3,6 +3,7 @@ package com.example.gusteau.presentation.login.presenter;
 import android.content.Context;
 
 import com.example.gusteau.data.authentication.AuthRepository;
+import com.example.gusteau.data.meals.MealsRepository;
 import com.example.gusteau.data.model.User;
 import com.example.gusteau.data.network.NetworkState;
 import com.example.gusteau.presentation.login.LoginContract;
@@ -11,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -21,12 +23,15 @@ public class LoginPresenter implements LoginContract.Presenter {
     private LoginContract.View view;
     private final AuthRepository authRepository;
     private final CompositeDisposable disposables = new CompositeDisposable();
+    private final MealsRepository mealsRepository;
+
     Context context;
 
     public LoginPresenter(LoginContract.View view, Context context) {
         this.context = context;
         this.view = view;
         this.authRepository = new AuthRepository(context);
+        this.mealsRepository = new MealsRepository(context);
     }
 
     private boolean validateEmail(String email) {
@@ -45,7 +50,12 @@ public class LoginPresenter implements LoginContract.Presenter {
         }
         return true;
     }
-
+    private Completable restoreUserData(String userId) {
+        return Completable.mergeArray(
+                        mealsRepository.restoreFavoritesFromFirestore(userId),
+                        mealsRepository.restorePlannedMealsFromFirestore(userId)
+                ).onErrorComplete();
+    }
     @Override
     public void logInWithEmail(String email, String password) {
         if (view == null) return;
@@ -54,7 +64,10 @@ public class LoginPresenter implements LoginContract.Presenter {
         if (!validatePassword(password)) return;
         view.showLoading();
         Disposable disposable = authRepository.signInWithEmail(email, password)
-                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .flatMap(user -> {
+                    return restoreUserData(user.getUid()).toSingleDefault(user);
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         user -> {
@@ -77,7 +90,16 @@ public class LoginPresenter implements LoginContract.Presenter {
 
         disposables.add(
                 authRepository.signInWithGoogle(credential)
-                        .subscribeOn(Schedulers.io())
+                        .observeOn(Schedulers.io())
+                        .flatMap(authResultPair -> {
+                            boolean isNewUser = authResultPair.second;
+                            String userId = authResultPair.first.getUid();
+                            if (isNewUser) {
+                                return Single.just(authResultPair);
+                            } else {
+                                return restoreUserData(userId).toSingleDefault(authResultPair);
+                            }
+                        })
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 user -> {

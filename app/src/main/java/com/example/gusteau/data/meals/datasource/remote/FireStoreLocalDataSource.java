@@ -4,7 +4,6 @@ import com.example.gusteau.data.model.FavMealsContainer;
 import com.example.gusteau.data.model.FireStoreFavMeal;
 import com.example.gusteau.data.model.FireStorePlannedMeal;
 import com.example.gusteau.data.model.PlannedMealsContainer;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -61,7 +60,6 @@ public class FireStoreLocalDataSource {
 
 
 
-// In FireStoreLocalDataSource.java
 
     public Completable updateAllPlannedMeals(String userId, List<FireStorePlannedMeal> meals) {
         return Completable.create(emitter -> {

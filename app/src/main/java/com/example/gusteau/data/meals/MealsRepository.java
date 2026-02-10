@@ -29,6 +29,7 @@ import java.util.Random;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealsRepository {
     private static final String TAG = "MealsRepository";
@@ -253,40 +254,64 @@ public class MealsRepository {
         return "https://www.themealdb.com/images/icons/flags/big/" + size + "/" + countryCode + ".png";
     }
 
+
+
     public Completable restoreFavoritesFromFirestore(String userId) {
+        Log.d(TAG, "Restoring Favorites for User: " + userId);
+
         return fireStoreLocalDataSource.getFavMeals(userId)
-                .flatMapObservable(list -> Observable.fromIterable(list))
+                .doOnSuccess(list -> Log.d(TAG, "Firestore returned " + list.size() + " favorite items"))
+                .flatMapObservable(Observable::fromIterable)
                 .flatMapSingle(firestoreMeal ->
                         remoteDataSource.getMealById(firestoreMeal.getMealId())
-                )
-                .flatMapCompletable(apiMeal -> {
-                    apiMeal.setFavorite(true);
-                    return localDataSource.insertMeal(apiMeal);
-                });
-    }
-
-    public Completable restorePlannedMealsFromFirestore(String userId) {
-        return fireStoreLocalDataSource.getPlannedMeals(userId)
-                .flatMapObservable(list -> Observable.fromIterable(list))
-                .flatMapSingle(firestorePlan ->
-                        remoteDataSource.getMealById(firestorePlan.getMealId())
-                                .map(apiMeal -> {
-                                    return new PlannedMeal(
-                                            apiMeal.getId(),
-                                            apiMeal.getName(),
-                                            apiMeal.getImageUrl(),
-                                            apiMeal.getCategory(),
-                                            apiMeal.getArea(),
-                                            firestorePlan.getDayDate(),
-                                            firestorePlan.getMealType()
-                                    );
+                                .subscribeOn(Schedulers.io())
+                                .map(meal -> {
+                                    meal.setFavorite(true);
+                                    return meal;
+                                })
+                                .doOnSuccess(meal -> Log.d(TAG, "Downloaded details for: " + meal.getName()))
+                                .onErrorResumeNext(throwable -> {
+                                    Log.e(TAG, "Failed to download meal details: " + firestoreMeal.getMealId(), throwable);
+                                    return Single.just(new Meal());
                                 })
                 )
-                .flatMapCompletable(plannedMeal ->
-                        plannedMealLocalDataSource.insertMeal(plannedMeal)
+                .filter(meal -> meal.getId() != null)
+                .flatMapCompletable(apiMeal ->
+                        localDataSource.insertMeal(apiMeal)
+                                .doOnComplete(() -> Log.d(TAG, "Inserted into Room: " + apiMeal.getName()))
                 );
     }
 
+    public Completable restorePlannedMealsFromFirestore(String userId) {
+        Log.d(TAG, "Restoring Planned Meals for User: " + userId);
+
+        return fireStoreLocalDataSource.getPlannedMeals(userId)
+                .doOnSuccess(list -> Log.d(TAG, "Firestore returned " + list.size() + " planned items"))
+                .flatMapObservable(Observable::fromIterable)
+                .flatMapSingle(firestorePlan ->
+                        remoteDataSource.getMealById(firestorePlan.getMealId())
+                                .subscribeOn(Schedulers.io())
+                                .map(apiMeal -> new PlannedMeal(
+                                        apiMeal.getId(),
+                                        apiMeal.getName(),
+                                        apiMeal.getImageUrl(),
+                                        apiMeal.getCategory(),
+                                        apiMeal.getArea(),
+                                        firestorePlan.getDayDate(),
+                                        firestorePlan.getMealType()
+                                ))
+                                .doOnSuccess(meal -> Log.d(TAG, "Downloaded plan: " + meal.getMealName()))
+                                .onErrorResumeNext(throwable -> {
+                                    Log.e(TAG, "Failed to download plan details: " + firestorePlan.getMealId(), throwable);
+                                    return Single.just(new PlannedMeal());
+                                })
+                )
+                .filter(plannedMeal -> plannedMeal.getMealId() != null)
+                .flatMapCompletable(plannedMeal ->
+                        plannedMealLocalDataSource.insertMeal(plannedMeal)
+                                .doOnComplete(() -> Log.d(TAG, "Inserted Plan into Room: " + plannedMeal.getMealName()))
+                );
+    }
     public Completable uploadFavoritesToFirestore(String userId) {
         return localDataSource.getAllMeals()
                 .map(meals -> {
