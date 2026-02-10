@@ -53,7 +53,7 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     private void showLogoutConfirmationDialog() {
         new com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Logout")
-                .setMessage("Are you sure you want to logout?")
+                .setMessage("Are you sure you want to logout? Remember To Back Up Your Data First")
                 .setPositiveButton("Yes", (dialog, which) -> {
                     presenter.logout();
                 })

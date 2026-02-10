@@ -13,11 +13,14 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.gusteau.presentation.main.view.MainActivity;
 import com.example.gusteau.R;
 import com.example.gusteau.WelcomeActivity;
+import com.example.gusteau.presentation.splash.SplashContract;
+import com.example.gusteau.presentation.splash.presenter.SplashPresenter;
 
-public class SplashScreenActivity extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity implements SplashContract.View {
     ImageView appLogo;
     Intent intent;
     boolean isLoggedIn;
+    SplashPresenter presenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,8 +31,9 @@ public class SplashScreenActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        presenter = new SplashPresenter(this, getApplicationContext());
         appLogo = findViewById(R.id.appLogo);
-        isLoggedIn = false;
+        presenter.checkLoggedIn();
         appLogo.animate()
                 .rotationBy(25f)
                 .setDuration(250)
@@ -53,6 +57,15 @@ public class SplashScreenActivity extends AppCompatActivity {
                                         }).start();
                             }).start();
                 }).start();
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void setIsLoggedIn(boolean userStatus) {
+        isLoggedIn = userStatus;
     }
 }
