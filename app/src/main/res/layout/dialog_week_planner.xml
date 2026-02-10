@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,36 +19,35 @@
             android:padding="24dp">
 
             <TextView
-                android:id="@+id/tvPlannerDialogTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:text="@string/add_to_meal_plan"
-                android:textAppearance="@style/TextAppearance.Gusteau.Headline2"
-                android:layout_marginBottom="4dp" />
+                android:textAppearance="@style/TextAppearance.Gusteau.Headline2" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
                 android:text="@string/select_day_and_meal_type"
                 android:textAppearance="@style/TextAppearance.Gusteau.Body2"
-                android:textColor="?android:attr/textColorSecondary"
-                android:layout_marginBottom="24dp" />
+                android:textColor="?android:attr/textColorSecondary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:text="@string/select_day"
-                android:textAppearance="@style/TextAppearance.Gusteau.Body1.Bold"
-                android:layout_marginBottom="8dp" />
+                android:textAppearance="@style/TextAppearance.Gusteau.Body1.Bold" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroupDays"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:singleSelection="true"
-                app:selectionRequired="false"
+                android:layout_marginBottom="24dp"
                 app:chipSpacing="8dp"
-                android:layout_marginBottom="24dp" />
+                app:selectionRequired="false"
+                app:singleSelection="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -62,34 +60,30 @@
                 android:id="@+id/chipGroupMealTypes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:singleSelection="true"
-                app:selectionRequired="false"
+                android:layout_marginBottom="24dp"
                 app:chipSpacing="8dp"
-                android:layout_marginBottom="24dp">
+                app:selectionRequired="false"
+                app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chipBreakfast"
                     style="@style/Widget.Gusteau.Chip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/breakfast" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chipLunch"
                     style="@style/Widget.Gusteau.Chip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/lunch" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chipDinner"
                     style="@style/Widget.Gusteau.Chip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/dinner" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chipSnack"
                     style="@style/Widget.Gusteau.Chip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -99,26 +93,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="end">
+                android:gravity="end"
+                android:orientation="horizontal">
 
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_cancel"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
                     android:text="@string/maybe_later"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:textColor="@color/text_secondary_light"
-                    android:layout_marginEnd="8dp"/>
+                    android:textColor="@color/text_secondary_light" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAdd"
                     style="@style/Widget.Gusteau.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/add"
-                    android:backgroundTint="@color/primary" />
+                    android:backgroundTint="@color/primary"
+                    android:text="@string/add" />
             </LinearLayout>
 
         </LinearLayout>

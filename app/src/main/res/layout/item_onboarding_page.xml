@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,26 +12,25 @@
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/spacing_xxxlarge"
         android:scaleType="fitCenter"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tv_onboarding_title"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.4"
         app:layout_constraintHeight_percent="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4"
         tools:src="@drawable/ic_launcher_foreground" />
 
-    <!-- Title -->
     <TextView
         android:id="@+id/tv_onboarding_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_xlarge"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.Gusteau.Headline1"
         android:textColor="@color/text_primary_light"
-        android:layout_marginTop="@dimen/spacing_xlarge"
         app:layout_constraintBottom_toTopOf="@id/tv_onboarding_description"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="1.0"
         tools:text="Discover Delicious Recipes" />
 
@@ -40,15 +38,15 @@
         android:id="@+id/tv_onboarding_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textAppearance="@style/TextAppearance.Gusteau.Body1"
-        android:textColor="@color/text_secondary_light"
         android:layout_marginTop="@dimen/spacing_normal"
         android:layout_marginBottom="@dimen/spacing_xxxlarge"
+        android:gravity="center"
         android:paddingHorizontal="@dimen/spacing_normal"
+        android:textAppearance="@style/TextAppearance.Gusteau.Body1"
+        android:textColor="@color/text_secondary_light"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="1.0"
         tools:text="Explore thousands of recipes from around the world. Find your next favorite meal." />
 

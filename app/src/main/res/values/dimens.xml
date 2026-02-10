@@ -19,83 +19,45 @@
     <dimen name="text_size_headline">20sp</dimen>
     <dimen name="text_size_large">24sp</dimen>
     <dimen name="text_size_xlarge">32sp</dimen>
-    <dimen name="text_size_display">48sp</dimen>
 
-    <dimen name="radius_small">4dp</dimen>
     <dimen name="radius_default">8dp</dimen>
     <dimen name="radius_medium">12dp</dimen>
     <dimen name="radius_large">16dp</dimen>
     <dimen name="radius_xlarge">24dp</dimen>
-    <dimen name="radius_round">9999dp</dimen>
 
     <dimen name="divider_height">1dp</dimen>
-    <dimen name="divider_thick">2dp</dimen>
     <dimen name="stroke_width_thin">1dp</dimen>
     <dimen name="stroke_width_medium">2dp</dimen>
-    <dimen name="stroke_width_thick">3dp</dimen>
 
     <dimen name="shadow_elevation_small">2dp</dimen>
     <dimen name="shadow_elevation_medium">4dp</dimen>
     <dimen name="shadow_elevation_large">8dp</dimen>
-    <dimen name="shadow_elevation_xlarge">16dp</dimen>
 
-    <dimen name="icon_size_tiny">16dp</dimen>
     <dimen name="icon_size_small">20dp</dimen>
     <dimen name="icon_size_normal">24dp</dimen>
-    <dimen name="icon_size_large">32dp</dimen>
-    <dimen name="icon_size_xlarge">48dp</dimen>
     <dimen name="icon_size_xxlarge">64dp</dimen>
-    <dimen name="icon_size_huge">80dp</dimen>
 
     <dimen name="avatar_size_small">32dp</dimen>
-    <dimen name="avatar_size_medium">40dp</dimen>
     <dimen name="avatar_size_large">64dp</dimen>
     <dimen name="avatar_size_xlarge">96dp</dimen>
 
-    <dimen name="button_height_small">32dp</dimen>
     <dimen name="button_height_medium">40dp</dimen>
     <dimen name="button_height_normal">48dp</dimen>
     <dimen name="button_height_large">56dp</dimen>
 
-    <dimen name="fab_size_mini">40dp</dimen>
-    <dimen name="fab_size_normal">56dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="chip_height">32dp</dimen>
-    <dimen name="chip_height_large">36dp</dimen>
     <dimen name="search_bar_height">48dp</dimen>
 
     <dimen name="card_elevation">4dp</dimen>
-    <dimen name="card_elevation_hover">8dp</dimen>
-    <dimen name="card_corner_radius">12dp</dimen>
-    <dimen name="card_padding">16dp</dimen>
-
-    <dimen name="app_bar_height">56dp</dimen>
-    <dimen name="app_bar_elevation">4dp</dimen>
-
-    <dimen name="bottom_nav_height">56dp</dimen>
-    <dimen name="bottom_nav_height_with_padding">72dp</dimen>
-
-    <dimen name="tab_height">48dp</dimen>
-    <dimen name="progress_bar_height">10dp</dimen>
 
     <dimen name="logo_width">150dp</dimen>
     <dimen name="logo_height">150dp</dimen>
-    <dimen name="logo_width_small">80dp</dimen>
-    <dimen name="logo_height_small">80dp</dimen>
-
-    <dimen name="meal_card_image_width">112dp</dimen>
-    <dimen name="meal_card_image_height">96dp</dimen>
-    <dimen name="meal_card_small_image">128dp</dimen>
 
     <dimen name="ingredient_circle_size">64dp</dimen>
     <dimen name="ingredient_circle_min_width">80dp</dimen>
-    <dimen name="category_circle_size">64dp</dimen>
-    <dimen name="category_min_width">64dp</dimen>
 
     <dimen name="image_header_height">320dp</dimen>
-    <dimen name="image_banner_height">180dp</dimen>
-
-    <dimen name="calendar_day_size">48dp</dimen>
 
 </resources>

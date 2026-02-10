@@ -9,43 +9,43 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         style="@style/Widget.Gusteau.Toolbar"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:paddingTop="@dimen/spacing_xlarge"
-        android:paddingHorizontal="@dimen/spacing_normal"
-        app:title="@string/favorites"
-        app:titleTextAppearance="@style/TextAppearance.Gusteau.Title"
-        app:titleCentered="true"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_gradient_header"
-        app:layout_constraintTop_toTopOf="parent"
+        android:paddingHorizontal="@dimen/spacing_normal"
+        android:paddingTop="@dimen/spacing_xlarge"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/favorites"
+        app:titleCentered="true"
+        app:titleTextAppearance="@style/TextAppearance.Gusteau.Title" />
 
     <TextView
         android:id="@+id/tv_results_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_normal"
+        android:layout_marginTop="@dimen/spacing_normal"
         android:text="@string/fav_meals"
         android:textAppearance="@style/TextAppearance.Gusteau.Headline2"
-        android:layout_marginTop="@dimen/spacing_normal"
-        android:layout_marginStart="@dimen/spacing_normal"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_favs"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:paddingHorizontal="@dimen/spacing_normal"
         android:layout_marginTop="@dimen/spacing_normal"
+        android:clipToPadding="false"
         android:nestedScrollingEnabled="false"
+        android:paddingHorizontal="@dimen/spacing_normal"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        app:layout_constraintTop_toBottomOf="@id/tv_results_header"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_results_header"
+        app:spanCount="2"
         tools:listitem="@layout/item_meal_grid" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,31 +54,30 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/spacing_xlarge"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/tv_results_header"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_results_header">
 
         <ImageView
             android:id="@+id/fav_iv_empty"
             android:layout_width="@dimen/icon_size_xxlarge"
             android:layout_height="@dimen/icon_size_xxlarge"
-            android:src="@drawable/ic_no_results"
             android:alpha="0.5"
-            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_no_results"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/fav_tv_empty_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_normal"
             android:text="@string/no_results_found"
             android:textAppearance="@style/TextAppearance.Gusteau.Headline3"
-            android:layout_marginTop="@dimen/spacing_normal"
-            app:layout_constraintTop_toBottomOf="@id/fav_iv_empty"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/fav_iv_empty" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

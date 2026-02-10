@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView android:id="@+id/nestedScrollView"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/mainContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingStart="@dimen/spacing_normal"
@@ -19,14 +18,14 @@
             android:id="@+id/iv_app_logo"
             android:layout_width="@dimen/logo_width"
             android:layout_height="@dimen/logo_height"
-            android:src="@drawable/app_logo"
+            android:layout_marginTop="@dimen/spacing_normal"
             android:contentDescription="@string/app_name"
             android:scaleType="centerCrop"
-            android:layout_marginTop="@dimen/spacing_normal"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.Gusteau.Rounded"
-            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/app_logo"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Gusteau.Rounded" />
 
         <TextView
             android:id="@+id/tv_signup_headline"
@@ -44,24 +43,24 @@
             android:id="@+id/tv_subtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/join_our_community"
-            android:textAppearance="@style/TextAppearance.Gusteau.Body2"
-            android:textAlignment="center"
-            android:layout_marginTop="@dimen/spacing_small"
             android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_small"
             android:layout_marginEnd="@dimen/spacing_normal"
-            app:layout_constraintTop_toBottomOf="@id/tv_signup_headline"
+            android:text="@string/join_our_community"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.Gusteau.Body2"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tv_signup_headline" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_name"
             style="@style/Widget.Gusteau.TextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textCursorDrawable="@drawable/cursor_primary"
             android:layout_marginTop="12dp"
             android:hint="@string/full_name"
+            android:textCursorDrawable="@drawable/cursor_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
@@ -84,22 +83,22 @@
             style="@style/Widget.Gusteau.TextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/email_address"
             android:layout_marginTop="@dimen/spacing_medium"
+            android:hint="@string/email_address"
             android:textCursorDrawable="@drawable/cursor_primary"
-            app:startIconDrawable="@drawable/ic_email"
-            app:startIconTint="@color/text_tertiary_light"
-            app:layout_constraintTop_toBottomOf="@id/til_name"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/til_name"
+            app:startIconDrawable="@drawable/ic_email"
+            app:startIconTint="@color/text_tertiary_light">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:textAppearance="@style/TextAppearance.Gusteau.Body1"
                 android:minHeight="@dimen/button_height_large"
+                android:textAppearance="@style/TextAppearance.Gusteau.Body1"
                 tools:text="chef@gusteau.com" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -109,24 +108,24 @@
             style="@style/Widget.Gusteau.TextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/password"
             android:layout_marginTop="@dimen/spacing_medium"
-            app:startIconDrawable="@drawable/ic_lock"
-            app:startIconTint="@color/text_tertiary_light"
-            app:endIconMode="password_toggle"
+            android:hint="@string/password"
             android:textCursorDrawable="@drawable/cursor_primary"
+            app:endIconMode="password_toggle"
             app:endIconTint="@color/text_tertiary_light"
-            app:layout_constraintTop_toBottomOf="@id/til_email"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/til_email"
+            app:startIconDrawable="@drawable/ic_lock"
+            app:startIconTint="@color/text_tertiary_light">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:textAppearance="@style/TextAppearance.Gusteau.Body1"
                 android:minHeight="@dimen/button_height_large"
+                android:textAppearance="@style/TextAppearance.Gusteau.Body1"
                 tools:text="password123" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -136,24 +135,24 @@
             style="@style/Widget.Gusteau.TextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/confirm_password"
             android:layout_marginTop="@dimen/spacing_medium"
-            app:startIconDrawable="@drawable/ic_lock"
-            app:startIconTint="@color/text_tertiary_light"
+            android:hint="@string/confirm_password"
             android:textCursorDrawable="@drawable/cursor_primary"
             app:endIconMode="password_toggle"
             app:endIconTint="@color/text_tertiary_light"
-            app:layout_constraintTop_toBottomOf="@id/til_password"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/til_password"
+            app:startIconDrawable="@drawable/ic_lock"
+            app:startIconTint="@color/text_tertiary_light">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:textAppearance="@style/TextAppearance.Gusteau.Body1"
                 android:minHeight="@dimen/button_height_large"
+                android:textAppearance="@style/TextAppearance.Gusteau.Body1"
                 tools:text="password123" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -163,14 +162,13 @@
             style="@style/Widget.Gusteau.Button"
             android:layout_width="0dp"
             android:layout_height="@dimen/button_height_large"
-            android:text="@string/sign_up"
             android:layout_marginTop="@dimen/spacing_large"
-            app:layout_constraintTop_toBottomOf="@id/til_confirm_password"
+            android:text="@string/sign_up"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/til_confirm_password" />
 
         <LinearLayout
-            android:id="@+id/ll_login_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
@@ -206,12 +204,12 @@
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:indeterminateTint="@color/primary"
-            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

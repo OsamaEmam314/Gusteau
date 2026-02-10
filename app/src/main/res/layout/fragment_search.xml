@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,20 +9,19 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         style="@style/Widget.Gusteau.Toolbar"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:paddingTop="@dimen/spacing_xlarge"
-        android:paddingHorizontal="@dimen/spacing_normal"
-        app:title="@string/find_your_next_meal"
-        app:titleTextAppearance="@style/TextAppearance.Gusteau.Title"
-        app:titleCentered="true"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_gradient_header"
-        app:layout_constraintTop_toTopOf="parent"
+        android:paddingHorizontal="@dimen/spacing_normal"
+        android:paddingTop="@dimen/spacing_xlarge"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/find_your_next_meal"
+        app:titleCentered="true"
+        app:titleTextAppearance="@style/TextAppearance.Gusteau.Title" />
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nested_scroll_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
@@ -77,7 +75,6 @@
                 app:layout_constraintTop_toBottomOf="@id/search_card">
 
                 <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chip_group_filters"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:chipSpacing="@dimen/spacing_small"
@@ -125,8 +122,8 @@
                 android:id="@+id/rv_search_results"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:clipToPadding="false"
                 android:layout_marginTop="@dimen/spacing_normal"
+                android:clipToPadding="false"
                 android:nestedScrollingEnabled="false"
                 android:paddingHorizontal="@dimen/spacing_normal"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -157,7 +154,6 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_empty_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
@@ -176,10 +172,10 @@
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

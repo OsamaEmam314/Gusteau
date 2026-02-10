@@ -7,7 +7,6 @@
     android:orientation="vertical"
     android:padding="@dimen/spacing_xsmall">
 
-    <!-- Image Container with 4:5 Aspect Ratio -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -16,65 +15,60 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Meal Image -->
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_meal"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:scaleType="centerCrop"
                 android:contentDescription="@string/meal_image"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.Gusteau.MediumComponent"
+                android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="4:5"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Gusteau.MediumComponent"
                 tools:src="@tools:sample/backgrounds/scenic" />
 
-            <!-- Gradient Overlay (0% to 60% black from top to bottom) -->
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/bg_gradient_vertical"
-                app:layout_constraintTop_toTopOf="@id/iv_meal"
                 app:layout_constraintBottom_toBottomOf="@id/iv_meal"
+                app:layout_constraintEnd_toEndOf="@id/iv_meal"
                 app:layout_constraintStart_toStartOf="@id/iv_meal"
-                app:layout_constraintEnd_toEndOf="@id/iv_meal" />
+                app:layout_constraintTop_toTopOf="@id/iv_meal" />
 
-            <!-- Favorite Button -->
             <ImageButton
                 android:id="@+id/btn_favorite"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_favorite_border"
+                android:layout_margin="@dimen/spacing_small"
                 android:background="@drawable/bg_favorite_button"
                 android:contentDescription="@string/add_to_favorites"
                 android:padding="6dp"
-                android:layout_margin="@dimen/spacing_small"
-                app:tint="@color/white"
+                android:src="@drawable/ic_favorite_border"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:tint="@color/white" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
 
-    <!-- Meal Info -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/spacing_small">
+        android:layout_marginTop="@dimen/spacing_small"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_meal_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textAppearance="@style/TextAppearance.Gusteau.Body1.Bold"
             android:textColor="@color/text_primary_light"
-            android:maxLines="1"
-            android:ellipsize="end"
             tools:text="Spicy Basil Pesto" />
-
 
 
     </LinearLayout>

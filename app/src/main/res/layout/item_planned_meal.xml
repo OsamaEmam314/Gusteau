@@ -5,50 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/spacing_small"
+    app:cardBackgroundColor="?attr/colorSurface"
     app:cardCornerRadius="@dimen/radius_large"
     app:cardElevation="@dimen/shadow_elevation_small"
-    app:strokeWidth="0dp"
-    app:cardBackgroundColor="?attr/colorSurface">
+    app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/spacing_normal">
 
-        <!-- Meal Info -->
         <LinearLayout
-            android:id="@+id/ll_meal_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginEnd="@dimen/spacing_normal"
+            android:orientation="vertical"
             android:paddingVertical="@dimen/spacing_xsmall"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_meal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/iv_meal">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/tv_meal_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.Gusteau.Body1.Bold"
-                android:maxLines="2"
                 android:ellipsize="end"
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.Gusteau.Body1.Bold"
                 tools:text="Avocado Toast with Poached Eggs" />
 
             <TextView
                 android:id="@+id/tv_meal_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xsmall"
                 android:textAppearance="@style/TextAppearance.Gusteau.Body2"
                 android:textColor="@color/text_tertiary_light"
-                android:layout_marginTop="@dimen/spacing_xsmall"
                 tools:text="Vegetarian • American" />
 
         </LinearLayout>
 
-        <!-- Meal Image -->
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_meal"
             android:layout_width="90dp"
@@ -61,20 +58,19 @@
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Gusteau.MediumComponent"
             tools:src="@tools:sample/backgrounds/scenic" />
 
-        <!-- Delete Button Overlay -->
         <ImageView
             android:id="@+id/iv_delete"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:padding="6dp"
-            android:background="@drawable/bg_circular_semi_transparent"
-            android:src="@drawable/ic_delete"
-            android:contentDescription="@string/delete_meal"
-            app:tint="@color/white"
-            app:layout_constraintTop_toTopOf="@id/iv_meal"
-            app:layout_constraintEnd_toEndOf="@id/iv_meal"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp" />
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/bg_circular_semi_transparent"
+            android:contentDescription="@string/delete_meal"
+            android:padding="6dp"
+            android:src="@drawable/ic_delete"
+            app:layout_constraintEnd_toEndOf="@id/iv_meal"
+            app:layout_constraintTop_toTopOf="@id/iv_meal"
+            app:tint="@color/white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

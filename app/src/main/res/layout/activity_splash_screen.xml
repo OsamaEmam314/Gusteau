@@ -15,6 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/app__hat" />
+
     <TextView
         android:id="@+id/appName"
         android:layout_width="wrap_content"
@@ -30,15 +31,13 @@
         app:layout_constraintTop_toTopOf="@id/appLogo" />
 
 
-
     <TextView
-        android:id="@+id/appSlogan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
+        android:fontFamily="@font/montserrat_semibold_italic"
         android:text="@string/app_subtitle"
         android:textColor="@color/primary"
-        android:fontFamily="@font/montserrat_semibold_italic"
         android:textSize="@dimen/text_size_large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

@@ -9,30 +9,29 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         style="@style/Widget.Gusteau.Toolbar"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:paddingTop="@dimen/spacing_xlarge"
-        app:navigationIcon="@drawable/ic_arrow_back"
-
-        android:paddingHorizontal="@dimen/spacing_normal"
-        app:title="@string/type"
-        app:titleTextAppearance="@style/TextAppearance.Gusteau.Title"
-        app:titleCentered="true"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_gradient_header"
-        app:layout_constraintTop_toTopOf="parent"
+        android:paddingHorizontal="@dimen/spacing_normal"
+
+        android:paddingTop="@dimen/spacing_xlarge"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:title="@string/type"
+        app:titleCentered="true"
+        app:titleTextAppearance="@style/TextAppearance.Gusteau.Title" />
 
     <TextView
         android:id="@+id/tv_results_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="24 meals found"
-        android:textAppearance="@style/TextAppearance.Gusteau.Headline3"
         android:layout_marginStart="@dimen/spacing_normal"
         android:layout_marginTop="@dimen/spacing_normal"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:textAppearance="@style/TextAppearance.Gusteau.Headline3"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         tools:text="24 meals found" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -42,47 +41,47 @@
         android:clipToPadding="false"
         android:padding="@dimen/spacing_normal"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        app:layout_constraintTop_toBottomOf="@id/tv_results_count"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_results_count"
+        app:spanCount="2"
         tools:listitem="@layout/item_meal_grid" />
 
     <LinearLayout
         android:id="@+id/ll_empty_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible">
 
         <ImageView
             android:layout_width="@dimen/icon_size_xxlarge"
             android:layout_height="@dimen/icon_size_xxlarge"
-            android:src="@drawable/ic_restaurant"
+            android:alpha="0.5"
             android:contentDescription="@string/no_meals_found"
-            app:tint="@color/text_tertiary_light"
-            android:alpha="0.5" />
+            android:src="@drawable/ic_restaurant"
+            app:tint="@color/text_tertiary_light" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_normal"
             android:text="@string/no_meals_found"
-            android:textAppearance="@style/TextAppearance.Gusteau.Headline3"
-            android:layout_marginTop="@dimen/spacing_normal" />
+            android:textAppearance="@style/TextAppearance.Gusteau.Headline3" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
             android:text="@string/no_meals_in_category"
-            android:textAppearance="@style/TextAppearance.Gusteau.Body2"
-            android:layout_marginTop="@dimen/spacing_small" />
+            android:textAppearance="@style/TextAppearance.Gusteau.Body2" />
 
     </LinearLayout>
 
@@ -90,12 +89,12 @@
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:indeterminateTint="@color/primary"
-        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

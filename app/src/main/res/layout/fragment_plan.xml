@@ -9,71 +9,70 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         style="@style/Widget.Gusteau.Toolbar"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:paddingTop="@dimen/spacing_xlarge"
-        android:paddingHorizontal="@dimen/spacing_normal"
-        app:title="@string/plan_your_food"
-        app:titleTextAppearance="@style/TextAppearance.Gusteau.Title"
-        app:titleCentered="true"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_gradient_header"
-        app:layout_constraintTop_toTopOf="parent"
+        android:paddingHorizontal="@dimen/spacing_normal"
+        android:paddingTop="@dimen/spacing_xlarge"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/plan_your_food"
+        app:titleCentered="true"
+        app:titleTextAppearance="@style/TextAppearance.Gusteau.Title" />
 
     <HorizontalScrollView
         android:id="@+id/hsv_calendar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:scrollbars="none"
         android:background="?android:attr/colorBackground"
         android:elevation="@dimen/shadow_elevation_small"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <LinearLayout
             android:id="@+id/ll_calendar_days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="@dimen/spacing_medium"
-            android:paddingBottom="@dimen/spacing_medium"
             android:paddingStart="@dimen/spacing_normal"
+            android:paddingTop="@dimen/spacing_medium"
             android:paddingEnd="@dimen/spacing_normal"
+            android:paddingBottom="@dimen/spacing_medium"
             tools:ignore="UselessParent">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_small"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="?attr/colorSurface">
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/spacing_small"
-                    android:gravity="center">
+                    android:padding="@dimen/spacing_small">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="MON"
+                        android:text="@string/mon"
                         android:textAppearance="@style/TextAppearance.Gusteau.Caption"
                         android:textColor="?attr/colorOnSurface" />
 
                     <TextView
-                        android:id="@+id/tv_day1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/one"
                         android:textColor="?attr/colorPrimary"
-                        android:layout_marginTop="4dp" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -83,33 +82,32 @@
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_small"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="?attr/colorSurface">
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/spacing_small"
-                    android:gravity="center">
+                    android:padding="@dimen/spacing_small">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TUE"
+                        android:text="@string/tue"
                         android:textAppearance="@style/TextAppearance.Gusteau.Caption"
                         android:textColor="?attr/colorOnSurface" />
 
                     <TextView
-                        android:id="@+id/tv_day2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/two"
                         android:textColor="?attr/colorOnSurface"
-                        android:layout_marginTop="4dp" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -119,33 +117,32 @@
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_small"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="?attr/colorSurface">
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/spacing_small"
-                    android:gravity="center">
+                    android:padding="@dimen/spacing_small">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="WED"
+                        android:text="@string/wed"
                         android:textAppearance="@style/TextAppearance.Gusteau.Caption"
                         android:textColor="?attr/colorOnSurface" />
 
                     <TextView
-                        android:id="@+id/tv_day3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="3"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/three"
                         android:textColor="?attr/colorOnSurface"
-                        android:layout_marginTop="4dp" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -155,33 +152,32 @@
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_small"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="?attr/colorSurface">
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/spacing_small"
-                    android:gravity="center">
+                    android:padding="@dimen/spacing_small">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="THU"
+                        android:text="@string/thu"
                         android:textAppearance="@style/TextAppearance.Gusteau.Caption"
                         android:textColor="?attr/colorOnSurface" />
 
                     <TextView
-                        android:id="@+id/tv_day4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/four"
                         android:textColor="?attr/colorOnSurface"
-                        android:layout_marginTop="4dp" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -191,33 +187,32 @@
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_small"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="?attr/colorSurface">
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/spacing_small"
-                    android:gravity="center">
+                    android:padding="@dimen/spacing_small">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="FRI"
+                        android:text="@string/fri"
                         android:textAppearance="@style/TextAppearance.Gusteau.Caption"
                         android:textColor="?attr/colorOnSurface" />
 
                     <TextView
-                        android:id="@+id/tv_day5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/five"
                         android:textColor="?attr/colorOnSurface"
-                        android:layout_marginTop="4dp" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -227,33 +222,32 @@
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_small"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="?attr/colorSurface">
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/spacing_small"
-                    android:gravity="center">
+                    android:padding="@dimen/spacing_small">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="SAT"
+                        android:text="@string/sat"
                         android:textAppearance="@style/TextAppearance.Gusteau.Caption"
                         android:textColor="?attr/colorOnSurface" />
 
                     <TextView
-                        android:id="@+id/tv_day6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="6"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/six"
                         android:textColor="?attr/colorOnSurface"
-                        android:layout_marginTop="4dp" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -262,33 +256,32 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="?attr/colorSurface">
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/spacing_small"
-                    android:gravity="center">
+                    android:padding="@dimen/spacing_small">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="SUN"
+                        android:text="@string/sun"
                         android:textAppearance="@style/TextAppearance.Gusteau.Caption"
                         android:textColor="?attr/colorOnSurface" />
 
                     <TextView
-                        android:id="@+id/tv_day7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="7"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/seven"
                         android:textColor="?attr/colorOnSurface"
-                        android:layout_marginTop="4dp" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -303,19 +296,18 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@color/divider_light"
-        app:layout_constraintTop_toBottomOf="@id/hsv_calendar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/hsv_calendar" />
 
     <ScrollView
-        android:id="@+id/sv_meals"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/divider"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/divider">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -326,9 +318,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/spacing_small"
                 android:text="@string/breakfast"
-                android:textAppearance="@style/TextAppearance.Gusteau.Title"
-                android:paddingBottom="@dimen/spacing_small" />
+                android:textAppearance="@style/TextAppearance.Gusteau.Title" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_breakfast"
@@ -344,18 +336,18 @@
                 style="@style/Widget.Gusteau.Button.Outlined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add_meal"
                 android:layout_marginTop="@dimen/spacing_small"
                 android:layout_marginBottom="@dimen/spacing_large"
+                android:text="@string/add_meal"
                 app:icon="@drawable/ic_add"
                 app:iconGravity="textStart" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/spacing_small"
                 android:text="@string/lunch"
-                android:textAppearance="@style/TextAppearance.Gusteau.Title"
-                android:paddingBottom="@dimen/spacing_small" />
+                android:textAppearance="@style/TextAppearance.Gusteau.Title" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_lunch"
@@ -371,18 +363,18 @@
                 style="@style/Widget.Gusteau.Button.Outlined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add_meal"
                 android:layout_marginTop="@dimen/spacing_small"
                 android:layout_marginBottom="@dimen/spacing_large"
+                android:text="@string/add_meal"
                 app:icon="@drawable/ic_add"
                 app:iconGravity="textStart" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/spacing_small"
                 android:text="@string/dinner"
-                android:textAppearance="@style/TextAppearance.Gusteau.Title"
-                android:paddingBottom="@dimen/spacing_small" />
+                android:textAppearance="@style/TextAppearance.Gusteau.Title" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_dinner"
@@ -398,18 +390,18 @@
                 style="@style/Widget.Gusteau.Button.Outlined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add_meal"
                 android:layout_marginTop="@dimen/spacing_small"
                 android:layout_marginBottom="@dimen/spacing_large"
+                android:text="@string/add_meal"
                 app:icon="@drawable/ic_add"
                 app:iconGravity="textStart" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/spacing_small"
                 android:text="@string/snacks"
-                android:textAppearance="@style/TextAppearance.Gusteau.Title"
-                android:paddingBottom="@dimen/spacing_small" />
+                android:textAppearance="@style/TextAppearance.Gusteau.Title" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_snacks"
@@ -425,9 +417,9 @@
                 style="@style/Widget.Gusteau.Button.Outlined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add_meal"
                 android:layout_marginTop="@dimen/spacing_small"
                 android:layout_marginBottom="@dimen/spacing_normal"
+                android:text="@string/add_meal"
                 app:icon="@drawable/ic_add"
                 app:iconGravity="textStart" />
 
@@ -439,12 +431,12 @@
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:indeterminateTint="@color/primary"
-        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

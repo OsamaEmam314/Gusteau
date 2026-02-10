@@ -4,31 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:layout_marginEnd="24dp"
     android:gravity="center_horizontal"
-    android:layout_marginEnd="24dp">
+    android:orientation="vertical">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_category_image"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:scaleType="centerCrop"
+        android:elevation="4dp"
         android:padding="2dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/unloaded_image"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Gusteau.Rounded"
         app:strokeColor="@android:color/white"
-        app:strokeWidth="2dp"
-        android:elevation="4dp"
-        android:src = "@drawable/unloaded_image" />
+        app:strokeWidth="2dp" />
 
     <TextView
         android:id="@+id/tv_category_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Breakfast"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:textAlignment="center"
         android:textColor="#181511"
         android:textSize="12sp"
-        android:fontFamily="sans-serif-medium"
-        android:layout_marginTop="8dp"
-        android:textAlignment="center" />
+        tools:text="Breakfast" />
 
 </LinearLayout>
