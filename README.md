@@ -70,7 +70,6 @@
     * Allow the project to sync dependencies.
 4.  **Configure API Keys:**
     * Add your `google-services.json` file to the `app/` directory for Firebase/Google Auth to work.
-    * *(Optional)* Add your Recipe API key in `local.properties` if required.
 5.  **Run the App:**
     * Connect a physical device or start an Emulator.
     * Click the **Run** (Play) button.
