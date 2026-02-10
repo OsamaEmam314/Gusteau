@@ -20,7 +20,7 @@
             android:name=".WelcomeActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.main.view.MainActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.splash.view.SplashScreenActivity"

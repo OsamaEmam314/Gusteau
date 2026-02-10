@@ -20,7 +20,6 @@ import androidx.credentials.exceptions.GetCredentialException;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,7 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.example.gusteau.MainActivity;
+import com.example.gusteau.presentation.main.view.MainActivity;
 import com.example.gusteau.R;
 import com.example.gusteau.presentation.login.LoginContract;
 import com.example.gusteau.presentation.login.presenter.LoginPresenter;;

@@ -210,5 +210,6 @@
     <string name="no_internet_title">No Internet Connection</string>
     <string name="no_internet_message">Please check your connection and try again</string>
     <string name="meal_name">Meal Name</string>
+    <string name="create_backup">Create Backup</string>
 
 </resources>

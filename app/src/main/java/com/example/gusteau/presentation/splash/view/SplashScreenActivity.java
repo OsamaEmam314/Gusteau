@@ -10,7 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.gusteau.MainActivity;
+import com.example.gusteau.presentation.main.view.MainActivity;
 import com.example.gusteau.R;
 import com.example.gusteau.WelcomeActivity;
 

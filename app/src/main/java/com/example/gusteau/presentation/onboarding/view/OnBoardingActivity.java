@@ -14,9 +14,8 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.gusteau.R;
-import com.example.gusteau.MainActivity;
+import com.example.gusteau.presentation.main.view.MainActivity;
 import com.example.gusteau.presentation.onboarding.OnBoardingContract;
-import com.example.gusteau.presentation.onboarding.view.OnBoardingAdapter;
 import com.example.gusteau.presentation.onboarding.presenter.OnBoardingPresenter;
 import com.google.android.material.button.MaterialButton;
 
