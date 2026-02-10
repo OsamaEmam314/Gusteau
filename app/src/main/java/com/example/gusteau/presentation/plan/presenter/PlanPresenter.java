@@ -22,6 +22,8 @@ public class PlanPresenter implements PlanContract.Presenter {
 
     private static final String TAG = "PlanPresenter";
 
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
+
     private final PlanContract.View view;
     private final AuthRepository authRepository;
     private final CompositeDisposable disposables;
@@ -30,23 +32,26 @@ public class PlanPresenter implements PlanContract.Presenter {
     private Calendar currentWeekStart;
     private int selectedDayIndex = 0;
     private String[] weekDates;
+    private String[] dayNames;
 
     public PlanPresenter(PlanContract.View view, Context context) {
         this.view = view;
         this.authRepository = new AuthRepository(context);
         this.disposables = new CompositeDisposable();
         currentWeekStart = Calendar.getInstance();
-        currentWeekStart.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         this.mealRepository = new MealsRepository(context);
     }
 
     @Override
     public void loadWeekDays() {
-
         weekDates = new String[7];
+        dayNames = new String[7];
+
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
         SimpleDateFormat dayFormat = new SimpleDateFormat("d", Locale.getDefault());
+        SimpleDateFormat dayNameFormat = new SimpleDateFormat("EEE", Locale.getDefault());
 
         String[] dayNumbers = new String[7];
 
@@ -55,10 +60,14 @@ public class PlanPresenter implements PlanContract.Presenter {
         for (int i = 0; i < 7; i++) {
             weekDates[i] = dateFormat.format(calendar.getTime());
             dayNumbers[i] = dayFormat.format(calendar.getTime());
+            dayNames[i] = dayNameFormat.format(calendar.getTime());
+
+            Log.d(TAG, "Day " + i + ": " + dayNames[i] + " " + dayNumbers[i] + " (" + weekDates[i] + ")");
+
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
 
-        view.updateWeekDays(dayNumbers, 0);
+        view.updateWeekDays(dayNumbers, dayNames, 0);
         selectedDayIndex = 0;
         cleanupOldPlans(todayDate);
     }
@@ -74,6 +83,7 @@ public class PlanPresenter implements PlanContract.Presenter {
                         )
         );
     }
+
     @Override
     public void onDaySelected(int dayIndex) {
         selectedDayIndex = dayIndex;
@@ -89,10 +99,9 @@ public class PlanPresenter implements PlanContract.Presenter {
         String selectedDate = weekDates[selectedDayIndex];
 
         view.showLoading();
+
         loadMealsByType(selectedDate, "Breakfast");
-
         loadMealsByType(selectedDate, "Lunch");
-
         loadMealsByType(selectedDate, "Dinner");
         loadMealsByType(selectedDate, "Snack");
     }
@@ -119,7 +128,6 @@ public class PlanPresenter implements PlanContract.Presenter {
                                         case "Snack":
                                             view.showSnackMeals(meals);
                                             break;
-
                                     }
                                 },
                                 error -> {
@@ -135,17 +143,19 @@ public class PlanPresenter implements PlanContract.Presenter {
                                         case "Dinner":
                                             view.showDinnerMeals(emptyList);
                                             break;
+                                        case "Snack":
+                                            view.showSnackMeals(emptyList);
+                                            break;
                                     }
                                 }
                         )
         );
     }
 
-  @Override
+    @Override
     public void onAddMeal() {
         checkGuestAndNavigate();
     }
-
 
     private void checkGuestAndNavigate() {
         disposables.add(
@@ -175,7 +185,6 @@ public class PlanPresenter implements PlanContract.Presenter {
 
     @Override
     public void onDeleteMealClick(PlannedMeal meal) {
-
         disposables.add(
                 mealRepository.deletePlannedMeal(meal)
                         .subscribeOn(Schedulers.io())

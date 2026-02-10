@@ -7,6 +7,7 @@ import java.util.List;
 public interface PlanContract {
 
     interface View {
+        void updateWeekDays(String[] dayNumbers, String[] dayNames, int selectedDayIndex);
         void showBreakfastMeals(List<PlannedMeal> meals);
         void showLunchMeals(List<PlannedMeal> meals);
         void showDinnerMeals(List<PlannedMeal> meals);
@@ -14,7 +15,6 @@ public interface PlanContract {
         void showLoading();
         void hideLoading();
         void showError(String message);
-        void updateWeekDays(String[] dayNumbers, int selectedDayIndex);
         void showMealDeleted(String mealType);
         void navigateToMealDetails();
         void navigateToSearchForMeal();
@@ -26,7 +26,6 @@ public interface PlanContract {
         void onDaySelected(int dayIndex);
         void loadMealsForSelectedDay();
         void onAddMeal();
-
         void onMealClick(PlannedMeal meal);
         void onDeleteMealClick(PlannedMeal meal);
         void onDestroy();

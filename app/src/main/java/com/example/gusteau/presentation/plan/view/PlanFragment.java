@@ -44,13 +44,13 @@ public class PlanFragment extends Fragment implements PlanContract.View {
     private PlannedMealAdapter breakfastAdapter;
     private PlannedMealAdapter lunchAdapter;
     private PlannedMealAdapter dinnerAdapter;
-    private  PlannedMealAdapter snackAdapter;
-
+    private PlannedMealAdapter snackAdapter;
 
     private PlanPresenter presenter;
 
     private CardView[] dayCards;
-    private TextView[] dayTextViews;
+    private TextView[] dayNameTextViews;
+    private TextView[] dayNumberTextViews;
     private int selectedCardIndex = 0;
 
     @Override
@@ -85,19 +85,14 @@ public class PlanFragment extends Fragment implements PlanContract.View {
         progressBar = view.findViewById(R.id.progress_bar);
 
         dayCards = new CardView[7];
-        dayTextViews = new TextView[7];
-
-        dayCards[0] = (CardView) llCalendarDays.getChildAt(0);
-        dayCards[1] = (CardView) llCalendarDays.getChildAt(1);
-        dayCards[2] = (CardView) llCalendarDays.getChildAt(2);
-        dayCards[3] = (CardView) llCalendarDays.getChildAt(3);
-        dayCards[4] = (CardView) llCalendarDays.getChildAt(4);
-        dayCards[5] = (CardView) llCalendarDays.getChildAt(5);
-        dayCards[6] = (CardView) llCalendarDays.getChildAt(6);
+        dayNameTextViews = new TextView[7];
+        dayNumberTextViews = new TextView[7];
 
         for (int i = 0; i < 7; i++) {
+            dayCards[i] = (CardView) llCalendarDays.getChildAt(i);
             LinearLayout dayLayout = (LinearLayout) dayCards[i].getChildAt(0);
-            dayTextViews[i] = (TextView) dayLayout.getChildAt(1);
+            dayNameTextViews[i] = (TextView) dayLayout.getChildAt(0);
+            dayNumberTextViews[i] = (TextView) dayLayout.getChildAt(1);
         }
     }
 
@@ -139,9 +134,12 @@ public class PlanFragment extends Fragment implements PlanContract.View {
     }
 
     @Override
-    public void updateWeekDays(String[] dayNumbers, int selectedDayIndex) {
-        for (int i = 0; i < Math.min(dayNumbers.length, dayTextViews.length); i++) {
-            dayTextViews[i].setText(dayNumbers[i]);
+    public void updateWeekDays(String[] dayNumbers, String[] dayNames, int selectedDayIndex) {
+        for (int i = 0; i < Math.min(dayNumbers.length, dayNumberTextViews.length); i++) {
+            dayNumberTextViews[i].setText(dayNumbers[i]);
+            if (i < dayNames.length) {
+                dayNameTextViews[i].setText(dayNames[i]);
+            }
         }
 
         for (int i = 0; i < dayCards.length; i++) {
@@ -151,6 +149,7 @@ public class PlanFragment extends Fragment implements PlanContract.View {
                 presenter.onDaySelected(dayIndex);
             });
         }
+
         updateSelectedDay(selectedDayIndex);
     }
 
@@ -158,17 +157,12 @@ public class PlanFragment extends Fragment implements PlanContract.View {
         for (int i = 0; i < dayCards.length; i++) {
             if (i == dayIndex) {
                 dayCards[i].setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.primary));
-                dayTextViews[i].setTextColor(Color.WHITE);
-                LinearLayout layout = (LinearLayout) dayCards[i].getChildAt(0);
-                TextView dayName = (TextView) layout.getChildAt(0);
-                dayName.setTextColor(Color.WHITE);
+                dayNumberTextViews[i].setTextColor(Color.WHITE);
+                dayNameTextViews[i].setTextColor(Color.WHITE);
             } else {
                 dayCards[i].setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.surface_light));
-                dayTextViews[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.text_primary_light));
-
-                LinearLayout layout = (LinearLayout) dayCards[i].getChildAt(0);
-                TextView dayName = (TextView) layout.getChildAt(0);
-                dayName.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_secondary_light));
+                dayNumberTextViews[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.text_primary_light));
+                dayNameTextViews[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.text_secondary_light));
             }
         }
 
@@ -207,6 +201,7 @@ public class PlanFragment extends Fragment implements PlanContract.View {
             rvDinner.setVisibility(View.VISIBLE);
         }
     }
+
     @Override
     public void showSnackMeals(List<PlannedMeal> meals) {
         snackAdapter.setMeals(meals);
@@ -251,7 +246,6 @@ public class PlanFragment extends Fragment implements PlanContract.View {
 
     @Override
     public void navigateToMealDetails() {
-
         if (getView() != null) {
             Navigation.findNavController(getView())
                     .navigate(R.id.action_navigation_plan_to_mealDetailsFragment);
@@ -270,16 +264,14 @@ public class PlanFragment extends Fragment implements PlanContract.View {
                     .navigate(R.id.navigation_search, null, navOptions);
         }
     }
+
     @Override
     public void showGuestModeMessage() {
         if (getView() != null) {
-            GuestDialog guestDialog = new GuestDialog(requireContext(),getView());
+            GuestDialog guestDialog = new GuestDialog(requireContext(), getView());
             guestDialog.showGuestModeMessage();
         }
     }
-
-
-
 
     @Override
     public void onDestroyView() {

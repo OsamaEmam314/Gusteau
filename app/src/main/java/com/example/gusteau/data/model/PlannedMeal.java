@@ -1,15 +1,15 @@
 package com.example.gusteau.data.model;
 
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "planned_meals")
 public class PlannedMeal {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-
+    @PrimaryKey
+    @NonNull
     private String mealId;
     private String mealName;
     private String mealImage;
@@ -34,13 +34,7 @@ public class PlannedMeal {
         this.timestamp = System.currentTimeMillis();
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getMealId() {
         return mealId;

@@ -20,12 +20,18 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealDetailsPresenter implements MealDetailsContract.Presenter {
+
+    private static final String TAG = "MealDetailsPresenter";
+
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
+
     private final MealDetailsContract.View view;
     private final MealsRepository mealsRepository;
     private final AuthRepository authRepository;
     private final CompositeDisposable disposables;
     private Meal currentMeal;
     private boolean isFavorite = false;
+
     public MealDetailsPresenter(MealDetailsContract.View view, Context context) {
         this.view = view;
         this.mealsRepository = new MealsRepository(context);
@@ -36,6 +42,7 @@ public class MealDetailsPresenter implements MealDetailsContract.Presenter {
     @Override
     public void loadMealDetails(String mealId) {
         view.showLoading();
+
         disposables.add(
                 mealsRepository.getMealById(mealId)
                         .flatMap(meal -> {
@@ -65,8 +72,10 @@ public class MealDetailsPresenter implements MealDetailsContract.Presenter {
     @Override
     public void onFavoriteClick() {
         if (currentMeal == null) {
+            Log.w(TAG, "No meal loaded");
             return;
         }
+
         disposables.add(
                 authRepository.isGuestMode()
                         .subscribeOn(Schedulers.io())
@@ -157,9 +166,11 @@ public class MealDetailsPresenter implements MealDetailsContract.Presenter {
 
     private void showWeekPlannerDialog() {
         List<MealDetailsContract.DayInfo> days = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        Calendar calendar = Calendar.getInstance(); // Start from TODAY
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
         SimpleDateFormat dayNameFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
+
         for (int i = 0; i < 7; i++) {
             String displayName;
             if (i == 0) {
@@ -169,10 +180,14 @@ public class MealDetailsPresenter implements MealDetailsContract.Presenter {
             } else {
                 displayName = dayNameFormat.format(calendar.getTime());
             }
+
             String date = dateFormat.format(calendar.getTime());
             days.add(new MealDetailsContract.DayInfo(displayName, date));
+
+
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
+
         view.showWeekPlannerDialog(days);
     }
 
@@ -181,6 +196,8 @@ public class MealDetailsPresenter implements MealDetailsContract.Presenter {
         if (currentMeal == null) {
             return;
         }
+
+
         PlannedMeal plannedMeal = new PlannedMeal(
                 currentMeal.getId(),
                 currentMeal.getName(),
@@ -209,7 +226,7 @@ public class MealDetailsPresenter implements MealDetailsContract.Presenter {
 
     private String getDayDisplayName(String date) {
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
             Calendar targetCalendar = Calendar.getInstance();
             targetCalendar.setTime(dateFormat.parse(date));
 
