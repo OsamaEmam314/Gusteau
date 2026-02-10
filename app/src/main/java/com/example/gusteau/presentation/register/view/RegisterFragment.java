@@ -85,23 +85,23 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
     }
 
 
-      public void idSetup(View view){
-          etName = view.findViewById(R.id.et_name);
-          etEmail = view.findViewById(R.id.et_email);
-          etPassword = view.findViewById(R.id.et_password);
-          etConfirmPassword = view.findViewById(R.id.et_confirm_password);
+    public void idSetup(View view) {
+        etName = view.findViewById(R.id.et_name);
+        etEmail = view.findViewById(R.id.et_email);
+        etPassword = view.findViewById(R.id.et_password);
+        etConfirmPassword = view.findViewById(R.id.et_confirm_password);
 
-          tilName = view.findViewById(R.id.til_name);
-          tilEmail = view.findViewById(R.id.til_email);
-          tilPassword = view.findViewById(R.id.til_password);
-          tilConfirmPassword = view.findViewById(R.id.til_confirm_password);
-          btnSignup = view.findViewById(R.id.btn_signup);
+        tilName = view.findViewById(R.id.til_name);
+        tilEmail = view.findViewById(R.id.til_email);
+        tilPassword = view.findViewById(R.id.til_password);
+        tilConfirmPassword = view.findViewById(R.id.til_confirm_password);
+        btnSignup = view.findViewById(R.id.btn_signup);
 
-          tvLogin = view.findViewById(R.id.tv_login);
+        tvLogin = view.findViewById(R.id.tv_login);
 
-          progressBar = view.findViewById(R.id.progress_bar);
+        progressBar = view.findViewById(R.id.progress_bar);
 
-      }
+    }
 
     private void setupTextChangeListeners() {
         addTextWatcher(etName, tilName);
@@ -113,7 +113,8 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
     private void addTextWatcher(TextInputEditText editText, TextInputLayout inputLayout) {
         editText.addTextChangedListener(new android.text.TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int length, int before, int count) {
@@ -124,9 +125,11 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
             }
 
             @Override
-            public void afterTextChanged(android.text.Editable s) {}
+            public void afterTextChanged(android.text.Editable s) {
+            }
         });
     }
+
     @Override
     public void showError(String message) {
         if (getView() != null && getContext() != null) {
@@ -157,6 +160,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
         tilConfirmPassword.setError(error);
         etConfirmPassword.requestFocus();
     }
+
     @Override
     public void clearErrors() {
         tilName.setError(null);
@@ -169,6 +173,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
         tilPassword.setErrorEnabled(false);
         tilConfirmPassword.setErrorEnabled(false);
     }
+
     @Override
     public void navigateToLogin() {
         if (getView() != null) {
@@ -204,6 +209,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
         etConfirmPassword.setEnabled(enabled);
         tvLogin.setEnabled(enabled);
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

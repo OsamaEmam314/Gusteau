@@ -19,6 +19,7 @@ public class SplashPresenter implements SplashContract.Presenter {
         this.authRepository = new AuthRepository(context);
         this.disposables = new CompositeDisposable();
     }
+
     @Override
     public void checkLoggedIn() {
         disposables.add(
@@ -32,7 +33,7 @@ public class SplashPresenter implements SplashContract.Presenter {
                                 error -> {
                                     view.setIsLoggedIn(false);
                                 }
-)
+                        )
         );
     }
 

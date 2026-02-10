@@ -11,12 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.gusteau.R;
+import com.example.gusteau.data.model.DayInfo;
 import com.example.gusteau.data.model.Meal;
 import com.example.gusteau.data.network.NetworkState;
 import com.example.gusteau.presentation.dialog.GuestDialog;
@@ -61,7 +61,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsContract
     private MealDetailsPresenter presenter;
 
     private String mealId;
-    private List<MealDetailsContract.DayInfo> weekDays;
+    private List<DayInfo> weekDays;
     private NoInternetDialog noInternetDialog;
 
     @Override
@@ -86,6 +86,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsContract
             showNoInternetDialog();
         }
     }
+
     public void showNoInternetDialog() {
         if (noInternetDialog != null && noInternetDialog.isShowing()) {
             noInternetDialog.dismiss();
@@ -102,6 +103,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsContract
                 }
         );
     }
+
     private void initViews(View view) {
         toolbar = view.findViewById(R.id.toolbar);
         svContent = view.findViewById(R.id.svContent);
@@ -277,7 +279,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsContract
     }
 
     @Override
-    public void showWeekPlannerDialog(List<MealDetailsContract.DayInfo> days) {
+    public void showWeekPlannerDialog(List<DayInfo> days) {
         this.weekDays = days;
 
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_week_planner, null);
@@ -285,7 +287,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsContract
         ChipGroup chipGroupDays = dialogView.findViewById(R.id.chipGroupDays);
         ChipGroup chipGroupMealTypes = dialogView.findViewById(R.id.chipGroupMealTypes);
 
-        for (MealDetailsContract.DayInfo dayInfo : days) {
+        for (DayInfo dayInfo : days) {
             Chip chip = (Chip) getLayoutInflater().inflate(R.layout.item_day_chip, chipGroupDays, false);
             chip.setText(dayInfo.getDisplayName());
             chip.setTag(dayInfo.getDate());
@@ -330,7 +332,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsContract
     @Override
     public void showGuestModeMessage() {
         if (getView() != null) {
-            GuestDialog guestDialog = new GuestDialog(requireContext(),getView());
+            GuestDialog guestDialog = new GuestDialog(requireContext(), getView());
             guestDialog.showGuestModeMessage();
         }
     }
@@ -339,30 +341,11 @@ public class MealDetailsFragment extends Fragment implements MealDetailsContract
     public void showMealAddedToPlan(String day, String mealType) {
         if (getView() != null) {
             Snackbar.make(getView(),
-                            "Added to " + day + " - " + mealType,
-                            Snackbar.LENGTH_SHORT).show();
+                    "Added to " + day + " - " + mealType,
+                    Snackbar.LENGTH_SHORT).show();
         }
     }
 
-    @Override
-    public void showMealAddedToFavorites() {
-        if (getView() != null) {
-            Snackbar.make(getView(),
-                            "Added to Favorites",
-                            Snackbar.LENGTH_SHORT)
-                    .show();
-        }
-    }
-
-    @Override
-    public void showMealRemovedFromFavorites() {
-        if (getView() != null) {
-            Snackbar.make(getView(),
-                            "Removed from Favorites",
-                            Snackbar.LENGTH_SHORT)
-                    .show();
-        }
-    }
 
     @Override
     public void showVideoNotAvailable() {

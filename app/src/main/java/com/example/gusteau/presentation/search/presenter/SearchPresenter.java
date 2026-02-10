@@ -1,6 +1,7 @@
 package com.example.gusteau.presentation.search.presenter;
 
 import android.content.Context;
+
 import com.example.gusteau.data.authentication.AuthRepository;
 import com.example.gusteau.data.meals.MealsRepository;
 import com.example.gusteau.data.model.Meal;
@@ -83,7 +84,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                         },
                         error -> {
                             view.showError("Search error");
-                            if(!NetworkState.isNetworkAvailable(context)){
+                            if (!NetworkState.isNetworkAvailable(context)) {
                                 view.showNoInternetDialog();
                             }
                         }
@@ -119,7 +120,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                                 error -> {
                                     view.hideLoading();
                                     view.showEmptyState();
-                                    if(!NetworkState.isNetworkAvailable(context)){
+                                    if (!NetworkState.isNetworkAvailable(context)) {
                                         view.showNoInternetDialog();
                                     }
                                 }
@@ -190,7 +191,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                                 error -> {
                                     view.hideLoading();
                                     view.showEmptyState();
-                                    if(!NetworkState.isNetworkAvailable(context)){
+                                    if (!NetworkState.isNetworkAvailable(context)) {
                                         view.showNoInternetDialog();
                                     }
                                 }
@@ -215,7 +216,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                                     view.hideLoading();
                                     view.showEmptyState();
 
-                                    if(!NetworkState.isNetworkAvailable(context)){
+                                    if (!NetworkState.isNetworkAvailable(context)) {
                                         view.showNoInternetDialog();
                                     }
                                 }
@@ -256,13 +257,14 @@ public class SearchPresenter implements SearchContract.Presenter {
                                     view.showCategories(categories);
                                 },
                                 error -> {
-                                    if(!NetworkState.isNetworkAvailable(context)){
+                                    if (!NetworkState.isNetworkAvailable(context)) {
                                         view.showNoInternetDialog();
                                     }
                                 }
                         )
         );
     }
+
     @Override
     public void onIngredientsChipClick() {
         currentFilterType = "ingredient";
@@ -276,13 +278,14 @@ public class SearchPresenter implements SearchContract.Presenter {
                                     view.showIngredients(ingredients);
                                 },
                                 error -> {
-                                    if(!NetworkState.isNetworkAvailable(context)){
+                                    if (!NetworkState.isNetworkAvailable(context)) {
                                         view.showNoInternetDialog();
                                     }
                                 }
                         )
         );
     }
+
     public void onCountryChipClick() {
         currentFilterType = "country";
 
@@ -295,13 +298,14 @@ public class SearchPresenter implements SearchContract.Presenter {
                                     view.showCountries(countries);
                                 },
                                 error -> {
-                                    if(!NetworkState.isNetworkAvailable(context)){
+                                    if (!NetworkState.isNetworkAvailable(context)) {
                                         view.showNoInternetDialog();
                                     }
                                 }
                         )
         );
     }
+
     @Override
     public void onCategorySelected(String category) {
         currentCategory = category;
@@ -328,7 +332,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                                 error -> {
                                     view.hideLoading();
                                     view.showEmptyState();
-                                    if(!NetworkState.isNetworkAvailable(context)){
+                                    if (!NetworkState.isNetworkAvailable(context)) {
                                         view.showNoInternetDialog();
                                     }
                                 }
@@ -362,7 +366,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                                 error -> {
                                     view.hideLoading();
                                     view.showEmptyState();
-                                    if(!NetworkState.isNetworkAvailable(context)){
+                                    if (!NetworkState.isNetworkAvailable(context)) {
                                         view.showNoInternetDialog();
                                     }
                                 }
@@ -396,7 +400,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                                 error -> {
                                     view.hideLoading();
                                     view.showEmptyState();
-                                    if(!NetworkState.isNetworkAvailable(context)){
+                                    if (!NetworkState.isNetworkAvailable(context)) {
                                         view.showNoInternetDialog();
                                     }
                                 }
@@ -484,9 +488,10 @@ public class SearchPresenter implements SearchContract.Presenter {
                                     }
                                 },
                                 error -> {
-                                    if(!NetworkState.isNetworkAvailable(context)){
+                                    if (!NetworkState.isNetworkAvailable(context)) {
                                         view.showNoInternetDialog();
-                                    }                                }
+                                    }
+                                }
                         )
         );
     }
@@ -501,16 +506,17 @@ public class SearchPresenter implements SearchContract.Presenter {
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
                                     () -> {
-                                        if(meal.getId().equals(mealsRepository.getMealOfTheDayId())){
+                                        if (meal.getId().equals(mealsRepository.getMealOfTheDayId())) {
                                             mealsRepository.setDayMealFavorited(true);
                                         }
                                         meal.setFavorite(true);
                                         view.updateMealFavoriteStatus(position, true);
                                     },
                                     error -> {
-                                        if(!NetworkState.isNetworkAvailable(context)){
+                                        if (!NetworkState.isNetworkAvailable(context)) {
                                             view.showNoInternetDialog();
-                                        }                                    }
+                                        }
+                                    }
                             )
             );
         } else {
@@ -520,16 +526,17 @@ public class SearchPresenter implements SearchContract.Presenter {
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
                                     () -> {
-                                        if(meal.getId().equals(mealsRepository.getMealOfTheDayId())){
+                                        if (meal.getId().equals(mealsRepository.getMealOfTheDayId())) {
                                             mealsRepository.setDayMealFavorited(false);
                                         }
                                         meal.setFavorite(false);
                                         view.updateMealFavoriteStatus(position, false);
                                     },
                                     error -> {
-                                        if(!NetworkState.isNetworkAvailable(context)){
+                                        if (!NetworkState.isNetworkAvailable(context)) {
                                             view.showNoInternetDialog();
-                                        }                                    }
+                                        }
+                                    }
                             )
             );
         }

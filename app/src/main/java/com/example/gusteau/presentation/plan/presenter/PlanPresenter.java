@@ -20,7 +20,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class PlanPresenter implements PlanContract.Presenter {
 
-    private static final String TAG = "PlanPresenter";
 
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
@@ -62,7 +61,6 @@ public class PlanPresenter implements PlanContract.Presenter {
             dayNumbers[i] = dayFormat.format(calendar.getTime());
             dayNames[i] = dayNameFormat.format(calendar.getTime());
 
-            Log.d(TAG, "Day " + i + ": " + dayNames[i] + " " + dayNumbers[i] + " (" + weekDates[i] + ")");
 
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
@@ -77,10 +75,7 @@ public class PlanPresenter implements PlanContract.Presenter {
                 mealRepository.cleanupOldMeals(thresholdDate)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                () -> Log.d(TAG, "Old meals cleanup completed successfully."),
-                                error -> Log.e(TAG, "Failed to cleanup old meals", error)
-                        )
+                        .subscribe()
         );
     }
 

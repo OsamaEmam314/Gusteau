@@ -15,7 +15,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
     private final SettingsContract.View view;
     private final AuthRepository authRepository;
     private final MealsRepository mealsRepository;
-    CompositeDisposable disposables ;
+    CompositeDisposable disposables;
 
 
     public SettingsPresenter(SettingsContract.View view, Context context) {
@@ -39,8 +39,8 @@ public class SettingsPresenter implements SettingsContract.Presenter {
                                     view.hideLoading();
                                     if (view != null) {
                                         view.navigateToLogin();
-                                     }
-                                    },
+                                    }
+                                },
                                 error -> {
                                     view.hideLoading();
                                     view.showError(error.getMessage());
@@ -50,6 +50,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
         );
 
     }
+
     @Override
     public void backingUp() {
         view.showLoading();
@@ -66,7 +67,6 @@ public class SettingsPresenter implements SettingsContract.Presenter {
                         .subscribe(
                                 () -> {
                                     view.hideLoading();
-                                    view.showError("Backup completed successfully!");
                                 },
                                 throwable -> {
                                     view.hideLoading();
@@ -75,11 +75,13 @@ public class SettingsPresenter implements SettingsContract.Presenter {
                         )
         );
     }
+
     @Override
     public void about() {
         view.showAboutDialog();
 
     }
+
     @Override
     public void loadUserData() {
         disposables.add(
@@ -97,6 +99,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
         );
 
     }
+
     @Override
     public void onDestroy() {
         disposables.clear();

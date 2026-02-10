@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private boolean isGuestUser = false;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,13 +44,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void showError(String message) {
-            Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
     public void setGuestStatus(boolean isGuest) {
         this.isGuestUser = isGuest;
     }
+
     private void setupNavigation() {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         navController = navHostFragment.getNavController();
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             }
         });
     }
+
     private void hideSystemUI() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
             final WindowInsetsController controller = getWindow().getInsetsController();
@@ -92,12 +93,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                             | View.SYSTEM_UI_FLAG_FULLSCREEN);
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
     }
-
 
 
     @Override

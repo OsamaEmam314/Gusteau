@@ -21,6 +21,7 @@ public class SplashScreenActivity extends AppCompatActivity implements SplashCon
     Intent intent;
     boolean isLoggedIn;
     SplashPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,15 +46,13 @@ public class SplashScreenActivity extends AppCompatActivity implements SplashCon
                                 appLogo.animate()
                                         .rotationBy(35f)
                                         .setDuration(500).withEndAction(() -> {
-                                            if(isLoggedIn)
-                                            {
+                                            if (isLoggedIn) {
                                                 intent = new Intent(SplashScreenActivity.this, MainActivity.class);
-                                            }
-                                            else {
+                                            } else {
                                                 intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
                                             }
-                                           startActivity(intent);
-                                           finish();
+                                            startActivity(intent);
+                                            finish();
                                         }).start();
                             }).start();
                 }).start();

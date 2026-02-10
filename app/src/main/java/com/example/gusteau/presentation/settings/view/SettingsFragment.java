@@ -42,6 +42,7 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
         return inflater.inflate(R.layout.fragment_settings, container, false);
 
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -52,7 +53,7 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
         about.setOnClickListener(v -> presenter.about());
         backingUp.setOnClickListener(v -> presenter.backingUp());
         createLoadingDialog();
-}
+    }
 
     private void createLoadingDialog() {
 
@@ -68,7 +69,7 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     private void showLogoutConfirmationDialog() {
         View customView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_logout, null);
 
-       AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
+        AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
                 .setView(customView)
                 .setBackground(new ColorDrawable(Color.TRANSPARENT))
                 .create();
@@ -86,6 +87,7 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
 
         dialog.show();
     }
+
     @Override
     public void showAboutDialog() {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_about, null);
@@ -100,13 +102,15 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
                 .setPositiveButton("Close", (dialog, which) -> dialog.dismiss())
                 .show();
     }
-    public void setupID(){
+
+    public void setupID() {
         logoutButton = requireView().findViewById(R.id.btn_logout);
         backingUp = requireView().findViewById(R.id.ll_backup);
         about = requireView().findViewById(R.id.ll_about);
         tvName = requireView().findViewById(R.id.tv_user_name);
         tvEmail = requireView().findViewById(R.id.tv_user_email);
     }
+
     @Override
     public void navigateToLogin() {
         Intent intent = new Intent(getActivity(), WelcomeActivity.class);
@@ -134,13 +138,15 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
             loadingDialog.dismiss();
         }
     }
+
     @Override
     public void setUserData(String name, String email) {
         tvName.setText(name);
         tvEmail.setText(email);
     }
+
     @Override
-    public void onDestroyView(){
+    public void onDestroyView() {
         super.onDestroyView();
         if (presenter != null) {
             presenter.onDestroy();

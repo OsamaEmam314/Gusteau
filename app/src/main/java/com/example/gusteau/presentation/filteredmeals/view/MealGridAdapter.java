@@ -27,9 +27,11 @@ public class MealGridAdapter extends RecyclerView.Adapter<MealGridAdapter.MealVi
     public interface OnMealClickListener {
         void onMealClick(Meal meal);
     }
+
     public interface OnFavoriteClickListener {
         void onFavoriteClick(Meal meal, int position);
     }
+
     public MealGridAdapter(OnMealClickListener clickListener, OnFavoriteClickListener favoriteListener) {
         this.meals = new ArrayList<>();
         this.clickListener = clickListener;
@@ -78,6 +80,7 @@ public class MealGridAdapter extends RecyclerView.Adapter<MealGridAdapter.MealVi
             btnFavorite = itemView.findViewById(R.id.btn_favorite);
             tvMealName = itemView.findViewById(R.id.tv_meal_name);
         }
+
         void bind(Meal meal, int position) {
             tvMealName.setText(meal.getName());
 

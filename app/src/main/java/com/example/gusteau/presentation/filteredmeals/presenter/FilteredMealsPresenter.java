@@ -17,8 +17,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class FilteredMealsPresenter implements FilteredMealsContract.Presenter {
 
-    private static final String TAG = "FilteredMealsPresenter";
-
     private final FilteredMealsContract.View view;
     private final MealsRepository mealsRepository;
     private final AuthRepository authRepository;
@@ -109,7 +107,6 @@ public class FilteredMealsPresenter implements FilteredMealsContract.Presenter {
     }
 
 
-
     @Override
     public void onMealClick(Meal meal) {
         mealsRepository.saveMealDetailsID(meal.getId());
@@ -148,7 +145,7 @@ public class FilteredMealsPresenter implements FilteredMealsContract.Presenter {
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
                                     () -> {
-                                        if(meal.getId().equals(mealsRepository.getMealOfTheDayId())){
+                                        if (meal.getId().equals(mealsRepository.getMealOfTheDayId())) {
                                             mealsRepository.setDayMealFavorited(true);
                                         }
                                         meal.setFavorite(true);
@@ -166,7 +163,7 @@ public class FilteredMealsPresenter implements FilteredMealsContract.Presenter {
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
                                     () -> {
-                                        if(meal.getId().equals(mealsRepository.getMealOfTheDayId())){
+                                        if (meal.getId().equals(mealsRepository.getMealOfTheDayId())) {
                                             mealsRepository.setDayMealFavorited(false);
                                         }
                                         meal.setFavorite(false);

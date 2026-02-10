@@ -1,4 +1,5 @@
 package com.example.gusteau.presentation.login.view;
+
 import static com.google.android.libraries.identity.googleid.GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL;
 
 import com.example.gusteau.presentation.onboarding.view.OnBoardingActivity;
@@ -36,6 +37,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
+
 import androidx.credentials.GetCredentialRequest;
 import androidx.credentials.Credential;
 import androidx.credentials.CustomCredential;
@@ -87,8 +89,8 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         lisenersSetup();
 
 
-
     }
+
     private void launchGoogleSignIn() {
         CredentialManager credentialManager = CredentialManager.create(requireContext());
 
@@ -112,6 +114,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                     public void onResult(GetCredentialResponse result) {
                         handleSignIn(result.getCredential());
                     }
+
                     @Override
                     public void onError(GetCredentialException e) {
                         showError("Google Sign-In failed.");
@@ -119,6 +122,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                 }
         );
     }
+
     private void handleSignIn(Credential credential) {
 
         if (credential instanceof CustomCredential) {
@@ -136,20 +140,24 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     }
 
 
-    public void lisenersSetup(){
+    public void lisenersSetup() {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String email = etEmail.getText() != null ? etEmail.getText().toString().trim() : "";
                 String password = etPassword.getText() != null ? etPassword.getText().toString() : "";
-                presenter.logInWithEmail(email, password);;
+                presenter.logInWithEmail(email, password);
+                ;
             }
         });
         btnGuestMode.setOnClickListener(v -> presenter.guestLogin());
         tvSignup.setOnClickListener(v -> presenter.navigateToRegister());
-        btnGoogleSignIn.setOnClickListener(v ->{launchGoogleSignIn();} );
+        btnGoogleSignIn.setOnClickListener(v -> {
+            launchGoogleSignIn();
+        });
     }
-    public void idSetup(View view){
+
+    public void idSetup(View view) {
         etEmail = view.findViewById(R.id.et_email);
         etPassword = view.findViewById(R.id.et_password);
         tilEmail = view.findViewById(R.id.til_email);
@@ -162,6 +170,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         tvSignup = view.findViewById(R.id.tv_signup);
         progressBar = view.findViewById(R.id.progress_bar);
     }
+
     private void setupTextChangeListeners() {
         addTextWatcher(etEmail, tilEmail);
         addTextWatcher(etPassword, tilPassword);
@@ -170,7 +179,8 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     private void addTextWatcher(TextInputEditText editText, TextInputLayout inputLayout) {
         editText.addTextChangedListener(new android.text.TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int length, int before, int count) {
@@ -181,9 +191,11 @@ public class LoginFragment extends Fragment implements LoginContract.View {
             }
 
             @Override
-            public void afterTextChanged(android.text.Editable s) {}
+            public void afterTextChanged(android.text.Editable s) {
+            }
         });
     }
+
     @Override
     public void showLoading() {
         progressBar.setVisibility(View.VISIBLE);
@@ -260,6 +272,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         getActivity().finish();
 
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

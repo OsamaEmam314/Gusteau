@@ -14,7 +14,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class RegisterPresenter implements RegisterContract.Presenter{
+public class RegisterPresenter implements RegisterContract.Presenter {
     private RegisterContract.View view;
     private final AuthRepository authRepository;
     private final CompositeDisposable disposables = new CompositeDisposable();
@@ -22,6 +22,7 @@ public class RegisterPresenter implements RegisterContract.Presenter{
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
             "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"
     );
+
     public RegisterPresenter(RegisterContract.View view, Context context) {
         this.view = view;
         this.authRepository = new AuthRepository(context);
@@ -163,6 +164,7 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 
         return true;
     }
+
     @Override
     public void navigateToLogin() {
         if (view != null) {
@@ -219,7 +221,6 @@ public class RegisterPresenter implements RegisterContract.Presenter{
     public void onDestroy() {
         disposables.clear();
     }
-
 
 
 }

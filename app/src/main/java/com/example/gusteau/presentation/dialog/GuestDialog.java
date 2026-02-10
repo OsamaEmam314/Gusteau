@@ -16,6 +16,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class GuestDialog {
     private final Context context;
+
     public GuestDialog(Context context, View view) {
         this.context = context;
     }

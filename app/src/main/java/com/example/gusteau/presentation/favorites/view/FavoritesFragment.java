@@ -125,7 +125,7 @@ public class FavoritesFragment extends Fragment implements FavoritesContract.Vie
     @Override
     public void showGuestModeMessage() {
         if (getView() != null) {
-            GuestDialog guestDialog = new GuestDialog(requireContext(),getView());
+            GuestDialog guestDialog = new GuestDialog(requireContext(), getView());
             guestDialog.showGuestModeMessage();
         }
     }

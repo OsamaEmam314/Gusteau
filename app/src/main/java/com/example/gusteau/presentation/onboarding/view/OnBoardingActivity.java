@@ -45,6 +45,7 @@ public class OnBoardingActivity extends AppCompatActivity implements OnBoardingC
         presenter = new OnBoardingPresenter(this, this);
         presenter.loadOnboardingPages();
     }
+
     private void hideSystemUI() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
             final WindowInsetsController controller = getWindow().getInsetsController();
@@ -61,6 +62,7 @@ public class OnBoardingActivity extends AppCompatActivity implements OnBoardingC
                             | View.SYSTEM_UI_FLAG_FULLSCREEN);
         }
     }
+
     private void initViews() {
         viewPager = findViewById(R.id.viewPager);
         layoutDots = findViewById(R.id.layoutDots);

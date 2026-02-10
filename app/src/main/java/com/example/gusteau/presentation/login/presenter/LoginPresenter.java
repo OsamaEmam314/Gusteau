@@ -16,6 +16,7 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
 
 
@@ -50,12 +51,14 @@ public class LoginPresenter implements LoginContract.Presenter {
         }
         return true;
     }
+
     private Completable restoreUserData(String userId) {
         return Completable.mergeArray(
-                        mealsRepository.restoreFavoritesFromFirestore(userId),
-                        mealsRepository.restorePlannedMealsFromFirestore(userId)
-                ).onErrorComplete();
+                mealsRepository.restoreFavoritesFromFirestore(userId),
+                mealsRepository.restorePlannedMealsFromFirestore(userId)
+        ).onErrorComplete();
     }
+
     @Override
     public void logInWithEmail(String email, String password) {
         if (view == null) return;
@@ -106,8 +109,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                                     view.hideLoading();
                                     if (user.second) {
                                         view.navigateToOnBoarding();
-                                    }
-                                    else {
+                                    } else {
                                         navigateToHome();
                                     }
                                 },
@@ -119,6 +121,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         );
 
     }
+
     private void handleGoogleSignInError(Throwable error) {
         if (view == null) return;
 
@@ -159,7 +162,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         if (view == null) return;
         else if (error instanceof com.google.firebase.FirebaseNetworkException) {
             view.showError("Network error. Please check your connection.");
-        }else if (error instanceof com.google.firebase.auth.FirebaseAuthInvalidCredentialsException) {
+        } else if (error instanceof com.google.firebase.auth.FirebaseAuthInvalidCredentialsException) {
             FirebaseAuthInvalidCredentialsException credsError = (FirebaseAuthInvalidCredentialsException) error;
             if (credsError.getErrorCode().equals("ERROR_INVALID_EMAIL")) {
                 view.showEmailError("Invalid email format.");
@@ -198,11 +201,11 @@ public class LoginPresenter implements LoginContract.Presenter {
             view.navigateToHome();
         }
     }
+
     @Override
     public void onDestroy() {
         disposables.clear();
     }
-
 
 
     @Override

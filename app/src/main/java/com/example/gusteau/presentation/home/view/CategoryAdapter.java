@@ -25,6 +25,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public interface OnCategoryClickListener {
         void onCategoryClick(String category);
     }
+
     public CategoryAdapter(OnCategoryClickListener listener) {
         this.categories = new ArrayList<>();
         this.listener = listener;

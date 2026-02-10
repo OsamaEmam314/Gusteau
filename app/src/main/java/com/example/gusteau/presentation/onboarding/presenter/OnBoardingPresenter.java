@@ -16,7 +16,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class OnBoardingPresenter implements OnBoardingContract.Presenter {
 
-    private static final String TAG = "OnboardingPresenter";
 
     private final OnBoardingContract.View view;
     private final AuthRepository authRepository;

@@ -52,12 +52,13 @@ public class FilteredMealsFragment extends Fragment implements FilteredMealsCont
         setupToolbar();
         setupRecyclerView();
         presenter = new FilteredMealsPresenter(this, requireContext());
-        if(!NetworkState.isNetworkAvailable(requireContext())){
+        if (!NetworkState.isNetworkAvailable(requireContext())) {
             showNoInternetDialog();
-        } else{
-          presenter.loadFilteredMeals();
+        } else {
+            presenter.loadFilteredMeals();
         }
     }
+
     public void showNoInternetDialog() {
         if (noInternetDialog != null && noInternetDialog.isShowing()) {
             noInternetDialog.dismiss();
@@ -142,6 +143,7 @@ public class FilteredMealsFragment extends Fragment implements FilteredMealsCont
             Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
         }
     }
+
     @Override
     public void updateMealFavoriteStatus(int position, boolean isFavorite) {
         adapter.updateFavoriteStatus(position, isFavorite);
@@ -174,7 +176,7 @@ public class FilteredMealsFragment extends Fragment implements FilteredMealsCont
     @Override
     public void showGuestModeMessage() {
         if (getView() != null) {
-            GuestDialog guestDialog = new GuestDialog(requireContext(),getView());
+            GuestDialog guestDialog = new GuestDialog(requireContext(), getView());
             guestDialog.showGuestModeMessage();
         }
     }

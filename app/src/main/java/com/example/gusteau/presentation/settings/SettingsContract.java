@@ -1,7 +1,7 @@
 package com.example.gusteau.presentation.settings;
 
 public interface SettingsContract {
-    interface View{
+    interface View {
 
         void showAboutDialog();
 
@@ -15,6 +15,7 @@ public interface SettingsContract {
 
         void setUserData(String name, String email);
     }
+
     interface Presenter {
 
         void logout();

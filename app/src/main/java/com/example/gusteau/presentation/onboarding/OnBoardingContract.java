@@ -6,19 +6,29 @@ public interface OnBoardingContract {
 
     interface View {
         void showOnboardingPages(List<OnboardingPage> pages);
+
         void updatePageIndicator(int position);
+
         void showSkipButton();
+
         void hideSkipButton();
+
         void showGetStartedButton();
+
         void hideGetStartedButton();
+
         void navigateToHome();
     }
 
     interface Presenter {
         void loadOnboardingPages();
+
         void onPageChanged(int position);
+
         void onSkipClicked();
+
         void onGetStartedClicked();
+
         void onDestroy();
     }
 

@@ -102,6 +102,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
                 }
         );
     }
+
     private void initViews(View view) {
         tvGreeting = view.findViewById(R.id.tv_greeting);
         tvUserName = view.findViewById(R.id.tv_user_name);
@@ -131,13 +132,13 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         rvIngredients.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false));
         rvIngredients.setAdapter(ingredientAdapter);
     }
-    private Category mapCountryToCategory(Country country)
-    {
-        return new Category("",country.getName(), country.getFlag());
+
+    private Category mapCountryToCategory(Country country) {
+        return new Category("", country.getName(), country.getFlag());
     }
-    private Category mapIngredientTOCategory(Ingredients ingredient)
-    {
-        return new Category("",ingredient.getName(), ingredient.getImage());
+
+    private Category mapIngredientTOCategory(Ingredients ingredient) {
+        return new Category("", ingredient.getName(), ingredient.getImage());
     }
 
     private void setupClickListeners() {
@@ -247,7 +248,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     @Override
     public void showGuestModeMessage() {
         if (getView() != null) {
-            GuestDialog guestDialog = new GuestDialog(requireContext(),getView());
+            GuestDialog guestDialog = new GuestDialog(requireContext(), getView());
             guestDialog.showGuestModeMessage();
         }
     }

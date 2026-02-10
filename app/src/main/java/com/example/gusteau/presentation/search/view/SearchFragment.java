@@ -68,6 +68,7 @@ public class SearchFragment extends Fragment implements SearchContract.View {
         presenter.loadInitialData();
 
     }
+
     @Override
     public void showNoInternetDialog() {
         if (noInternetDialog != null && noInternetDialog.isShowing()) {
@@ -113,12 +114,13 @@ public class SearchFragment extends Fragment implements SearchContract.View {
             }
         });
     }
+
     private void setupChips() {
         chipCategories.setOnClickListener(v -> {
             if (chipCategories.isChecked()) {
                 presenter.onCategoriesChipClick();
-            } else{
-                if(!areAnyChipsChecked()){
+            } else {
+                if (!areAnyChipsChecked()) {
                     presenter.loadInitialData();
                 }
             }
@@ -127,8 +129,8 @@ public class SearchFragment extends Fragment implements SearchContract.View {
         chipCountry.setOnClickListener(v -> {
             if (chipCountry.isChecked()) {
                 presenter.onCountryChipClick();
-            } else{
-                if(!areAnyChipsChecked()){
+            } else {
+                if (!areAnyChipsChecked()) {
                     presenter.loadInitialData();
                 }
             }
@@ -137,13 +139,14 @@ public class SearchFragment extends Fragment implements SearchContract.View {
         chipIngredients.setOnClickListener(v -> {
             if (chipIngredients.isChecked()) {
                 presenter.onIngredientsChipClick();
-            } else{
-                if(!areAnyChipsChecked()){
+            } else {
+                if (!areAnyChipsChecked()) {
                     presenter.loadInitialData();
                 }
             }
         });
     }
+
     @Override
     public void uncheckAllChips() {
         chipCategories.setChecked(false);
@@ -312,7 +315,7 @@ public class SearchFragment extends Fragment implements SearchContract.View {
     @Override
     public void showGuestModeMessage() {
         if (getView() != null) {
-            GuestDialog guestDialog = new GuestDialog(requireContext(),getView());
+            GuestDialog guestDialog = new GuestDialog(requireContext(), getView());
             guestDialog.showGuestModeMessage();
         }
     }
@@ -331,7 +334,6 @@ public class SearchFragment extends Fragment implements SearchContract.View {
             filterDialog.dismiss();
         }
     }
-
 
 
     @Override

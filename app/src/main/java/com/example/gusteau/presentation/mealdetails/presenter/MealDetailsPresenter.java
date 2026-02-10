@@ -1,10 +1,10 @@
 package com.example.gusteau.presentation.mealdetails.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.example.gusteau.data.authentication.AuthRepository;
 import com.example.gusteau.data.meals.MealsRepository;
+import com.example.gusteau.data.model.DayInfo;
 import com.example.gusteau.data.model.Meal;
 import com.example.gusteau.data.model.PlannedMeal;
 import com.example.gusteau.presentation.mealdetails.MealDetailsContract;
@@ -20,11 +20,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealDetailsPresenter implements MealDetailsContract.Presenter {
-
-    private static final String TAG = "MealDetailsPresenter";
-
     private static final String DATE_FORMAT = "yyyy-MM-dd";
-
     private final MealDetailsContract.View view;
     private final MealsRepository mealsRepository;
     private final AuthRepository authRepository;
@@ -72,10 +68,8 @@ public class MealDetailsPresenter implements MealDetailsContract.Presenter {
     @Override
     public void onFavoriteClick() {
         if (currentMeal == null) {
-            Log.w(TAG, "No meal loaded");
             return;
         }
-
         disposables.add(
                 authRepository.isGuestMode()
                         .subscribeOn(Schedulers.io())
@@ -105,11 +99,10 @@ public class MealDetailsPresenter implements MealDetailsContract.Presenter {
                                     () -> {
                                         isFavorite = false;
                                         currentMeal.setFavorite(false);
-                                        if(currentMeal.getId().equals(mealsRepository.getMealOfTheDayId())){
+                                        if (currentMeal.getId().equals(mealsRepository.getMealOfTheDayId())) {
                                             mealsRepository.setDayMealFavorited(false);
                                         }
                                         view.updateFavoriteButton(false);
-                                        view.showMealRemovedFromFavorites();
                                     },
                                     error -> {
                                         view.showError("Failed to remove from favorites");
@@ -125,11 +118,10 @@ public class MealDetailsPresenter implements MealDetailsContract.Presenter {
                                     () -> {
                                         isFavorite = true;
                                         currentMeal.setFavorite(true);
-                                        if(currentMeal.getId().equals(mealsRepository.getMealOfTheDayId())){
+                                        if (currentMeal.getId().equals(mealsRepository.getMealOfTheDayId())) {
                                             mealsRepository.setDayMealFavorited(true);
                                         }
                                         view.updateFavoriteButton(true);
-                                        view.showMealAddedToFavorites();
                                     },
                                     error -> {
                                         view.showError("Failed to add to favorites");
@@ -165,8 +157,8 @@ public class MealDetailsPresenter implements MealDetailsContract.Presenter {
     }
 
     private void showWeekPlannerDialog() {
-        List<MealDetailsContract.DayInfo> days = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance(); // Start from TODAY
+        List<DayInfo> days = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
         SimpleDateFormat dayNameFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
@@ -182,7 +174,7 @@ public class MealDetailsPresenter implements MealDetailsContract.Presenter {
             }
 
             String date = dateFormat.format(calendar.getTime());
-            days.add(new MealDetailsContract.DayInfo(displayName, date));
+            days.add(new DayInfo(displayName, date));
 
 
             calendar.add(Calendar.DAY_OF_MONTH, 1);

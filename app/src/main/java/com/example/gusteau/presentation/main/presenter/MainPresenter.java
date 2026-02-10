@@ -9,10 +9,10 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class MainPresenter implements MainContract.presenter{
+public class MainPresenter implements MainContract.presenter {
     private final AuthRepository authRepository;
     private final MainContract.View view;
-    CompositeDisposable disposables ;
+    CompositeDisposable disposables;
 
     public MainPresenter(MainContract.View view, Context context) {
         this.view = view;
@@ -37,12 +37,11 @@ public class MainPresenter implements MainContract.presenter{
                         )
         );
     }
+
     @Override
     public void onDestroy() {
         disposables.clear();
     }
-
-
 
 
 }

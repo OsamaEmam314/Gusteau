@@ -52,6 +52,7 @@ public class FavoritesPresenter implements FavoritesContract.Presenter {
                         )
         );
     }
+
     private void loadFavoritesFromDatabase() {
         disposables.add(
                 mealsRepository.getFavMeals()
@@ -115,7 +116,7 @@ public class FavoritesPresenter implements FavoritesContract.Presenter {
                         .subscribe(
                                 () -> {
                                     meal.setFavorite(false);
-                                    if(meal.getId().equals(mealsRepository.getMealOfTheDayId())){
+                                    if (meal.getId().equals(mealsRepository.getMealOfTheDayId())) {
                                         mealsRepository.setDayMealFavorited(false);
                                     }
                                     view.removeMealFromList(position);
