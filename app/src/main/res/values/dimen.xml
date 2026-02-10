@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Spacing Scale -->
+
     <dimen name="spacing_xxsmall">2dp</dimen>
     <dimen name="spacing_xsmall">4dp</dimen>
     <dimen name="spacing_small">8dp</dimen>
@@ -11,15 +11,6 @@
     <dimen name="spacing_xxlarge">32dp</dimen>
     <dimen name="spacing_xxxlarge">48dp</dimen>
 
-    <!-- Border Radius -->
-    <dimen name="radius_default">8dp</dimen>
-    <dimen name="radius_small">4dp</dimen>
-    <dimen name="radius_medium">12dp</dimen>
-    <dimen name="radius_large">16dp</dimen>
-    <dimen name="radius_xlarge">24dp</dimen>
-    <dimen name="radius_round">9999dp</dimen>
-
-    <!-- Text Sizes -->
     <dimen name="text_size_micro">10sp</dimen>
     <dimen name="text_size_tiny">12sp</dimen>
     <dimen name="text_size_small">14sp</dimen>
@@ -30,7 +21,24 @@
     <dimen name="text_size_xlarge">32sp</dimen>
     <dimen name="text_size_display">48sp</dimen>
 
-    <!-- Icon Sizes -->
+    <dimen name="radius_small">4dp</dimen>
+    <dimen name="radius_default">8dp</dimen>
+    <dimen name="radius_medium">12dp</dimen>
+    <dimen name="radius_large">16dp</dimen>
+    <dimen name="radius_xlarge">24dp</dimen>
+    <dimen name="radius_round">9999dp</dimen>
+
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="divider_thick">2dp</dimen>
+    <dimen name="stroke_width_thin">1dp</dimen>
+    <dimen name="stroke_width_medium">2dp</dimen>
+    <dimen name="stroke_width_thick">3dp</dimen>
+
+    <dimen name="shadow_elevation_small">2dp</dimen>
+    <dimen name="shadow_elevation_medium">4dp</dimen>
+    <dimen name="shadow_elevation_large">8dp</dimen>
+    <dimen name="shadow_elevation_xlarge">16dp</dimen>
+
     <dimen name="icon_size_tiny">16dp</dimen>
     <dimen name="icon_size_small">20dp</dimen>
     <dimen name="icon_size_normal">24dp</dimen>
@@ -39,88 +47,55 @@
     <dimen name="icon_size_xxlarge">64dp</dimen>
     <dimen name="icon_size_huge">80dp</dimen>
 
-    <!-- Button Heights -->
-    <dimen name="button_height_small">32dp</dimen>
-    <dimen name="button_height_medium">40dp</dimen>
-    <dimen name="button_height_normal">48dp</dimen>
-    <dimen name="button_height_large">56dp</dimen>
-
-    <!-- Card Dimensions -->
-    <dimen name="card_elevation">4dp</dimen>
-    <dimen name="card_elevation_hover">8dp</dimen>
-    <dimen name="card_corner_radius">12dp</dimen>
-    <dimen name="card_padding">16dp</dimen>
-
-    <!-- App Bar -->
-    <dimen name="app_bar_height">56dp</dimen>
-    <dimen name="app_bar_elevation">4dp</dimen>
-
-    <!-- Bottom Navigation -->
-    <dimen name="bottom_nav_height">56dp</dimen>
-    <dimen name="bottom_nav_height_with_padding">72dp</dimen>
-
-    <!-- Avatar Sizes -->
     <dimen name="avatar_size_small">32dp</dimen>
     <dimen name="avatar_size_medium">40dp</dimen>
     <dimen name="avatar_size_large">64dp</dimen>
     <dimen name="avatar_size_xlarge">96dp</dimen>
 
-    <!-- Ingredient Circle -->
-    <dimen name="ingredient_circle_size">64dp</dimen>
-    <dimen name="ingredient_circle_min_width">80dp</dimen>
+    <dimen name="button_height_small">32dp</dimen>
+    <dimen name="button_height_medium">40dp</dimen>
+    <dimen name="button_height_normal">48dp</dimen>
+    <dimen name="button_height_large">56dp</dimen>
 
-    <!-- Category Circle -->
-    <dimen name="category_circle_size">64dp</dimen>
-    <dimen name="category_min_width">64dp</dimen>
-
-    <!-- Meal Card -->
-    <dimen name="meal_card_image_width">112dp</dimen>
-    <dimen name="meal_card_image_height">96dp</dimen>
-    <dimen name="meal_card_small_image">128dp</dimen>
-
-    <!-- Floating Action Button -->
-    <dimen name="fab_size_normal">56dp</dimen>
     <dimen name="fab_size_mini">40dp</dimen>
+    <dimen name="fab_size_normal">56dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
-    <!-- Divider -->
-    <dimen name="divider_height">1dp</dimen>
-    <dimen name="divider_thick">2dp</dimen>
-
-    <!-- Stroke Width -->
-    <dimen name="stroke_width_thin">1dp</dimen>
-    <dimen name="stroke_width_medium">2dp</dimen>
-    <dimen name="stroke_width_thick">3dp</dimen>
-
-    <!-- Image Heights -->
-    <dimen name="image_header_height">320dp</dimen>
-    <dimen name="image_banner_height">180dp</dimen>
-
-    <!-- Progress Bar -->
-    <dimen name="progress_bar_height">10dp</dimen>
-
-    <!-- Search Bar -->
-    <dimen name="search_bar_height">48dp</dimen>
-
-    <!-- Tab Height -->
-    <dimen name="tab_height">48dp</dimen>
-
-    <!-- Calendar Day Item -->
-    <dimen name="calendar_day_size">48dp</dimen>
-
-    <!-- Chip Height -->
     <dimen name="chip_height">32dp</dimen>
     <dimen name="chip_height_large">36dp</dimen>
+    <dimen name="search_bar_height">48dp</dimen>
 
-    <!-- Shadow -->
-    <dimen name="shadow_elevation_small">2dp</dimen>
-    <dimen name="shadow_elevation_medium">4dp</dimen>
-    <dimen name="shadow_elevation_large">8dp</dimen>
-    <dimen name="shadow_elevation_xlarge">16dp</dimen>
+    <dimen name="card_elevation">4dp</dimen>
+    <dimen name="card_elevation_hover">8dp</dimen>
+    <dimen name="card_corner_radius">12dp</dimen>
+    <dimen name="card_padding">16dp</dimen>
 
-    <!--- Logo Dimensions -->
+    <dimen name="app_bar_height">56dp</dimen>
+    <dimen name="app_bar_elevation">4dp</dimen>
+
+    <dimen name="bottom_nav_height">56dp</dimen>
+    <dimen name="bottom_nav_height_with_padding">72dp</dimen>
+
+    <dimen name="tab_height">48dp</dimen>
+    <dimen name="progress_bar_height">10dp</dimen>
+
     <dimen name="logo_width">150dp</dimen>
     <dimen name="logo_height">150dp</dimen>
     <dimen name="logo_width_small">80dp</dimen>
     <dimen name="logo_height_small">80dp</dimen>
+
+    <dimen name="meal_card_image_width">112dp</dimen>
+    <dimen name="meal_card_image_height">96dp</dimen>
+    <dimen name="meal_card_small_image">128dp</dimen>
+
+    <dimen name="ingredient_circle_size">64dp</dimen>
+    <dimen name="ingredient_circle_min_width">80dp</dimen>
+    <dimen name="category_circle_size">64dp</dimen>
+    <dimen name="category_min_width">64dp</dimen>
+
+    <dimen name="image_header_height">320dp</dimen>
+    <dimen name="image_banner_height">180dp</dimen>
+
+    <dimen name="calendar_day_size">48dp</dimen>
+
 </resources>

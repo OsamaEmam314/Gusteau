@@ -18,8 +18,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class HomePresenter implements HomeContract.Presenter {
 
-    private static final String TAG = "HomePresenter";
-
     private final HomeContract.View view;
     private final MealsRepository mealsRepository;
     private final AuthRepository authRepository;

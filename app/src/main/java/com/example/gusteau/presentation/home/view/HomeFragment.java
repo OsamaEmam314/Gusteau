@@ -37,7 +37,6 @@ import java.util.List;
 
 public class HomeFragment extends Fragment implements HomeContract.View {
 
-    private ShapeableImageView ivUserAvatar;
     private TextView tvGreeting;
     private TextView tvUserName;
 
@@ -104,7 +103,6 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         );
     }
     private void initViews(View view) {
-        ivUserAvatar = view.findViewById(R.id.iv_user_avatar);
         tvGreeting = view.findViewById(R.id.tv_greeting);
         tvUserName = view.findViewById(R.id.tv_user_name);
         cardMealOfDay = view.findViewById(R.id.card_meal_of_day);
@@ -182,7 +180,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
         Glide.with(this)
                 .load(meal.getImageUrl())
-                .placeholder(R.drawable.ic_restaurant)
+                .placeholder(R.drawable.unloaded_image)
                 .error(R.drawable.unloaded_image)
                 .centerCrop()
                 .into(ivMealImage);
