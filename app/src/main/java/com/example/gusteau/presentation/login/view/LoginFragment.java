@@ -260,4 +260,9 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         getActivity().finish();
 
     }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        presenter.onDestroy();
+    }
 }

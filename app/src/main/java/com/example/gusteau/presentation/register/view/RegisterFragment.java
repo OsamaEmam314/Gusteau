@@ -204,6 +204,10 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
         etConfirmPassword.setEnabled(enabled);
         tvLogin.setEnabled(enabled);
     }
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        presenter.onDestroy();
+    }
 
 }

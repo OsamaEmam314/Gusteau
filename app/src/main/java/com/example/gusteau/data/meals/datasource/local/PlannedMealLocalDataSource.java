@@ -44,4 +44,8 @@ public class PlannedMealLocalDataSource {
     public Completable cleanupOldMeals(String thresholdDate) {
         return plannedMealDao.deleteOldMeals(thresholdDate);
     }
+    public Completable deleteAll() {
+        return plannedMealDao.deleteAll();
+    }
+
 }

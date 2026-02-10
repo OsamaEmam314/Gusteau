@@ -92,8 +92,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                             | View.SYSTEM_UI_FLAG_FULLSCREEN);
         }
     }
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
+    }
 
 
 

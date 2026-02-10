@@ -9,4 +9,9 @@ public interface MainContract {
         void setGuestStatus(boolean isGuest);
 
     }
+    interface presenter{
+        void checkUserStatus();
+
+        void onDestroy();
+    }
 }

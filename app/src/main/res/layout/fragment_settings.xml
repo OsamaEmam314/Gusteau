@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -56,8 +57,7 @@
                 android:layout_width="@dimen/avatar_size_xlarge"
                 android:layout_height="@dimen/avatar_size_xlarge"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_person"
-                app:strokeColor="@color/primary"
+                android:src="@drawable/gusteau_ghost"
                 app:strokeWidth="3dp"
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Gusteau.Rounded"
                 tools:src="@tools:sample/avatars" />
@@ -93,7 +93,7 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <LinearLayout
-                android:id="@+id/ll_edit_profile"
+                android:id="@+id/ll_backup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -117,21 +117,7 @@
                     android:textAppearance="@style/TextAppearance.Gusteau.Body1"
                     android:layout_marginStart="@dimen/spacing_normal" />
 
-                <ImageView
-                    android:layout_width="@dimen/icon_size_small"
-                    android:layout_height="@dimen/icon_size_small"
-                    android:src="@drawable/ic_arrow_right"
-                    android:contentDescription="@string/navigate"
-                    app:tint="@color/text_tertiary_light" />
-
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/divider_height"
-                android:background="@color/divider_light"
-                android:layout_marginStart="@dimen/spacing_xlarge"
-                android:layout_marginEnd="@dimen/spacing_normal" />
 
             <View
                 android:layout_width="match_parent"
@@ -166,13 +152,6 @@
                     android:textAppearance="@style/TextAppearance.Gusteau.Body1"
                     android:layout_marginStart="@dimen/spacing_normal" />
 
-                <ImageView
-                    android:layout_width="@dimen/icon_size_small"
-                    android:layout_height="@dimen/icon_size_small"
-                    android:src="@drawable/ic_arrow_right"
-                    android:contentDescription="@string/navigate"
-                    app:tint="@color/text_tertiary_light" />
-
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -192,11 +171,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/app_version"
                 android:textAppearance="@style/TextAppearance.Gusteau.Caption"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/spacing_normal"
-                tools:text="Version 1.0.0" />
+                android:text="Version 1.0.0" />
 
         </LinearLayout>
 

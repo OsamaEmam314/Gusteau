@@ -111,8 +111,11 @@ public class MealsRepository {
     public boolean isDayMealFavorited() {
         return sharedPrefrenceLocalDataSource.isDayMealFavorited();
     }
-    public Completable deleteAllFavMeals() {
-        return localDataSource.deleteAll().doOnComplete(() -> {
+    public Completable clearAllUserData() {
+        return Completable.mergeArray(
+                localDataSource.deleteAll(),
+                plannedMealLocalDataSource.deleteAll()
+        ).doOnComplete(() -> {
             sharedPrefrenceLocalDataSource.clearData();
         });
     }

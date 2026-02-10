@@ -42,7 +42,6 @@ public class PlanPresenter implements PlanContract.Presenter {
 
     @Override
     public void loadWeekDays() {
-        Log.d(TAG, "Loading week days");
 
         weekDates = new String[7];
         Calendar calendar = Calendar.getInstance();
@@ -59,7 +58,6 @@ public class PlanPresenter implements PlanContract.Presenter {
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
 
-        Log.d(TAG, "Week dates: " + String.join(", ", weekDates));
         view.updateWeekDays(dayNumbers, 0);
         selectedDayIndex = 0;
         cleanupOldPlans(todayDate);
@@ -78,7 +76,6 @@ public class PlanPresenter implements PlanContract.Presenter {
     }
     @Override
     public void onDaySelected(int dayIndex) {
-        Log.d(TAG, "Day selected: " + dayIndex + " (date: " + weekDates[dayIndex] + ")");
         selectedDayIndex = dayIndex;
         loadMealsForSelectedDay();
     }
@@ -86,12 +83,10 @@ public class PlanPresenter implements PlanContract.Presenter {
     @Override
     public void loadMealsForSelectedDay() {
         if (weekDates == null || selectedDayIndex >= weekDates.length) {
-            Log.e(TAG, "Invalid week dates or day index");
             return;
         }
 
         String selectedDate = weekDates[selectedDayIndex];
-        Log.d(TAG, "Loading meals for date: " + selectedDate);
 
         view.showLoading();
         loadMealsByType(selectedDate, "Breakfast");
@@ -148,7 +143,6 @@ public class PlanPresenter implements PlanContract.Presenter {
 
   @Override
     public void onAddMeal() {
-        Log.d(TAG, "Add meal clicked");
         checkGuestAndNavigate();
     }
 
@@ -175,14 +169,12 @@ public class PlanPresenter implements PlanContract.Presenter {
 
     @Override
     public void onMealClick(PlannedMeal meal) {
-        Log.d(TAG, "Meal clicked: " + meal.getMealName());
         mealRepository.saveMealDetailsID(meal.getMealId());
         view.navigateToMealDetails();
     }
 
     @Override
     public void onDeleteMealClick(PlannedMeal meal) {
-        Log.d(TAG, "Delete meal clicked: " + meal.getMealName());
 
         disposables.add(
                 mealRepository.deletePlannedMeal(meal)
@@ -202,7 +194,6 @@ public class PlanPresenter implements PlanContract.Presenter {
 
     @Override
     public void onDestroy() {
-        Log.d(TAG, "onDestroy - clearing disposables");
         disposables.clear();
     }
 }

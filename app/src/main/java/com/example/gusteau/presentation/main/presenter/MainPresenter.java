@@ -9,7 +9,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class MainPresenter {
+public class MainPresenter implements MainContract.presenter{
     private final AuthRepository authRepository;
     private final MainContract.View view;
     CompositeDisposable disposables ;
@@ -21,6 +21,7 @@ public class MainPresenter {
 
     }
 
+    @Override
     public void checkUserStatus() {
         disposables.add(
                 authRepository.isGuestMode()
@@ -35,6 +36,10 @@ public class MainPresenter {
                                 }
                         )
         );
+    }
+    @Override
+    public void onDestroy() {
+        disposables.clear();
     }
 
 
