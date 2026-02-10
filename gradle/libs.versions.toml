@@ -22,6 +22,7 @@ glide = "5.0.5"
 rxandroid = "3.0.2"
 rxjava = "3.1.12"
 room_version = "2.8.4"
+firebaseFirestore = "26.1.0"
 
 [libraries]
 core = { module = "com.pierfrancescosoffritti.androidyoutubeplayer:core", version.ref = "core" }
@@ -49,6 +50,7 @@ room = { group = "androidx.room", name = "room-runtime", version.ref = "room_ver
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
 roomrx = { group = "androidx.room", name = "room-rxjava3", version.ref = "room_version" }
 retrofit-adapter = { group = "com.github.akarnokd", name = "rxjava3-retrofit-adapter", version.ref = "retrofit" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

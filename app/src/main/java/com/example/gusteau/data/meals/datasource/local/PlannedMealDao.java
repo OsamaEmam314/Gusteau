@@ -51,4 +51,5 @@ public interface PlannedMealDao {
 
     @Query("DELETE FROM planned_meals")
     Completable deleteAll();
+
 }

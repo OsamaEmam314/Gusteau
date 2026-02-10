@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -31,8 +32,8 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     private LinearLayout about;
     private TextView tvName;
     private TextView tvEmail;
-    private ProgressBar loading;
     private SettingsPresenter presenter;
+    private AlertDialog loadingDialog;
 
 
     @Override
@@ -50,16 +51,29 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
         logoutButton.setOnClickListener(v -> showLogoutConfirmationDialog());
         about.setOnClickListener(v -> presenter.about());
         backingUp.setOnClickListener(v -> presenter.backingUp());
+        createLoadingDialog();
 }
 
+    private void createLoadingDialog() {
+
+        View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_loading, null);
+
+        loadingDialog = new MaterialAlertDialogBuilder(requireContext())
+                .setView(dialogView)
+                .setCancelable(false)
+                .setBackground(new ColorDrawable(Color.TRANSPARENT))
+                .create();
+    }
 
     private void showLogoutConfirmationDialog() {
         View customView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_logout, null);
 
-        androidx.appcompat.app.AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
+       AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
                 .setView(customView)
                 .setBackground(new ColorDrawable(Color.TRANSPARENT))
                 .create();
+        dialog.setCanceledOnTouchOutside(false);
+
 
         customView.findViewById(R.id.btnLogOut).setOnClickListener(v -> {
             presenter.logout();
@@ -74,11 +88,11 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     }
     @Override
     public void showAboutDialog() {
-        android.view.View dialogView = getLayoutInflater().inflate(R.layout.dialog_about, null);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_about, null);
 
         String versionName = "v1.0";
 
-        android.widget.TextView tvVersion = dialogView.findViewById(R.id.tv_about_version);
+        TextView tvVersion = dialogView.findViewById(R.id.tv_about_version);
         tvVersion.setText(versionName);
 
         new MaterialAlertDialogBuilder(requireContext())
@@ -92,7 +106,6 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
         about = requireView().findViewById(R.id.ll_about);
         tvName = requireView().findViewById(R.id.tv_user_name);
         tvEmail = requireView().findViewById(R.id.tv_user_email);
-        loading = requireView().findViewById(R.id.progressBar2);
     }
     @Override
     public void navigateToLogin() {
@@ -110,14 +123,17 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
 
     @Override
     public void showLoading() {
-        loading.setVisibility(View.VISIBLE);
+        if (loadingDialog != null && !loadingDialog.isShowing()) {
+            loadingDialog.show();
+        }
     }
 
     @Override
     public void hideLoading() {
-        loading.setVisibility(View.GONE);
+        if (loadingDialog != null && loadingDialog.isShowing()) {
+            loadingDialog.dismiss();
+        }
     }
-
     @Override
     public void setUserData(String name, String email) {
         tvName.setText(name);

@@ -9,9 +9,12 @@ import androidx.annotation.Nullable;
 import com.example.gusteau.data.meals.datasource.local.MealLocalDataSource;
 import com.example.gusteau.data.meals.datasource.local.MealSharedPrefrenceLocalDataSource;
 import com.example.gusteau.data.meals.datasource.local.PlannedMealLocalDataSource;
+import com.example.gusteau.data.meals.datasource.remote.FireStoreLocalDataSource;
 import com.example.gusteau.data.meals.datasource.remote.RemoteMealDataSource;
 import com.example.gusteau.data.model.Category;
 import com.example.gusteau.data.model.Country;
+import com.example.gusteau.data.model.FireStoreFavMeal;
+import com.example.gusteau.data.model.FireStorePlannedMeal;
 import com.example.gusteau.data.model.Ingredients;
 import com.example.gusteau.data.model.Meal;
 import com.example.gusteau.data.model.PlannedMeal;
@@ -24,6 +27,7 @@ import java.util.Locale;
 import java.util.Random;
 
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 
 public class MealsRepository {
@@ -33,10 +37,12 @@ public class MealsRepository {
     private final MealLocalDataSource localDataSource;
     private final PlannedMealLocalDataSource plannedMealLocalDataSource;
     private final MealSharedPrefrenceLocalDataSource sharedPrefrenceLocalDataSource;
+    private final FireStoreLocalDataSource fireStoreLocalDataSource;
 
     public MealsRepository(Context context) {
         this.remoteDataSource = new RemoteMealDataSource();
         this.localDataSource = new MealLocalDataSource(context);
+        this.fireStoreLocalDataSource = new FireStoreLocalDataSource();
         this.plannedMealLocalDataSource = new PlannedMealLocalDataSource(context);
         this.sharedPrefrenceLocalDataSource = new MealSharedPrefrenceLocalDataSource(context);
     }
@@ -247,6 +253,69 @@ public class MealsRepository {
         return "https://www.themealdb.com/images/icons/flags/big/" + size + "/" + countryCode + ".png";
     }
 
+    public Completable restoreFavoritesFromFirestore(String userId) {
+        return fireStoreLocalDataSource.getFavMeals(userId)
+                .flatMapObservable(list -> Observable.fromIterable(list))
+                .flatMapSingle(firestoreMeal ->
+                        remoteDataSource.getMealById(firestoreMeal.getMealId())
+                )
+                .flatMapCompletable(apiMeal -> {
+                    apiMeal.setFavorite(true);
+                    return localDataSource.insertMeal(apiMeal);
+                });
+    }
+
+    public Completable restorePlannedMealsFromFirestore(String userId) {
+        return fireStoreLocalDataSource.getPlannedMeals(userId)
+                .flatMapObservable(list -> Observable.fromIterable(list))
+                .flatMapSingle(firestorePlan ->
+                        remoteDataSource.getMealById(firestorePlan.getMealId())
+                                .map(apiMeal -> {
+                                    return new PlannedMeal(
+                                            apiMeal.getId(),
+                                            apiMeal.getName(),
+                                            apiMeal.getImageUrl(),
+                                            apiMeal.getCategory(),
+                                            apiMeal.getArea(),
+                                            firestorePlan.getDayDate(),
+                                            firestorePlan.getMealType()
+                                    );
+                                })
+                )
+                .flatMapCompletable(plannedMeal ->
+                        plannedMealLocalDataSource.insertMeal(plannedMeal)
+                );
+    }
+
+    public Completable uploadFavoritesToFirestore(String userId) {
+        return localDataSource.getAllMeals()
+                .map(meals -> {
+                    List<FireStoreFavMeal> fireStoreList = new ArrayList<>();
+                    for (Meal meal : meals) {
+                        fireStoreList.add(new FireStoreFavMeal(meal.getId(), userId));
+                    }
+                    return fireStoreList;
+                })
+                .flatMapCompletable(list -> fireStoreLocalDataSource.updateAllFavMeals(userId, list));
+    }
+
+
+    public Completable uploadPlannedMealsToFirestore(String userId) {
+        return plannedMealLocalDataSource.getAllPlannedMeals()
+                .map(plannedMeals -> {
+                    List<FireStorePlannedMeal> fireStoreList = new ArrayList<>();
+                    for (PlannedMeal meal : plannedMeals) {
+                        fireStoreList.add(new FireStorePlannedMeal(
+                                meal.getMealId(),
+                                userId,
+                                meal.getDayDate(),
+                                meal.getMealType()
+                        ));
+                    }
+                    return fireStoreList;
+                })
+                .flatMapCompletable(list -> fireStoreLocalDataSource.updateAllPlannedMeals(userId, list));
+    }
     @NonNull
     private static String getCountryCode(@NonNull String title) {
         switch (title) {

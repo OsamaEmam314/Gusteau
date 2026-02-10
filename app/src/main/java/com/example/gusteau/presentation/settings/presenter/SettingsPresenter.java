@@ -7,6 +7,7 @@ import com.example.gusteau.data.meals.MealsRepository;
 import com.example.gusteau.presentation.settings.SettingsContract;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -38,7 +39,8 @@ public class SettingsPresenter implements SettingsContract.Presenter {
                                     view.hideLoading();
                                     if (view != null) {
                                         view.navigateToLogin();
-                                    }                                },
+                                     }
+                                    },
                                 error -> {
                                     view.hideLoading();
                                     view.showError(error.getMessage());
@@ -50,7 +52,28 @@ public class SettingsPresenter implements SettingsContract.Presenter {
     }
     @Override
     public void backingUp() {
-
+        view.showLoading();
+        disposables.add(
+                authRepository.getCurrentUser()
+                        .flatMapCompletable(user -> {
+                            return Completable.mergeArray(
+                                    mealsRepository.uploadFavoritesToFirestore(user.getUid()),
+                                    mealsRepository.uploadPlannedMealsToFirestore(user.getUid())
+                            );
+                        })
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                () -> {
+                                    view.hideLoading();
+                                    view.showError("Backup completed successfully!");
+                                },
+                                throwable -> {
+                                    view.hideLoading();
+                                    view.showError("Backup failed: " + throwable.getMessage());
+                                }
+                        )
+        );
     }
     @Override
     public void about() {
