@@ -168,8 +168,8 @@
     </style>
 
     <style name="Widget.Gusteau.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
-        <item name="itemIconTint">@color/text_secondary_light</item>
-        <item name="itemTextColor">@color/text_secondary_light</item>
+        <item name="itemIconTint">@color/selector_bottom_nav</item>
+        <item name="itemTextColor">@color/selector_bottom_nav</item>
         <item name="itemTextAppearanceActive">@style/TextAppearance.Gusteau.Micro.Bold</item>
         <item name="itemTextAppearanceInactive">@style/TextAppearance.Gusteau.Micro</item>
         <item name="android:background">@color/surface_light</item>
