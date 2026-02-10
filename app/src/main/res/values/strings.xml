@@ -211,5 +211,7 @@
     <string name="no_internet_message">Please check your connection and try again</string>
     <string name="meal_name">Meal Name</string>
     <string name="create_backup">Create Backup</string>
+    <string name="are_you_sure_you_want_to_log_out_of_gusteau">Are you sure you want to log out of Gusteau?</string>
+    <string name="are_you_sure_you_might_lose_unsaved_data_if_you_didn_t_backup">Are you sure? You might lose unsaved data if you didn\'t backup</string>
 
 </resources>

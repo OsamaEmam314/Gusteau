@@ -1,6 +1,8 @@
 package com.example.gusteau.presentation.settings.view;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,7 @@ import com.example.gusteau.WelcomeActivity;
 import com.example.gusteau.presentation.settings.SettingsContract;
 import com.example.gusteau.presentation.settings.presenter.SettingsPresenter;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
 
@@ -51,33 +54,36 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
 
 
     private void showLogoutConfirmationDialog() {
-        new com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Logout")
-                .setMessage("Are you sure you want to logout? Remember To Back Up Your Data First")
-                .setPositiveButton("Yes", (dialog, which) -> {
-                    presenter.logout();
-                })
-                .setNegativeButton("Cancel", (dialog, which) -> {
-                    dialog.dismiss();
-                })
-                .show();
+        View customView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_logout, null);
+
+        androidx.appcompat.app.AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
+                .setView(customView)
+                .setBackground(new ColorDrawable(Color.TRANSPARENT))
+                .create();
+
+        customView.findViewById(R.id.btnLogOut).setOnClickListener(v -> {
+            presenter.logout();
+            dialog.dismiss();
+        });
+
+        customView.findViewById(R.id.btnCancel).setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
     @Override
     public void showAboutDialog() {
-        String versionName = "1.0";
-        try {
-            versionName = requireContext().getPackageManager()
-                    .getPackageInfo(requireContext().getPackageName(), 0).versionName;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        android.view.View dialogView = getLayoutInflater().inflate(R.layout.dialog_about, null);
 
-        new com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
-                .setTitle("About Gusteau")
-                .setMessage("Gusteau App v" + versionName + "\n" +
-                        "Your personal meal planner and recipe assistant.\n" +
-                        "Developed by\nOsama Khaled")
-                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+        String versionName = "v1.0";
+
+        android.widget.TextView tvVersion = dialogView.findViewById(R.id.tv_about_version);
+        tvVersion.setText(versionName);
+
+        new MaterialAlertDialogBuilder(requireContext())
+                .setView(dialogView)
+                .setPositiveButton("Close", (dialog, which) -> dialog.dismiss())
                 .show();
     }
     public void setupID(){
