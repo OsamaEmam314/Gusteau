@@ -2,12 +2,6 @@
 
 **Gusteau** is a feature-rich Android application that helps users discover meal recipes, plan their weekly diet, and manage their favorite dishes. Whether you are looking for a quick snack or a full course dinner, Gusteau brings international cuisines and detailed recipes right to your fingertips.
 
-## 📱 Screenshots
-
-| Splash & Login | Home Screen | Meal Details | Weekly Planner |
-|:---:|:---:|:---:|:---:|
-| *(Add Image)* | *(Add Image)* | *(Add Image)* | *(Add Image)* |
-
 ## ✨ Features
 
 ### 🚀 Onboarding & Authentication
@@ -28,7 +22,7 @@
 * **Ingredients:** Find meals based on specific key ingredients.
 
 ### 🍽️ Meal Management (Registered Users)
-* **Favorites:** * Save meals to a dedicated "Favorites" screen.
+* **Favorites:**  Save meals to a dedicated "Favorites" screen.
     * Quick-add to favorites directly from list views or the meal details screen.
 * **Weekly Planner:**
     * Plan meals for the current day + the next 6 days.
@@ -55,19 +49,20 @@
 
 ## 🛠️ Architecture & Tech Stack
 
-* **Language:** Kotlin
-* **Architecture:** MVVM (Model-View-ViewModel)
-* **UI:** XML / Jetpack Compose *(Adjust based on your actual implementation)*
-* **Networking:** Retrofit / Volley
-* **Local Database:** Room (for offline caching of plans and favorites)
-* **Images:** Glide / Coil
+* **Language:** Java
+* **Architecture:** MVP
+* **UI:** XML 
+* **Networking:** Retrofit 
+* **Local Database:** Room 
+* **Images:** Glide
 * **Authentication:** Firebase Auth / Google Sign-In
+* **Backup:** Firestore
 
 ## 💻 How to Run
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/OsamaKhaled/Gusteau.git](https://github.com/OsamaKhaled/Gusteau.git)
+    git clone [[https://github.com/OsamaKhaled/Gusteau.git](https://github.com/OsamaKhaled/Gusteau.git)](https://github.com/OsamaEmam314/Gusteau.git)
     ```
 2.  **Open in Android Studio:**
     * Open Android Studio -> File -> Open -> Select the cloned folder.
@@ -83,7 +78,3 @@
 ## 👥 Team
 
 * **Osama Khaled** - *Android Developer*
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
