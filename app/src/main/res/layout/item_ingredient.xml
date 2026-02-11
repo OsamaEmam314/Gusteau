@@ -10,14 +10,18 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_ingredient"
-        style="@style/Widget.Gusteau.ImageView.Circular"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Gusteau.Rounded"
         android:layout_width="@dimen/ingredient_circle_size"
         android:layout_height="@dimen/ingredient_circle_size"
         android:background="@color/gray_100"
         android:padding="2dp"
+        android:elevation="4dp"
         app:strokeColor="@color/white"
+        android:scaleType="centerCrop"
         app:strokeWidth="@dimen/stroke_width_medium"
-        tools:src="@drawable/ic_launcher_foreground" />
+        android:src="@drawable/unloaded_image"
+        />
+
 
     <TextView
         android:id="@+id/tv_ingredient"
